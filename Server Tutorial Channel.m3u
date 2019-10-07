@@ -1,6 +1,6 @@
 #EXTM3U
 #EXTINF:-1, tvg-id="" tvg-name="---Conan Episodi---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Conan.jpeg" group-title="Conan",---Conan Episodi---
-https://cdn.dreamsub.org
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Detective%20Conan.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Dragon Ball Episodi---" tvg-logo="" group-title="Dragon Ball",---Dragon Ball Episodi---
 https://cdn.dreamsub.org
 #EXTINF:-1, tvg-id="Prima Stagione"tvg-name="---Prima Stagione---" tvg-logo=""group-title="Dragon Ball",---Prima Stagione---
