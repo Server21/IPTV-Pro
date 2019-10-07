@@ -41,66 +41,10 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Death%20Note.m3
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Tokyo%20Ghoul.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---One Punch Man---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_One_Punch_Man.png" group-title="One Punch Man",---One-Punch Man---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/One%20Punch%20Man.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Canali TV---" tvg-logo="" group-title="Canali TV",---Canali TV---
-http://www.coolstreaming.us/
-#EXTINF:-1, tvg-id="" tvg-name="Rai 1" tvg-logo="" group-title="Canali TV",Rai 1
-http://mediapolisevent.rai.it/relinker/relinkerServlet.htm?cont=2606803
-#EXTINF:-1, tvg-id="" tvg-name="Rai 2" tvg-logo="" group-title="Canali TV",Rai 2
-http://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=180116
-#EXTINF:-1, tvg-id="" tvg-name="Rai 3" tvg-logo="" group-title="Canali TV",Rai 3
-http://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=180117
-#EXTINF:-1, tvg-id="" tvg-name="Canale 4" tvg-logo="" group-title="Canali TV",Canale 4
-http://193.200.164.163:80/live/nabil/nabil123/27322.ts
-#EXTINF:-1, tvg-id="" tvg-name="Canale 5" tvg-logo="" group-title="Canali TV",Canale 5
-http://193.200.164.163:80/live/nabil/nabil123/27317.ts
-#EXTINF:-1, tvg-id="" tvg-name="Canale 6" tvg-logo="" group-title="Canali TV",Canale 6
-http://193.200.164.163:80/live/nabil/nabil123/27321.ts
-#EXTINF:-1, tvg-id="" tvg-name="20Mediaset" tvg-logo="" group-title="Canali TV",20Mediaset 
-https://live3-mediaset-it.akamaized.net/content/hls_clr_xo/live/channel(ch25)/index.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="La5" tvg-logo="" group-title="Canali TV",La5 
-http://193.200.164.163:80/live/nabil/nabil123/27324.ts
-#EXTINF:-1, tvg-id="" tvg-name="Italia 2" tvg-logo="" group-title="Canali TV",Italia 2 
-http://193.200.164.163:80/live/nabil/nabil123/27318.ts
-#EXTINF:-1, tvg-id="" tvg-name="Mediaset Extra" tvg-logo="" group-title="Canali TV",Mediaset Extra 
-https://live3-mediaset-it.akamaized.net/content/hls_clr_xo/live/channel(ch09)/index.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="Top Crime" tvg-logo="" group-title="Canali TV",Top Crime
-https://live3-mediaset-it.akamaized.net/content/hls_clr_xo/live/channel(ch07)/index.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="Iris" tvg-logo="" group-title="Canali TV",Iris
-https://live3-mediaset-it.akamaized.net/content/hls_clr_xo/live/channel(ch06)/index.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="Paramount Channel" tvg-logo="" group-title="Canali TV",Paramount Channel
-http://viacomitalytest-lh.akamaihd.net/i/sbshdlive_1@195657/index_2500_av-p.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="TGcom24" tvg-logo="" group-title="Canali TV",TGcom24
-http://everyrai-lh.akamaihd.net/i/raiscuola_1@177965/index_900_av-p.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="Rai Sport" tvg-logo="" group-title="Canali TV",Rai Sport
-rtmp://37.48.83.34:80/tgnorba_24/tgnorba_24_source.stream
-#EXTINF:-1, tvg-id="" tvg-name="Boing" tvg-logo="" group-title="Canali TV",Boing
-http://193.200.164.163:80/live/nabil/nabil123/27126.ts
-#EXTINF:-1, tvg-id="" tvg-name="K2" tvg-logo="" group-title="Canali TV",K2
-http://193.200.164.163:80/live/nabil/nabil123/27129.ts
-#EXTINF:-1, tvg-id="" tvg-name="Rai Gulp" tvg-logo="" group-title="Canali TV",Rai Gulp
-http://193.200.164.163:80/live/nabil/nabil123/27337.ts
-#EXTINF:-1, tvg-id="" tvg-name="Rai Yoyo" tvg-logo="" group-title="Canali TV",Rai Yoyo
-http://193.200.164.163:80/live/nabil/nabil123/27330.ts
-#EXTINF:-1, tvg-id="" tvg-name="Frisbee" tvg-logo="" group-title="Canali TV",Frisbee
-http://193.200.164.163:80/live/nabil/nabil123/27125.ts
-#EXTINF:-1, tvg-id="" tvg-name="Cartonito" tvg-logo="" group-title="Canali TV",Cartonito
-http://193.200.164.163:80/live/nabil/nabil123/27130.ts
-#EXTINF:-1, tvg-id="" tvg-name="Super" tvg-logo="" group-title="Canali TV",Super
-http://193.200.164.163:80/live/nabil/nabil123/27124.ts
-#EXTINF:-1, tvg-id="" tvg-name="---Radio TV---" tvg-logo="" group-title="Radio",---Radio TV---
-http://www.coolstreaming.us/
-#EXTINF:-1, tvg-id="" tvg-name="Radio Italia TV" tvg-logo="" group-title="Radio",Radio Italia TV
-http://ltlive01.cloudapp.net/LT_CH_4plat296w.isml/QualityLevels(1264000)/manifest(format=m3u8-aapl).m3u8
-#EXTINF:-1, tvg-id="" tvg-name="Radio 105 TV" tvg-logo="" group-title="Radio",Radio 105 TV
-http://hlslive.msf.ticdn.it/hls/CH10/live_Layer2.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="m2o" tvg-logo="" group-title="Radio",m2o
-http://wma05.fluidstream.net/KKTV01/livestream/playlist.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="Radio Capital" tvg-logo="" group-title="Radio",Radio Capital
-rtmp://1se2.troydesign.eu:80/np_teleoltre/channel1_np_teleoltre
-#EXTINF:-1, tvg-id="" tvg-name="R101" tvg-logo="" group-title="Radio",R101 
-http://liveclass.edgesuite.net/i/classtvmoda_1@199801/index_1_av-p.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="Radio Ibiza" tvg-logo="" group-title="Radio",Radio Ibiza
-http://wma10.fluidstream.net/RadioIbizaTV/livestream/playlist.m3u8
+#EXTINF:-1, tvg-id="" tvg-name="---Canali TV---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Canali%20TV/TV%20FREE.png" group-title="Canali TV",---Canali TV---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Canali%20TV/Canali%20TV.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Radio TV---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Canali%20TV/Radio%20TV.png" group-title="Radio",---Radio TV---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Canali%20TV/Radio%20TV.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Film---" tvg-logo="" group-title="Film",---Film---
 https://www.animeworld.it
 #EXTINF:-1, tvg-id="Animazione" tvg-name="La ragazza che saltava nel tempo" tvg-logo="" group-title="Film",La ragazza che saltava nel tempo
