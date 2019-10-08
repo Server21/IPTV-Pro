@@ -1,6 +1,6 @@
-#EXTINF:-1, tvg-id="" tvg-name="Kis Kis Italia" tvg-logo="" group-title="Radio",Kis Kis Italia
+#EXTINF:-1, tvg-id="" tvg-name="Kis Kis Italia" tvg-logo="https://static.radio.it/images/broadcasts/93/10/17426/c175.png" group-title="Radio",Kis Kis Italia
 http://wma05.fluidstream.net/KKTV01/livestream/playlist.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="TeleOltre" tvg-logo="" group-title="Radio",TeleOltre
+#EXTINF:-1, tvg-id="" tvg-name="TeleOltre" tvg-logo="https://pbs.twimg.com/profile_images/2161594600/teleoltre_400x400.jpg" group-title="Radio",TeleOltre
 rtmp://1se2.troydesign.eu:80/np_teleoltre/channel1_np_teleoltre
-#EXTINF:-1, tvg-id="" tvg-name="Radio Ibiza" tvg-logo="" group-title="Radio",Radio Ibiza
+#EXTINF:-1, tvg-id="" tvg-name="Radio Ibiza" tvg-logo="https://static.radio.it/images/broadcasts/4a/15/19303/c175.png" group-title="Radio",Radio Ibiza
 http://wma10.fluidstream.net/RadioIbizaTV/livestream/playlist.m3u8
