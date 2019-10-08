@@ -9,6 +9,8 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Yu-Gi-Oh!%20GX.
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Hellsing---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Helsing.jpg" group-title="Hellsing",---Hellsing---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Hellsing.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---GTO---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_GTO.png" group-title="GTO",---GTO---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/GTO.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Naruto Shippuden---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Naruto_Shipuden.png" group-title="Naruto Shippuden",---Naruto Shippuden---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto%20Shippuden.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Rockman.EXE---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Rockman.jpg" group-title="Rockman.EXE",---Rockman.EXE---
