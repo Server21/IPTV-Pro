@@ -1,10 +1,10 @@
-#EXTINF:-1, tvg-id="" tvg-name="Rai 1" tvg-logo="" group-title="Canali TV",Rai 1
+#EXTINF:-1, tvg-id="" tvg-name="Rai 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/fa/Rai_1_-_Logo_2016.svg" group-title="Canali TV",Rai 1
 http://mediapolisevent.rai.it/relinker/relinkerServlet.htm?cont=2606803
-#EXTINF:-1, tvg-id="" tvg-name="Rai 2" tvg-logo="" group-title="Canali TV",Rai 2
+#EXTINF:-1, tvg-id="" tvg-name="Rai 2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/99/Rai_2_-_Logo_2016.svg" group-title="Canali TV",Rai 2
 http://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=180116
-#EXTINF:-1, tvg-id="" tvg-name="Rai 3" tvg-logo="" group-title="Canali TV",Rai 3
+#EXTINF:-1, tvg-id="" tvg-name="Rai 3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/47/Rai_3_-_Logo_2016.svg" group-title="Canali TV",Rai 3
 http://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=180117
-#EXTINF:-1, tvg-id="" tvg-name="Paramount Channel" tvg-logo="" group-title="Canali TV",Paramount Channel
+#EXTINF:-1, tvg-id="" tvg-name="Paramount Channel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/9f/Paramount_Network.svg" group-title="Canali TV",Paramount Channel
 http://viacomitalytest-lh.akamaihd.net/i/sbshdlive_1@195657/index_2500_av-p.m3u8
-#EXTINF:-1, tvg-id="" tvg-name="TG Norba 24" tvg-logo="" group-title="Canali TV",TG Norba 24
+#EXTINF:-1, tvg-id="" tvg-name="TG Norba 24" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/15/Tg_norba24.png" group-title="Canali TV",TG Norba 24
 rtmp://37.48.83.34:80/tgnorba_24/tgnorba_24_source.stream
