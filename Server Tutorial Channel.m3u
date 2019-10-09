@@ -1,4 +1,6 @@
 #EXTM3U
+#EXTINF:-1,[COLOR yellow]IN CONTINUO AGGIORNAMENTO[/COLOR]
+https://server-tutorial.jimdo.com/
 #EXTINF:-1, tvg-id="" tvg-name="---Conan Episodi---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Conan.jpeg" group-title="Conan",---Conan Episodi---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Detective%20Conan.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Dragon Ball Episodi---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Dragon_Ball.jpg" group-title="Dragon Ball",---Dragon Ball Episodi---
