@@ -13,6 +13,8 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Hellsing.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/GTO.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Naruto Shippuden---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Naruto_Shipuden.png" group-title="Naruto Shippuden",---Naruto Shippuden---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto%20Shippuden.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---SteinsGate---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_SteinsGate.png" group-title="SteinsGate",---SteinsGate---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/SteinsGate.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Rockman.EXE---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Rockman.jpg" group-title="Rockman.EXE",---Rockman.EXE---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Rockman.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---L'Uomo Tigre---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_L_Uomo_Tigre.jpg" group-title="L'Uomo Tigre",---L'Uomo Tigre---
