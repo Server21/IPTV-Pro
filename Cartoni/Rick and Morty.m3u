@@ -1,4 +1,4 @@
-#EXTINF:-1, tvg-id="Prima Stagione"tvg-name="---Prima Stagione---" tvg-logo=""group-title="Rick and Morty",---Prima Stagione---
+#EXTINF:-1, tvg-id="Prima Stagione"tvg-name="---Prima Stagione---" tvg-logo="http://psicologiaramonda.it/wp-content/uploads/2018/11/numero-1.png"group-title="Rick and Morty",[COLOR yellow]---Prima Stagione---[/COLOR]
 https://it.altervista.org
 #EXTINF:-1, tvg-id="Prima Stagione" tvg-name="Rick and Morty ep 1" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Ep_Rick_and_Morty.jpg" group-title="Rick and Morty",Rick and Morty ep 1
 http://itvopast.altervista.org/Rick%20and%20Morty/Rick.E.Morty.1x01.I.Semi.Della.Discordia.webm
@@ -22,7 +22,7 @@ http://itvopast.altervista.org/Rick%20and%20Morty/Rick.E.Morty.1x09.Qualcosa.Di.
 http://itvopast.altervista.org/Rick%20and%20Morty/Rick.E.Morty.1x10.Incontri.Ravvicinati.webm
 #EXTINF:-1, tvg-id="Prima Stagione" tvg-name="Rick and Morty ep 11" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Ep_Rick_and_Morty.jpg" group-title="Rick and Morty",Rick and Morty ep 11
 http://itvopast.altervista.org/Rick%20and%20Morty/Rick.E.Morty.1x11.Ricksky.Business.webm
-#EXTINF:-1, tvg-id="Seconda Stagione"tvg-name="---Seconda Stagione---" tvg-logo=""group-title="Rick and Morty",---Seconda Stagione---
+#EXTINF:-1, tvg-id="Seconda Stagione"tvg-name="---Seconda Stagione---" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/NYCS-bull-trans-2.svg/75px-NYCS-bull-trans-2.svg.png"group-title="Rick and Morty",[COLOR yellow]---Seconda Stagione---[/COLOR]
 https://it.altervista.org
 #EXTINF:-1, tvg-id="Seconda Stagione" tvg-name="Rick and Morty ep 1" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Ep_Rick_and_Morty.jpg" group-title="Rick and Morty",Rick and Morty ep 1
 http://itvopast.altervista.org/Rick%20and%20Morty/Stagione%202/Rick.E.Morty.2x01.Nelle.Pieghe.Del.Tempo.webm
@@ -44,7 +44,7 @@ http://itvopast.altervista.org/Rick%20and%20Morty/Stagione%202/Rick.E.Morty.2x08
 http://itvopast.altervista.org/Rick%20and%20Morty/Stagione%202/Rick.E.Morty.2x09.La.Notte.Dello.Sfogo.webm
 #EXTINF:-1, tvg-id="Seconda Stagione" tvg-name="Rick and Morty ep 10" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Ep_Rick_and_Morty.jpg" group-title="Rick and Morty",Rick and Morty ep 10
 http://itvopast.altervista.org/Rick%20and%20Morty/Stagione%202/Rick.E.Morty.2x10.Il.Mio.Squanch.Matrimonio.Alieno.webm
-#EXTINF:-1, tvg-id="Terza Stagione"tvg-name="---Terza Stagione---" tvg-logo=""group-title="Rick and Morty",---Terza Stagione---
+#EXTINF:-1, tvg-id="Terza Stagione"tvg-name="---Terza Stagione---" tvg-logo="https://icon-library.net/images/3-icon/3-icon-2.jpg"group-title="Rick and Morty",[COLOR yellow]---Terza Stagione---[/COLOR]
 https://it.altervista.org
 #EXTINF:-1, tvg-id="Terza Stagione" tvg-name="Rick and Morty ep 1" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Ep_Rick_and_Morty.jpg" group-title="Rick and Morty",Rick and Morty ep 1
 http://itvopast.altervista.org/Rick%20and%20Morty/Stagione%203/Rick.And.Morty.3x01.The.Rickshank.Rickdemption_webm
