@@ -20,5 +20,3 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Biografico.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Comico.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Film Poliziesco---" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/1b/Crime-policefilm.png" group-title="Poliziesco",---Film Poliziesco---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Poliziesco.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Film Storico---" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/21/Historicalfilm2.png" group-title="Storico",---Film Storico---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Storico.m3u
