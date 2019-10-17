@@ -20,3 +20,8 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Biografico.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Comico.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Film Poliziesco---" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/1b/Crime-policefilm.png" group-title="Poliziesco",---Film Poliziesco---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Poliziesco.m3u
+
+#EXTINF:-1, tvg-id="" tvg-name="---Film Test---" tvg-logo="https://www.conssp.it/assets-sito/immagini/decorative/testexamendetaxi.jpg" group-title="Poliziesco",---Film Test---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Test/acestream.m3u
+
+
