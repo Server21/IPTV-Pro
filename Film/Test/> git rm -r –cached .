@@ -1,0 +1,5 @@
+> git rm -r –cached .
+
+> git add .
+
+> git commit -m “cartella rimossa dal mio archivio git”
