@@ -1,0 +1,5 @@
+#EXTM3U
+#EXTINF:-1, tvg-name="---Ace Stream Media---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/aggiornamento.png" group-title="Ace Stream Media", [COLOR yellow]Usa Ace Stream Media[/COLOR]
+http://acestream.org/
+#EXTINF:-1, tvg-id="Test" tvg-name="John Wick" tvg-logo="" group-title="Film",John Wick
+magnet:?xt=urn:btih:1c1dd20ce9f9bdc2a361ab88389415e9b270d0f4&dn=John+Wick+%282014%29+1080p+ITA-ENG+DTS+x265+BluRay&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969
