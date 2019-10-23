@@ -11,6 +11,8 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Yu-Gi-Oh!%20GX.
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Hellsing---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Helsing.jpg" group-title="Hellsing",---Hellsing---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Hellsing.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Fullmetal Alchemist---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Fullmetal_Alchemist.jpg" group-title="Fullmetal Alchemist",---Fullmetal Alchemist---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Fullmetal%20Alchemist.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---GTO---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_GTO.png" group-title="GTO",---GTO---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/GTO.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Naruto Shippuden---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Naruto_Shipuden.png" group-title="Naruto Shippuden",---Naruto Shippuden---
