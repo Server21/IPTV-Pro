@@ -1,0 +1,51 @@
+#EXTM3U
+#EXTINF:-1, tvg-name="---AGGIORNAMENTO---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/aggiornamento.png" group-title="AGGIORNAMENTO", [COLOR yellow]IN CONTINUO AGGIORNAMENTO[/COLOR]
+https://server-tutorial.jimdo.com/
+#EXTINF:-1, tvg-id="" tvg-name="---Conan Episodi---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Conan.jpeg" group-title="Conan",---Conan Episodi---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Detective%20Conan.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Dragon Ball Episodi---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Dragon_Ball.jpg" group-title="Dragon Ball",---Dragon Ball Episodi---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Dragon%20Ball.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Yu-Gi-Oh! GX Episodi---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Yu_gi_oh.png" group-title="Yu-Gi-Oh! GX",---Yu-Gi-Oh! GX Episodi---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Yu-Gi-Oh!%20GX.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Naruto---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Naruto.png" group-title="Naruto",---Naruto---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Hellsing---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Helsing.jpg" group-title="Hellsing",---Hellsing---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Hellsing.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Fullmetal Alchemist---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Fullmetal_Alchemist.jpg" group-title="Fullmetal Alchemist",---Fullmetal Alchemist---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Fullmetal%20Alchemist.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---GTO---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_GTO.png" group-title="GTO",---GTO---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/GTO.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Naruto Shippuden---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Naruto_Shipuden.png" group-title="Naruto Shippuden",---Naruto Shippuden---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto%20Shippuden.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---SteinsGate---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_SteinsGate.png" group-title="SteinsGate",---SteinsGate---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/SteinsGate.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Rockman.EXE---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Rockman.jpg" group-title="Rockman.EXE",---Rockman.EXE---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Rockman.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---L'Uomo Tigre---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_L_Uomo_Tigre.jpg" group-title="L'Uomo Tigre",---L'Uomo Tigre---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/L'Uomo%20Tigre.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Ken il Guerriero---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Ken_Shiro.jpg" group-title="Ken il Guerriero",---Ken il Guerriero---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Ken%20il%20Guerriero.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Dragon Ball Z---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Dragon_Ball_Z.png" group-title="Dragon Ball Z",---Dragon Ball Z---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Dragon%20Ball%20Z.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Gigi la trottola---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Giggi_la_trotola.jpg" group-title="Gigi la trottola",---Gigi la trottola---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Gigi%20la%20trottola.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Slam Dunk---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Slam_Dunk.jpg" group-title="Slam Dunk",---Slam Dunk---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Slam%20Dunk.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Rick and Morty---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Rick_and_Morty.png" group-title="Rick and Morty",---Rick and Morty---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Rick%20and%20Morty.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Beyblade---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Beyblade.jpg" group-title="Beyblade",---Beyblade---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Beyblade.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Cavalieri dello zodiaco ---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Cavalieri_dello_zodiaco.jpg" group-title="Cavalieri",---Cavalieri dello zodiaco---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Cavalieri%20dello%20zodiaco.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---My Hero Academia ---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_My_Hero_Academia.png" group-title="My Hero Academia",---My Hero Academia---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/My%20Hero%20Academia.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Lupin III---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Lupen_3.jpg" group-title="Lupin III",---Lupin III---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Lupin.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Ultimate Muscle---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Kid_Musle.jpg" group-title="Ultimate Muscle",---Ultimate Muscle---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Ultimate%20Muscle.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Death Note---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Dead_Nothe.png" group-title="Death Note",---Death Note---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Death%20Note.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Tokyo Ghoul---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Tokio_Gul.jpg" group-title="Tokyo Ghoul",---Tokyo Ghoul---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Tokyo%20Ghoul.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---One Punch Man---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_One_Punch_Man.png" group-title="One Punch Man",---One-Punch Man---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/One%20Punch%20Man.m3u
