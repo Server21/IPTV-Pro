@@ -9,5 +9,7 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Canali%20TV/Canali%20
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Canali%20TV/Radio%20TV.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Film---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Film.jpg" group-title="Film",---Film---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Film.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Serie TV Netflix---" tvg-logo="https://imag.malavida.com/mvimgbig/download-s/netflix-12694-0.jpg" group-title="Netflix",---Serie TV Netflix---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Netflix%20Serie.m3u
 #EXTINF:-1, tvg-name="---Sponsor---" tvg-logo="https://www.stertix.it/imagecompress/servertutorial.png" group-title="Sponsor", [COLOR green]Visita il canale Youtube di Server Tutorial[/COLOR]
 https://server-tutorial.jimdo.com/
