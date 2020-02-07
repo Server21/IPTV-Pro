@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1, tvg-name="---AGGIORNAMENTO---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/aggiornamento.png" group-title="AGGIORNAMENTO", [COLOR yellow]IN CONTINUO AGGIORNAMENTO[/COLOR]
+#EXTINF:-1, tvg-name="---AGGIORNAMENTO---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/aggiornamento.png" group-title="AGGIORNAMENTO", [COLOR yellow]IN CONTINUO AGGIORNAMENTO[/COLOR]
 https://server-tutorial.jimdo.com/
 #EXTINF:-1, tvg-id="" tvg-name="---Serie Anime---" tvg-logo="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/490a8078-6240-4eab-a18b-fc5ce9782a2c/d6s9824-9749d528-297e-44ae-af70-6aefe7578e7e.png" group-title="Serie Anime",---Serie Anime---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Anime%20Serie.m3u
