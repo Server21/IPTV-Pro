@@ -7,3 +7,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Rick%20and%20Morty.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Disincanto---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Immagini/Disincanto/Title%20Disincanto.png" group-title="Disincanto",---Disincanto---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Disincanto.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---South Park---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Immagini/South%20Park/Title%20South%20Park.png" group-title="South Park",---South Park---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/South%20Park.m3u
