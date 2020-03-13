@@ -5,5 +5,5 @@ https://server-tutorial.jimdo.com/
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Breaking%20Bad.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Rick and Morty---" tvg-logo="http://kinagas.altervista.org/IMG%20LIST/Title_Rick_and_Morty.png" group-title="Rick and Morty",---Rick and Morty---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Rick%20and%20Morty.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Disincanto---" tvg-logo="https://toyzntech.com/wp-content/uploads/2018/08/disincanto-1.png" group-title="Disincanto",---Disincanto---
+#EXTINF:-1, tvg-id="" tvg-name="---Disincanto---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Immagini/Disincanto/Title%20Disincanto.png" group-title="Disincanto",---Disincanto---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Disincanto.m3u
