@@ -25,8 +25,12 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto%20Shippu
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Cavalieri%20dello%20zodiaco.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Rockman.EXE---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Rockman.exe/Title%20Rockman.exe.png" group-title="Rockman.EXE",---Rockman.EXE---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Rockman.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Tokyo Ghoul---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Tokyo%20Ghoul/Title%20Tokyo%20Ghoul.png" group-title="Tokyo Ghoul",---Tokyo Ghoul---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Tokyo%20Ghoul.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---L'Uomo Tigre---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/L'uomo%20tigre/Title%20L'uomo%20tigre.png" group-title="L'Uomo Tigre",---L'Uomo Tigre---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/L'Uomo%20Tigre.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Death Note---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Death%20Note/Title%20Death%20Note.png" group-title="Death Note",---Death Note---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Death%20Note.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Ken il Guerriero---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Ken%20il%20guerriero/Title%20Ken%20il%20guerriero.png" group-title="Ken il Guerriero",---Ken il Guerriero---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Ken%20il%20Guerriero.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Dragon Ball Z---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Dragon%20Ball%20Z/Title%20Dragon%20Ball%20Z.png" group-title="Dragon Ball Z",---Dragon Ball Z---
@@ -41,9 +45,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/My%20Hero%20Aca
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Lupin.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Ultimate Muscle---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Ultimate%20Muscle/Title%20Ultimate%20Muscle.png" group-title="Ultimate Muscle",---Ultimate Muscle---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Ultimate%20Muscle.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Death Note---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Death%20Note/Title%20Death%20Note.png" group-title="Death Note",---Death Note---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Death%20Note.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Tokyo Ghoul---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Tokyo%20Ghoul/Title%20Tokyo%20Ghoul.png" group-title="Tokyo Ghoul",---Tokyo Ghoul---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Tokyo%20Ghoul.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---One Punch Man---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/One-Punch%20Man/Title%20One-Punch%20Man.png" group-title="One Punch Man",---One-Punch Man---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/One%20Punch%20Man.m3u
