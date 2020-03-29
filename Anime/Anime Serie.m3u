@@ -41,9 +41,11 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Gigi%20la%20tro
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Slam%20Dunk.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---My Hero Academia ---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/My%20Hero%20Academia/Title%20My%20Hero%20Academia.png" group-title="My Hero Academia",---My Hero Academia---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/My%20Hero%20Academia.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Lupin III---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Lupin%20III/Title%20Lupin%20III.png" group-title="Lupin III",---Lupin III---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Lupin.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Ultimate Muscle---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Ultimate%20Muscle/Title%20Ultimate%20Muscle.png" group-title="Ultimate Muscle",---Ultimate Muscle---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Ultimate%20Muscle.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---One Punch Man---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/One-Punch%20Man/Title%20One-Punch%20Man.png" group-title="One Punch Man",---One-Punch Man---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/One%20Punch%20Man.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Lupin III---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Lupin%20III/Title%20Lupin%20III.png" group-title="Lupin III",---Lupin III---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Lupin.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Black Lagoon---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Black%20Lagoon/Title%20Black%20Lagoon.png" group-title="Black Lagoon",---Black Lagoon---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Black%20Lagoon.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Ultimate Muscle---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Ultimate%20Muscle/Title%20Ultimate%20Muscle.png" group-title="Ultimate Muscle",---Ultimate Muscle---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Ultimate%20Muscle.m3u
