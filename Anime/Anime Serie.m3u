@@ -13,12 +13,14 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Hellsing.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Fullmetal Alchemist---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Fullmetal%20Alchemist/Title%20Fullmetal%20Alchemist.png" group-title="Fullmetal Alchemist",---Fullmetal Alchemist---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Fullmetal%20Alchemist.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---GTO---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/GTO/Title%20GTO.png" group-title="GTO",---GTO---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/GTO.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Naruto Shippuden---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Naruto%20Shippuden/Title%20Naruto%20Shippuden.png" group-title="Naruto Shippuden",---Naruto Shippuden---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto%20Shippuden.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---SteinsGate---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Stein%20Gate/Title%20Stein%20Gate.png" group-title="SteinsGate",---SteinsGate---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/SteinsGate.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---GTO---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/GTO/Title%20GTO.png" group-title="GTO",---GTO---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/GTO.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Beyblade---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Beyblade/Title%20Beyblade.png" group-title="Beyblade",---Beyblade---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Beyblade.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Naruto Shippuden---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Naruto%20Shippuden/Title%20Naruto%20Shippuden.png" group-title="Naruto Shippuden",---Naruto Shippuden---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto%20Shippuden.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Rockman.EXE---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Rockman.exe/Title%20Rockman.exe.png" group-title="Rockman.EXE",---Rockman.EXE---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Rockman.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---L'Uomo Tigre---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/L'uomo%20tigre/Title%20L'uomo%20tigre.png" group-title="L'Uomo Tigre",---L'Uomo Tigre---
@@ -31,8 +33,6 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Dragon%20Ball%2
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Gigi%20la%20trottola.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Slam Dunk---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Slam%20Dunk/Title%20Slam%20Dunk.png" group-title="Slam Dunk",---Slam Dunk---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Slam%20Dunk.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Beyblade---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Beyblade/Title%20Beyblade.png" group-title="Beyblade",---Beyblade---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Beyblade.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Cavalieri dello zodiaco ---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/I%20Cavalieri%20dello%20zodiaco/Title%20I%20Cavalieri%20dello%20zodiaco.png" group-title="Cavalieri",---Cavalieri dello zodiaco---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Cavalieri%20dello%20zodiaco.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---My Hero Academia ---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/My%20Hero%20Academia/Title%20My%20Hero%20Academia.png" group-title="My Hero Academia",---My Hero Academia---
