@@ -51,3 +51,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Black%20Lagoon.
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Ultimate%20Muscle.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---The Promised Neverland---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/The%20Promised%20Neverland/Title%20The%20Promised%20Neverland.png" group-title="The Promised Neverland",---The Promised Neverland---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/The%20Promised%20Neverland.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Kiseiju L'ospite indesiderato---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Kiseiju%20L'ospite%20indesiderato/Title%20Kiseiju%20L'ospite%20indesiderato.png" group-title="Kiseiju L'ospite indesiderato",---Kiseiju L'ospite indesiderato---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Kiseiju%20L'ospite%20indesiderato.m3u
