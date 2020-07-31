@@ -5,3 +5,5 @@ https://server-tutorial.jimdo.com/
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Test/Mr.%20Bean.m3u8
 #EXTINF:-1, tvg-id="" tvg-name="---Tom & Jerry---" tvg-logo="https://upload.wikimedia.org/wikipedia/it/9/96/Tom_%26_Jerry.png" group-title="Tom & Jerry",---Tom & Jerry---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Test/Tom%20%26%20Jerry.m3u8
+#EXTINF:-1, tvg-id="" tvg-name="---Compagnia dei Celestini---" tvg-logo="https://upload.wikimedia.org/wikipedia/it/1/15/La_compagnia_dei_Celestini.jpg" group-title="Compagnia dei Celestini",---Compagnia dei Celestini---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/La%20Compagnia%20dei%20Celestini.m3u
