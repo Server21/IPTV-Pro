@@ -57,3 +57,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Kiseiju%20L'osp
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/ShamanKing.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---L' attacco dei giganti---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/l'attacco%20dei%20giganti/Title%20l'attacco%20dei%20giganti.png" group-title="L'attacco dei giganti",---L'attacco dei giganti---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/L'attacco%20dei%20giganti.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Death Parade---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Death%20Parade/Title%20Death%20Parade.png" group-title="Death Parade",---Death Parade---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Death%20Parade.m3u
