@@ -7,3 +7,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Test/Mr.%20Bean.m3u8
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Test/Tom%20%26%20Jerry.m3u8
 #EXTINF:-1, tvg-id="" tvg-name="---Compagnia dei Celestini---" tvg-logo="https://upload.wikimedia.org/wikipedia/it/1/15/La_compagnia_dei_Celestini.jpg" group-title="Compagnia dei Celestini",---Compagnia dei Celestini---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/La%20Compagnia%20dei%20Celestini.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Due Fantagenitori---" tvg-logo="https://toonitalia.org/wp-content/uploads/2017/10/Due-Fantagenitori-1.jpg" group-title="Due Fantagenitori",---Due Fantagenitori---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Due%20Fanta%20Genitori.m3u
