@@ -9,3 +9,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Test/Tom%20%26%20Jerr
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/La%20Compagnia%20dei%20Celestini.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Due Fantagenitori---" tvg-logo="https://toonitalia.org/wp-content/uploads/2017/10/Due-Fantagenitori-1.jpg" group-title="Due Fantagenitori",---Due Fantagenitori---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Due%20Fanta%20Genitori.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Looney Tunes---" tvg-logo="https://toonitalia.org/wp-content/uploads/2017/08/Looney-Tunes.jpg" group-title="Looney Tunes",---Looney Tunes---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Looney%20Tunes.m3u
