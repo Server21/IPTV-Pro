@@ -9,4 +9,4 @@ http://viacomitalytest-lh.akamaihd.net/i/sbshdlive_1@195657/index_2500_av-p.m3u8
 #EXTINF:-1, tvg-id="" tvg-name="TG Norba 24" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/15/Tg_norba24.png" group-title="Canali TV",TG Norba 24
 rtmp://37.48.83.34:80/tgnorba_24/tgnorba_24_source.stream
 #EXTINF:-1, tvg-id="" tvg-name="Napoli" tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/PWRLYBJqlGrAAsKkUN6eng_96x96.png" group-title="Napoli",Napoli Live
-https://ul.cdn946.net:8443/hls/lv2dn79af5e.m3u8?s=8whQcR_Lcdjgy1xKeWy-7w&e=1604023728
+https://ul.cdn946.net:8443/hls/k6190w.m3u8?s=GZSDb1SUz0y3k2LPhL2xiA&e=1604622844
