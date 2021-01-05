@@ -1,0 +1,13 @@
+#EXTM3U
+#EXTINF:-1, tvg-name="---AGGIORNAMENTO---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/aggiornamento.png" group-title="AGGIORNAMENTO", [COLOR yellow]IN CONTINUO AGGIORNAMENTO[/COLOR]
+https://server-tutorial.jimdo.com/
+#EXTINF:-1, tvg-id="" tvg-name="---Mr. Bean---" tvg-logo="https://www.cartonionline.com/immagini/mr_bean/mr_bean2.jpg" group-title="Mr. Bean",---Mr. Bean---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Test/Mr.%20Bean.m3u8
+#EXTINF:-1, tvg-id="" tvg-name="---Compagnia dei Celestini---" tvg-logo="https://upload.wikimedia.org/wikipedia/it/1/15/La_compagnia_dei_Celestini.jpg" group-title="Compagnia dei Celestini",---Compagnia dei Celestini---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/La%20Compagnia%20dei%20Celestini.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Due Fantagenitori---" tvg-logo="https://toonitalia.org/wp-content/uploads/2017/10/Due-Fantagenitori-1.jpg" group-title="Due Fantagenitori",---Due Fantagenitori---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Due%20Fanta%20Genitori.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Looney Tunes---" tvg-logo="https://toonitalia.org/wp-content/uploads/2017/08/Looney-Tunes.jpg" group-title="Looney Tunes",---Looney Tunes---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Looney%20Tunes.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Topolino Paperino e Pippo---" tvg-logo="https://i2.wp.com/www.themacguffin.it/wp-content/uploads/2017/02/d.jpg" group-title="Topolino Paperino e Pippo",---Topolino Paperino e Pippo---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Topolino%20Paperino%20e%20Pippo.m3u
