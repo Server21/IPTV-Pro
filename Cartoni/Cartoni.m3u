@@ -5,3 +5,5 @@ https://server-tutorial.jimdo.com/
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Bambini/Cartoni%20Bambini.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Adulti---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Cartoni%20Adulti.png" group-title="Adulti",---Adulti---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Cartoni%20Adulti.m3u
+#EXTINF:-1, tvg-name="---Sponsor---" tvg-logo="https://www.natnox.com/imagecompress/servertutorial.webp" group-title="Sponsor", [COLOR green]Visita il canale Youtube di Server Tutorial[/COLOR]
+https://server-tutorial.jimdo.com/
