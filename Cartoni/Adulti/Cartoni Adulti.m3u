@@ -11,3 +11,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Disinc
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/South%20Park.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Final Space---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/Final%20Space/Title%20Final%20Space.png" group-title="Final Space",---Final Space---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Final%20Space.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Brickleberry---" tvg-logo="http://k46.kn3.net/taringa/2/7/6/2/1/4/elsordo22/784.jpg" group-title="Brickleberry",---Brickleberry---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Brickleberry.m3u
