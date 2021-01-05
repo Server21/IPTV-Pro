@@ -3,11 +3,11 @@
 https://server-tutorial.jimdo.com/
 #EXTINF:-1, tvg-id="" tvg-name="---Simpson---" tvg-logo="https://icons.iconarchive.com/icons/quaffleeye/simpsons-folder/512/Simpsons-Folder-03-icon.png" group-title="Simpson",---Simpson---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Simpson.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Rick and Morty---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Immagini/Rick%20and%20Morty/Title%20Rick%20and%20Morty.png" group-title="Rick and Morty",---Rick and Morty---
+#EXTINF:-1, tvg-id="" tvg-name="---Rick and Morty---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/Rick%20and%20Morty/Title%20Rick%20and%20Morty.png" group-title="Rick and Morty",---Rick and Morty---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Rick%20and%20Morty.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Disincanto---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Immagini/Disincanto/Title%20Disincanto.png" group-title="Disincanto",---Disincanto---
+#EXTINF:-1, tvg-id="" tvg-name="---Disincanto---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/Disincanto/Title%20Disincanto.png" group-title="Disincanto",---Disincanto---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Disincanto.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---South Park---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Immagini/South%20Park/Title%20South%20Park.png" group-title="South Park",---South Park---
+#EXTINF:-1, tvg-id="" tvg-name="---South Park---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/South%20Park/Title%20South%20Park.png" group-title="South Park",---South Park---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/South%20Park.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Final Space---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Immagini/Final%20Space/Title%20Final%20Space.png" group-title="Final Space",---Final Space---
+#EXTINF:-1, tvg-id="" tvg-name="---Final Space---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/Final%20Space/Title%20Final%20Space.png" group-title="Final Space",---Final Space---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Final%20Space.m3u
