@@ -5,3 +5,5 @@ https://server-tutorial.jimdo.com/
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Breaking%20Bad.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Happy!---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Happy!/Title%20Happy.png" group-title="Happy!",---Happy!---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Happy!.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---The Walking Dead---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/The%20Walking%20Dead/Title%20The%20Walking%20Dead.png" group-title="The Walking Dead",---The Walking Dead---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/The%20Walking%20Dead.m3u
