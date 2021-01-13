@@ -23,8 +23,6 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Beyblade.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto%20Shippuden.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Cavalieri dello zodiaco ---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/I%20Cavalieri%20dello%20zodiaco/Title%20I%20Cavalieri%20dello%20zodiaco.png" group-title="Cavalieri",---Cavalieri dello zodiaco---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Cavalieri%20dello%20zodiaco.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Rockman.EXE---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Rockman.exe/Title%20Rockman.exe.png" group-title="Rockman.EXE",---Rockman.EXE---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Rockman.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Tokyo Ghoul---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Tokyo%20Ghoul/Title%20Tokyo%20Ghoul.png" group-title="Tokyo Ghoul",---Tokyo Ghoul---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Tokyo%20Ghoul.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---L'Uomo Tigre---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/L'uomo%20tigre/Title%20L'uomo%20tigre.png" group-title="L'Uomo Tigre",---L'Uomo Tigre---
@@ -35,8 +33,8 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Death%20Note.m3
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Ken%20il%20Guerriero.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Dragon Ball Z---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Dragon%20Ball%20Z/Title%20Dragon%20Ball%20Z.png" group-title="Dragon Ball Z",---Dragon Ball Z---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Dragon%20Ball%20Z.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Gigi la trottola---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Gigi%20la%20trottola/Title%20Gigi%20la%20trottola.png" group-title="Gigi la trottola",---Gigi la trottola---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Gigi%20la%20trottola.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Death Parade---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Death%20Parade/Title%20Death%20Parade.png" group-title="Death Parade",---Death Parade---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Death%20Parade.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Slam Dunk---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Slam%20Dunk/Title%20Slam%20Dunk.png" group-title="Slam Dunk",---Slam Dunk---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Slam%20Dunk.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---My Hero Academia ---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/My%20Hero%20Academia/Title%20My%20Hero%20Academia.png" group-title="My Hero Academia",---My Hero Academia---
@@ -59,5 +57,3 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/ShamanKing.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/L'attacco%20dei%20giganti.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Prison School---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Prison%20School/Title%20Prison%20School.png" group-title="Prison School",---Prison School---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Prison%20School.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Death Parade---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Death%20Parade/Title%20Death%20Parade.png" group-title="Death Parade",---Death Parade---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Death%20Parade.m3u
