@@ -59,3 +59,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/ShamanKing.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/L'attacco%20dei%20giganti.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Prison School---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Prison%20School/Title%20Prison%20School.png" group-title="Prison School",---Prison School---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Prison%20School.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Tenjou Tenge---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Tenjou%20Tenge/Title%20Tenjou%20Tenge.png" group-title="Tenjou Tenge",---Tenjou Tenge---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Tenjou%20Tenge.m3u
