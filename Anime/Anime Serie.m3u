@@ -21,8 +21,10 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/GTO.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Beyblade.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Naruto Shippuden---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Naruto%20Shippuden/Title%20Naruto%20Shippuden.png" group-title="Naruto Shippuden",---Naruto Shippuden---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Naruto%20Shippuden.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Cavalieri dello zodiaco ---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/I%20Cavalieri%20dello%20zodiaco/Title%20I%20Cavalieri%20dello%20zodiaco.png" group-title="Cavalieri",---Cavalieri dello zodiaco---
+#EXTINF:-1, tvg-id="" tvg-name="---Cavalieri dello zodiaco---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/I%20Cavalieri%20dello%20zodiaco/Title%20I%20Cavalieri%20dello%20zodiaco.png" group-title="Cavalieri",---Cavalieri dello zodiaco---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Cavalieri%20dello%20zodiaco.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Highschool Of The Dead---" tvg-logo="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/781f38e9-6dad-4200-973c-bd7c120ddae3/d6hsol7-6c3d4f8a-6e46-45bd-b2f2-ec5ff0ff22d5.png" group-title="Highschool Of The Dead",---Highschool Of The Dead---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Highschool%20Of%20The%20Dead.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Tokyo Ghoul---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Tokyo%20Ghoul/Title%20Tokyo%20Ghoul.png" group-title="Tokyo Ghoul",---Tokyo Ghoul---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Tokyo%20Ghoul.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---L'Uomo Tigre---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/L'uomo%20tigre/Title%20L'uomo%20tigre.png" group-title="L'Uomo Tigre",---L'Uomo Tigre---
