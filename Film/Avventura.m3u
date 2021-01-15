@@ -104,7 +104,7 @@ https://streamingcommunity.net/videos/master/143/480p
 https://streamingcommunity.net/videos/master/10060/480p
 #EXTINF:-1, tvg-id="Avventura" tvg-name="Hunger Games: Il canto della rivolta - Parte 1" tvg-logo="https://www.proxycommunity-24.cloud/images/8/9fcb3d6d-f338-4b83-8107-7d6a0036484f.jpg" group-title="Film",Hunger Games: Il canto della rivolta - Parte 1
 https://streamingcommunity.net/videos/master/145/480p
-#EXTINF:-1, tvg-id="Avventura" tvg-name="" tvg-logo="https://www.shockwave.cloud/images/8/50b1c956-3641-4903-a23b-723c24275aa8.jpg" group-title="Film",Hunger Games: Il canto della rivolta - Parte 2
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Hunger Games: Il canto della rivolta - Parte 2" tvg-logo="https://www.shockwave.cloud/images/8/50b1c956-3641-4903-a23b-723c24275aa8.jpg" group-title="Film",Hunger Games: Il canto della rivolta - Parte 2
 https://streamingcommunity.net/videos/master/146/480p
 #EXTINF:-1, tvg-id="Avventura" tvg-name="Iron Man" tvg-logo="https://www.shockwave.cloud/images/2/3838c663-67ac-4a16-ad43-8d484e1aebbf.jpg" group-title="Film",Iron Man
 https://streamingcommunity.net/videos/master/5155/480p
@@ -138,3 +138,25 @@ https://streamingcommunity.net/videos/master/4821/480p
 https://streamingcommunity.net/videos/master/4819/480p
 #EXTINF:-1, tvg-id="Avventura" tvg-name="Pirati dei Caraibi - La vendetta di Salazar" tvg-logo="https://www.shockwave.cloud/images/2/72e226b8-46bd-4747-b73f-15e71ac84f5c.jpg" group-title="Film",Pirati dei Caraibi - La vendetta di Salazar
 https://streamingcommunity.net/videos/master/4817/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Star Wars: Episodio I - La minaccia fantasma" tvg-logo="https://www.proxycommunity-24.cloud/images/5/798c9f8f-6133-431a-a4ec-cbfe376ac483.jpg" group-title="Film",Star Wars: Episodio I - La minaccia fantasma
+https://streamingcommunity.net/videos/master/3745/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Star Wars: Episodio II - L'attacco dei cloni" tvg-logo="https://www.proxycommunity-24.cloud/images/10/391af00e-346e-4e70-8ed0-c2560fc5c1a3.jpg" group-title="Film",Star Wars: Episodio II - L'attacco dei cloni
+https://streamingcommunity.net/videos/master/4721/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Star Wars: Episodio III - La vendetta dei Sith" tvg-logo="https://www.proxycommunity-a1.cloud/images/2/7540fcbf-8ea0-45c1-8f97-d645d430734c.jpg" group-title="Film",Star Wars: Episodio III - La vendetta dei Sith
+https://streamingcommunity.net/videos/master/3743/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Star Wars - Il risveglio della Forza" tvg-logo="https://www.proxycommunity-a1.cloud/images/10/d7899b5b-6c54-46e0-bbf4-8a64bb0370e9.jpg" group-title="Film",Star Wars - Il risveglio della Forza
+https://streamingcommunity.net/videos/master/3741/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Star Wars: Gli ultimi Jedi" tvg-logo="https://www.shockwave.cloud/images/9/02a380a2-f415-4cec-90d3-57726477a8ff.jpg" group-title="Film",Star Wars: Gli ultimi Jedi
+https://streamingcommunity.net/videos/master/3739/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Star Wars: L'ascesa di Skywalker" tvg-logo="https://www.proxycommunity-a1.cloud/images/7/c6c7a13a-ec63-4f2e-83ae-8c47d93136fe.jpg" group-title="Film",Star Wars: L'ascesa di Skywalker
+https://streamingcommunity.net/videos/master/4981/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Pokémon Detective Pikachu" tvg-logo="https://www.unwritten.cloud/images/3/e600f094-dfea-4b3d-8472-ea1fe9dd0ea0.jpg" group-title="Film",Pokémon Detective Pikachu
+https://streamingcommunity.net/videos/master/7878/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Into the Wild - Nelle terre selvagge" tvg-logo="https://www.proxycommunity-a1.cloud/images/10/6ee12aba-6785-4f10-ba92-55d1f8aab80f.jpg" group-title="Film",Into the Wild - Nelle terre selvagge
+https://streamingcommunity.net/videos/master/15461/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="La mummia" tvg-logo="https://www.communityserver1.cloud/images/4/4bbdac51-32d6-43ba-bd45-9dd0e232c793.jpg" group-title="Film",La mummia
+https://streamingcommunity.net/videos/master/12051/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="La mummia - Il ritorno" tvg-logo="https://www.proxycommunity-24.cloud/images/8/8e88fa89-573c-4531-acb1-42c9f079fd94.jpg" group-title="Film",La mummia - Il ritorno
+https://streamingcommunity.net/videos/master/12103/480p
+#EXTINF:-1, tvg-id="Avventura" tvg-name="La mummia - La tomba dell'Imperatore Dragone" tvg-logo="https://www.unwritten.cloud/images/1/bb485431-be38-4f45-8009-d040fd1e9098.jpg" group-title="Film",La mummia - La tomba dell'Imperatore Dragone
+https://streamingcommunity.net/videos/master/12105/480p
