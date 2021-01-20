@@ -14,7 +14,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Azione.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Horror.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Film Avventura---" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Adventurefilm.svg/600px-Adventurefilm.svg.png" group-title="Avventura",---Film Avventura---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Avventura.m3u
-#EXTINF:-1, tvg-id="" tvg-name="---Film Comico---" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/3/36/Film_Comici.png" group-title="Comico",---Film Comico---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Comico.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Film Poliziesco---" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/1b/Crime-policefilm.png" group-title="Poliziesco",---Film Poliziesco---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Poliziesco.m3u
