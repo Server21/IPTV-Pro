@@ -7,3 +7,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Happy!.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---The Walking Dead---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/The%20Walking%20Dead/Title%20The%20Walking%20Dead.png" group-title="The Walking Dead",---The Walking Dead---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/The%20Walking%20Dead.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Gomorra - La Serie---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Gommora%20La%20Serie/Title%20Gomorra%20La%20Serie.png" group-title="Gomorra - La Serie",---Gomorra - La Serie---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Gomorra%20-%20La%20Serie.m3u
