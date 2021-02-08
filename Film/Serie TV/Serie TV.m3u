@@ -9,3 +9,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Happy
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/The%20Walking%20Dead.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Gomorra - La Serie---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Gommora%20La%20Serie/Title%20Gomorra%20La%20Serie.png" group-title="Gomorra - La Serie",---Gomorra - La Serie---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Gomorra%20-%20La%20Serie.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Mr. Robot---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Mr.%20Robot/Title%20Mr.%20Robot.png",---Mr. Robot---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Mr.%20Robot.m3u
