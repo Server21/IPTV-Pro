@@ -11,3 +11,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/The%2
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Gomorra%20-%20La%20Serie.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Mr. Robot---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Mr.%20Robot/Title%20Mr.%20Robot.png",---Mr. Robot---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Mr.%20Robot.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Upload---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Upload/Title%20Upload.png",---Upload---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Upload.m3u
