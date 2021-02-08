@@ -13,3 +13,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Gomor
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Mr.%20Robot.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Upload---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Upload/Title%20Upload.png",---Upload---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Upload.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---The Boys---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/The%20Boys/Title%20The%20Boys.png",---The Boys---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/The%20Boys.m3u
