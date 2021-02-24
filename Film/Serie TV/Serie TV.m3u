@@ -15,3 +15,7 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Mr.%2
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Upload.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---The Boys---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/The%20Boys/Title%20The%20Boys.png",---The Boys---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/The%20Boys.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Narcos---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Narcos/Title%20Narcos.png",---Narcos---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Narcos.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Titans---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Titans/Title%20Titans.png",---Titans---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Titans.m3u
