@@ -13,5 +13,7 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Film.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Serie%20TV.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Cartoni---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Cartoni.png" group-title="Cartoni",---Cartoni---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Cartoni.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Testing---" tvg-logo="http://download.seaicons.com/icons/creative-freedom/shimmer/256/Warning-icon.png" group-title="Testing",---Testing---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Lista%20Test.m3u
 #EXTINF:-1, tvg-name="---Sponsor---" tvg-logo="https://www.natnox.com/imagecompress/servertutorial.webp" group-title="Sponsor", [COLOR green]Visita il canale Youtube di Server Tutorial[/COLOR]
 https://server-tutorial.jimdo.com/
