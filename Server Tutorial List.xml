@@ -1,7 +1,80 @@
-<item>
-<title>[B][COLOR yellow] ***Server Tutorial Chanel*** [/COLOR][/B]</title>
-<link>ignore</link>
-<thumbnail>https://www.natnox.com/imagecompress/servertutorial.webp</thumbnail>
-<fanart>https://www.natnox.com/imagecompress/servertutorial.webp</fanart>
-<externallink>https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Server%20Tutorial%20Channel.m3u$$TSDOWNLOADER$$</externallink>
-</item>
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+<channel>
+ <title><![CDATA[Server]]></title>
+ <stream_url><![CDATA[stop]]></stream_url>
+ <logo_30x30><![CDATA[https://www.natnox.com/imagecompress/servertutorial.webp]]></logo_30x30>
+ <description><![CDATA[
+   <style>
+     .red { color:red; }
+     .green { color:green; }
+     .blue { color:blue; }
+     .black { color:black; }
+   </style>
+   <marquee direction="left" behavior="slide" scrollamount="40" >
+     <center><h2 class="red">Benvenuto</h2></center>
+   </marquee>
+   <div class="blue">
+    <center>
+     <h4>Lista <span class="black">Lista</span>, Lista 4PDA: <span style="text-decoration:underline;color:black;">https://www.youtube.com/channel/UCDgI6Cu-iX6SDLcuu9YJ09A</span> Server Tutorial <span class="green">Lista</span>, Migliore<span class="green">Gratis</span>. <br/>Italiano</h4></center></div>
+ ]]></description>
+</channel>
+<channel>
+ <title><![CDATA[Lista]]></title>
+ <stream_url><![CDATA[stop]]></stream_url>
+ <logo_30x30><![CDATA[https://www.natnox.com/imagecompress/servertutorial.webp]]></logo_30x30>
+ <description><![CDATA[
+   <style>
+     div.para { margin:5px; }
+     div.header 
+     { 
+       margin:20px;
+       padding:10px 0px;
+       text-align:center;
+       font-size:130%;
+       background-color:Indigo;
+       color:White;
+       border-raduis:20px;
+       -webkit-border-radius:20px;
+       width:320px;
+     }
+     span.underline { padding-left:5px;text-decoration:underline; }
+   </style>
+   <center>
+     <img src="https://www.natnox.com/imagecompress/servertutorial.webp"/>
+     <img src="https://www.natnox.com/imagecompress/servertutorial.webp"/>
+   </center>
+   <center style="font-size:small;color:lightgray;"><b>Lista m3u</b></center>
+   <center style="color:red;padding-top:12px;"><b>Per Sempre</b></center>
+   <center><div class="header">Inscriviti a server Tutorial</div></center>
+   <center style="margin-bottom:15px;">
+     <img src="https://www.natnox.com/imagecompress/servertutorial.webp"/>
+     <img src="https://www.natnox.com/imagecompress/servertutorial.webp"/>
+   </center>
+   <center><b>Описание:</b></center>
+   <center style="margin-bottom:15px;">
+     <img src="https://www.natnox.com/imagecompress/servertutorial.webp"/>
+     <img src="https://www.natnox.com/imagecompress/servertutorial.webp"/>
+   </center>
+   <center>
+   <div class="para" style="margin-top:10px;">ora <br/><span class="underline">https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Server%20Tutorial%20Channel.m3u</span>, <br/><span class="underline">https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Server%20Tutorial%20Channel.m3u</span></div>
+   <div class="para">Bene<br/><span class="underline">http://segaz.my1.ru/SEGAZ.xml</span></div>
+   <div class="para">Tutto <br/><span class="underline">http://nserv.host:5300</span>, <span class="underline">http://cooltv.info/start</span></div>
+   <center style="margin:10px;">
+     <span style="display:table-cell;">Устанавливайте приложение из </span>
+     <img src="https://www.gstatic.com/android/market_images/web/play_prism_hlock_1x.png" style="background-color:white;margin:10px 3px;"/>
+   </center>
+   <div class="para">Требуется Android: 4.4+</div>
+   <div class="para"><span>Русский интерфейс:</span> Да</div>
+   <div class="para">Google Play: <span style="text-decoration:underline;">https://play.google.com/store/apps/details?id=com.pro777.SunnyLight</span></div>
+   <div class="para">Тема на 4PDA: <span style="text-decoration:underline;">https://4pda.ru/forum/index.php?showtopic=951487</span></div>
+   <br/>
+ ]]></description>
+</channel>
+<channel>
+ <title><![CDATA[Lista Guarda]]></title>
+ <stream_url><![CDATA[https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Server%20Tutorial%20Channel.m3u]]></stream_url>
+ <logo_30x30><![CDATA[https://sunnylight.tk/videos/sunny.png]]></logo_30x30>
+ <description><![CDATA[Длительность: 16:09<br>Автор: <a href='#'>Android-Kino-TV</a><br>Опубликовано: 2019-12-18<br><div style='color:darkgray;'>Ссылка на сайт: https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Server%20Tutorial%20Channel.m3u/</div>]]></description>
+</channel>
+</items>
