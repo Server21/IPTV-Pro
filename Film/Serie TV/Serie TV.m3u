@@ -2,7 +2,7 @@
 #EXTINF:-1, tvg-name="---AGGIORNAMENTO---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/aggiornamento.png" group-title="AGGIORNAMENTO", [COLOR yellow]IN CONTINUO AGGIORNAMENTO[/COLOR]
 https://server-tutorial.jimdo.com/
 #EXTINF:-1, tvg-id="" tvg-name="---Breaking Bad Episodi---" tvg-logo="http://icons.iconarchive.com/icons/atti12/tv-series-folder/256/Breaking-Bad-icon.png" group-title="Breaking Bad",---Breaking Bad Episodi---
-https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie-TV-Netflix/Breaking%20Bad.m3u
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Breaking%20Bad.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Happy!---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Happy!/Title%20Happy.png" group-title="Happy!",---Happy!---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Happy!.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---The Walking Dead---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/The%20Walking%20Dead/Title%20The%20Walking%20Dead.png" group-title="The Walking Dead",---The Walking Dead---
