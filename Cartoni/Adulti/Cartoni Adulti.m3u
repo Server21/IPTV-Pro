@@ -21,3 +21,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Big%20
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Star%20Trek%20Lower%20Decks.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Futurama---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/Futurama/Title%20Futurama.png" group-title="Futurama",---Futurama---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Futurama.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---I Griffin---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/I%20Griffin/Title%20Griffin.png" group-title="I Griffin",---I Griffin---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/I%20Griffin.m3u
