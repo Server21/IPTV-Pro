@@ -71,3 +71,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Beastars.m3u
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Tenkuu%20Shinpan.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Baki---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Baki/Title%20Baki.png" group-title="Baki",---Baki---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Baki.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Kakegurui---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Kakegurui/Title%20Kakegurui.png" group-title="Kakegurui",---Kakegurui---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Kakegurui.m3u
