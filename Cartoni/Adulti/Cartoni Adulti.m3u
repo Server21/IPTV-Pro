@@ -19,3 +19,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Paradi
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Big%20Mouth.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Star Trek: Lower Decks---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/Star%20Trek%20Lower%20Decks/Title%20Star%20Trek%20Lower%20Decks.png" group-title="Star Trek: Lower Decks",---Star Trek: Lower Decks---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Star%20Trek%20Lower%20Decks.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Futurama---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/Futurama/Title%20Futurama.png" group-title="Futurama",---Futurama---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Futurama.m3u
