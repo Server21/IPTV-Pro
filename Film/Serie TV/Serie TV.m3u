@@ -19,5 +19,7 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/The%2
 Aggiornare
 #EXTINF:-1, tvg-id="" tvg-name="---Titans---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Titans/Title%20Titans.png",---Titans---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Titans.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Cobra Kai---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/Cobra%20Kai/Title%20Cobra.png",---Cobra Kai---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Cobra%20Kai.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---LOL - Chi ride è fuori---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/Immagini/LOL/Title%20Lol.png",---LOL - Chi ride è fuori---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Film/Serie%20TV/LOL%20-%20Chi%20ride%20%C3%A8%20fuori.m3u
