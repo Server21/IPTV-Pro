@@ -25,3 +25,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Futura
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/I%20Griffin.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Solar Opposites---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/Solar%20Opposites/Title%20Solar%20Opposites.png" group-title="Solar Opposites",---Solar Opposites---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Solar%20Opposites.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Adventure Time---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Immagini/Adventure%20Time/Title%20Adventur%20Time.ico" group-title="Adventure Time",---Adventure Time---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Adulti/Adventure%20Time.m3u
