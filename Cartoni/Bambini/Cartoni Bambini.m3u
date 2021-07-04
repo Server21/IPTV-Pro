@@ -21,3 +21,5 @@ https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Bambini/Ed%2C
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Bambini/Il%20laboratorio%20di%20Dexter.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---SpongeBob---" tvg-logo="https://ia903408.us.archive.org/34/items/cartoni-animati-per-bambini/IMG/Ep%20SpongeBob.jpg" group-title="SpongeBob",---SpongeBob---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Bambini/SpongeBob.m3u
+#EXTINF:-1, tvg-id="" tvg-name="---Gravity Falls---" tvg-logo="https://ia903408.us.archive.org/34/items/cartoni-animati-per-bambini/Gravity%20Falls/Title%20Gravity%20Falls.png" group-title="Gravity Falls",---Gravity Falls---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Cartoni/Bambini/Gravity%20Falls.m3u
