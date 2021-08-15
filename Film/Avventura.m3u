@@ -72,6 +72,10 @@ https://archive.org/download/film-avventura/Divergent
 https://archive.org/download/film-avventura/Suicide%20Squad
 #EXTINF:-1, tvg-id="Avventura" tvg-name="Aladdin" tvg-logo="https://www.shockwave.cloud/images/4/99e6fb62-cf73-43ed-be02-1f1cc87cb372.jpg" group-title="Film",Aladdin
 https://archive.org/download/film-avventura/Aladdin
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Space Jam" tvg-logo="https://sc-b1-02.scws-content.net/images/4/167c01a3-0ff4-4220-a11b-014292bfdb31.jpg" group-title="Film",Space Jam
+https://archive.org/download/film-avventura/Space%20Jam.m3u8
+#EXTINF:-1, tvg-id="Avventura" tvg-name="Space Jam New Legends" tvg-logo="https://sc-b1-06.scws-content.net/images/8/04272937-b8f4-457c-afef-670f9acc69d1.jpg" group-title="Film",Space Jam New Legends
+https://archive.org/download/film-avventura/Space%20Jam%20New%20Legends.mp4
 #EXTINF:-1, tvg-id="Avventura" tvg-name="Captain America - Il primo vendicatore" tvg-logo="https://www.proxycommunity-24.cloud/images/8/9f705564-3076-4c13-8426-e0dde87a8b1e.jpg" group-title="Film",Captain America - Il primo vendicatore
 https://archive.org/download/film-avventura/Captain%20America%20-%20Il%20primo%20vendicatore
 #EXTINF:-1, tvg-id="Avventura" tvg-name="Captain America: The Winter Soldier" tvg-logo="https://www.proxycommunity-a1.cloud/images/1/730a30a5-a436-4e6e-baa0-d6fe5af83ff7.jpg" group-title="Film",Captain America: The Winter Soldier
