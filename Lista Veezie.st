@@ -5,6 +5,7 @@ https://cb01.press
 https://cbo1.fun
 https://cb01.li
 https://cbo1.bar
+https://cineblog01.cx/
 https://cb01.vision
 https://www.cineblog01.bid
 https://cineblog01.legal
@@ -95,15 +96,15 @@ https://www.eurostreaming.codes
 https://www.eurostreaming.tube
 https://filmigratis.net
 https://filmigratis.org
-https://ilgeniodellostreaming.moe (Nuovo)
+https://ilgeniodellostreaming.moe
 https://roma.polpo.tv
 https://seriehd.email
-https://serietvonline.guru (Nuovo)
+https://serietvonline.guru
 https://streamingcommunity.co
 https://tantifilmhd.com
 https://toonitalia.pro
-https://www.piratestreaming.review (Nuovo)
-https://www.filmpertutti.vin (Nuovo)
+https://www.piratestreaming.review
+https://www.filmpertutti.vin
 https://www.tantifilm.asia
 https://www.cineblog01.place
 https://www.piratestreaming.review
