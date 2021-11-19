@@ -61,7 +61,7 @@ https://www.tantifilm.cyou
 https://filmitaliano.online
 https://hd.filmsenzalimiti.me
 https://www.eurostreaming.cleaning
-https://altadefinizione01.in/
+https://altadefinizione01.in
 https://animeforce.it
 https://www.altadefinizione01.work
 https://cbo1.one
@@ -79,16 +79,16 @@ https://www.aaltadefinizione.com
 https://guardaserie.team
 https://cineblog01.casa
 https://cb01.care
-https://ilgeniodellostreaming.voto/
+https://ilgeniodellostreaming.voto
 https://altadefinizione.bond
-https://altadefinizionehd.live/
-https://altadefinizione.monster/
-https://altadefinizione.gg/
+https://altadefinizionehd.live
+https://altadefinizione.monster
+https://altadefinizione.gg
 https://cb01.games
 https://cbo1.movie
-https://cb01.li/
-https://cb01.yoga/
-https://cineblog01.bid/
+https://cb01.li
+https://cb01.yoga
+https://cineblog01.bid
 https://cineblog01.games
 https://cinemalibero.win
 https://casacinema01.surf
@@ -108,11 +108,11 @@ https://www.filmpertutti.vin
 https://www.tantifilm.asia
 https://www.cineblog01.place
 https://www.piratestreaming.review
-https://www.guardaserie.review (Nuovo)
+https://www.guardaserie.review
 https://www.altadefinizione01.yoga
 https://www.altadefinizione01.games
 https://serietvonline.red
-https://altadefinizione.recipes/
+https://altadefinizione.recipes
 https://altadefinizione.report
 https://altadefinizione.name
 https://www.piratestreaming.live
@@ -128,7 +128,7 @@ direttagol.it
 firstsrows.com
 it.vipleague.bz
 live.7msport.com
-livesoccertv.com/it/
+livesoccertv.com
 m.live3s.com
 myp2p.biz
 redstream.live
@@ -146,5 +146,5 @@ https://cbo1.watch
 https://ilgeniodellostreaming.soy
 https://www.eurostreaming.ltd
 https://www.eurostreaming.team
-https://www.filmpertutti.report/
+https://www.filmpertutti.report
 https://www.piratestreaming.guru
