@@ -10,3 +10,5 @@ http://viacomitalytest-lh.akamaihd.net/i/sbshdlive_1@195657/index_2500_av-p.m3u8
 rtmp://37.48.83.34:80/tgnorba_24/tgnorba_24_source.stream
 #EXTINF:-1, tvg-id="" tvg-name="Napoli" tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/PWRLYBJqlGrAAsKkUN6eng_96x96.png" group-title="Napoli",Napoli Live
 https://ul.cdn946.net:8443/hls/k6190w.m3u8?s=GZSDb1SUz0y3k2LPhL2xiA&e=1604622844
+#EXTINF:-1, tvg-id="" tvg-name="TOPLIVE" tvg-logo="https://i2.wp.com/www.webassistanceita.com/wp-content/uploads/2021/11/Lista-IPTV-canali-in-chiaro-1.jpeg" group-title="TOPLIVE",TOPLIVE
+https://rebrand.ly/TopLive
