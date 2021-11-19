@@ -61,7 +61,6 @@ https://www.tantifilm.cyou
 https://filmitaliano.online
 https://hd.filmsenzalimiti.me
 https://www.eurostreaming.cleaning
-https://altadefinizione01.in
 https://animeforce.it
 https://www.altadefinizione01.work
 https://cbo1.one
@@ -79,16 +78,12 @@ https://www.aaltadefinizione.com
 https://guardaserie.team
 https://cineblog01.casa
 https://cb01.care
-https://ilgeniodellostreaming.voto
 https://altadefinizione.bond
-https://altadefinizionehd.live
 https://altadefinizione.monster
 https://altadefinizione.gg
 https://cb01.games
 https://cbo1.movie
-https://cb01.li
 https://cb01.yoga
-https://cineblog01.bid
 https://cineblog01.games
 https://cinemalibero.win
 https://casacinema01.surf
@@ -107,7 +102,6 @@ https://www.piratestreaming.review
 https://www.filmpertutti.vin
 https://www.tantifilm.asia
 https://www.cineblog01.place
-https://www.piratestreaming.review
 https://www.guardaserie.review
 https://www.altadefinizione01.yoga
 https://www.altadefinizione01.games
@@ -138,7 +132,6 @@ streamingsports.me
 toplive.info
 vipleague.lc
 vipleagues.tv
-https://altadefinizione.gg
 https://altadefinizione.marketing
 https://altadefinizione.tours
 https://cb01.vin
