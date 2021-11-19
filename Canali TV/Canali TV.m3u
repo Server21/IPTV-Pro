@@ -1,3 +1,6 @@
+#EXTM3U
+#EXTINF:-1, tvg-name="---AGGIORNAMENTO---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/aggiornamento.png" group-title="AGGIORNAMENTO", [COLOR yellow]IN CONTINUO AGGIORNAMENTO[/COLOR]
+https://rebrand.ly/TopLive
 #EXTINF:-1, tvg-id="" tvg-name="Rai 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Rai_1_-_Logo_2016.svg/512px-Rai_1_-_Logo_2016.svg.png" group-title="Canali TV",Rai 1
 http://mediapolisevent.rai.it/relinker/relinkerServlet.htm?cont=2606803
 #EXTINF:-1, tvg-id="" tvg-name="Rai 2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Rai_2_-_Logo_2016.svg/512px-Rai_2_-_Logo_2016.svg.png" group-title="Canali TV",Rai 2
@@ -11,4 +14,4 @@ rtmp://37.48.83.34:80/tgnorba_24/tgnorba_24_source.stream
 #EXTINF:-1, tvg-id="" tvg-name="Napoli" tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/PWRLYBJqlGrAAsKkUN6eng_96x96.png" group-title="Napoli",Napoli Live
 https://ul.cdn946.net:8443/hls/k6190w.m3u8?s=GZSDb1SUz0y3k2LPhL2xiA&e=1604622844
 #EXTINF:-1, tvg-id="" tvg-name="TOPLIVE" tvg-logo="https://i2.wp.com/www.webassistanceita.com/wp-content/uploads/2021/11/Lista-IPTV-canali-in-chiaro-1.jpeg" group-title="TOPLIVE",TOPLIVE
-https://rebrand.ly/TopLive
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Canali%20TV/TopLive2.m3u
