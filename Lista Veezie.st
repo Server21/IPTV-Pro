@@ -5,7 +5,7 @@ https://cb01.press
 https://cbo1.fun
 https://cb01.li
 https://cbo1.bar
-https://cineblog01.cx/
+https://cineblog01.cx
 https://cb01.vision
 https://www.cineblog01.bid
 https://cineblog01.legal
@@ -116,7 +116,7 @@ https://www.filmpertutti.cc
 https://www.tantifilm.host
 https://www.piratestreaming.camp
 https://www.guardaserie.kim
-atdhes.eu/it
+atdhes.eu
 cricsports.sc
 direttagol.it
 firstsrows.com
