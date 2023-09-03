@@ -1,6 +1,8 @@
 #EXTM3U
 #EXTINF:-1, tvg-name="---AGGIORNAMENTO---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/aggiornamento.png" group-title="AGGIORNAMENTO", [COLOR yellow]IN CONTINUO AGGIORNAMENTO[/COLOR]
 https://server-tutorial.jimdo.com/
+#EXTINF:-1, tvg-id="" tvg-name="---Shin Chan---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Shin%20Chan/Title%20Shin%20Chan.png" group-title="Shin Chan",---Shin Chan---
+https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Shin%20Chan.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Conan Episodi---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Detective%20Conan/Title%20Detective%20Conan.png" group-title="Conan",---Conan Episodi---
 https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Detective%20Conan.m3u
 #EXTINF:-1, tvg-id="" tvg-name="---Dragon Ball Episodi---" tvg-logo="https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Anime/Immagini/Dragon%20Ball/Title%20Dragon%20Ball.png" group-title="Dragon Ball",---Dragon Ball Episodi---
