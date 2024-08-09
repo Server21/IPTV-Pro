@@ -18,8 +18,15 @@ def generate_urls():
         url = template.replace(replace, str(i))
         output.append(url)
     
+    # Aggiungi i nuovi URL all'output esistente
+    existing_text = output_text.get(1.0, tk.END).strip()
+    if existing_text:
+        new_text = existing_text + '\n' + '\n'.join(output)
+    else:
+        new_text = '\n'.join(output)
+    
     output_text.delete(1.0, tk.END)
-    output_text.insert(tk.END, '\n'.join(output))
+    output_text.insert(tk.END, new_text)
 
 # Funzione per cancellare l'output
 def clear_output():
@@ -40,6 +47,21 @@ def download_m3u():
         file.write(output)
     
     messagebox.showinfo("Successo", "File M3U salvato con successo!")
+
+# Funzioni per il menu contestuale
+def copy_text():
+    root.clipboard_clear()
+    root.clipboard_append(root.focus_get().get(tk.SEL_FIRST, tk.SEL_LAST))
+
+def cut_text():
+    copy_text()
+    root.focus_get().delete(tk.SEL_FIRST, tk.SEL_LAST)
+
+def paste_text():
+    root.focus_get().insert(tk.INSERT, root.clipboard_get())
+
+def show_context_menu(event):
+    context_menu.post(event.x_root, event.y_root)
 
 # Creazione della finestra principale
 root = tk.Tk()
@@ -96,6 +118,16 @@ download_button.pack(side=tk.LEFT, padx=5)
 # Text Area per l'output
 output_text = tk.Text(root, height=20, width=100, bg='#ecf0f1', fg='#2c3e50', wrap=tk.WORD)
 output_text.pack(padx=20, pady=10)
+
+# Menu contestuale
+context_menu = tk.Menu(root, tearoff=0)
+context_menu.add_command(label="Copia", command=copy_text)
+context_menu.add_command(label="Taglia", command=cut_text)
+context_menu.add_command(label="Incolla", command=paste_text)
+
+# Associa il menu contestuale ai widget di testo
+input_text.bind("<Button-3>", show_context_menu)
+output_text.bind("<Button-3>", show_context_menu)
 
 # Avvia l'interfaccia grafica
 root.mainloop()
