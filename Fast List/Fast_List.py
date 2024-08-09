@@ -1,13 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox, filedialog
-from tkinter import ttk
-from io import StringIO
-import os
-import sys
 
 # Funzione per generare gli URL
 def generate_urls():
-    template = template_entry.get()
+    template = input_text.get(1.0, tk.END).strip()
     try:
         start = int(start_entry.get())
         end = int(end_entry.get())
@@ -60,24 +56,26 @@ control_frame.pack(padx=20, pady=20, fill=tk.X)
 title_label = tk.Label(control_frame, text="Fast List", font=("Arial", 18), bg='#34495e', fg='#1abc9c')
 title_label.pack(pady=10)
 
-# Widgets per l'input
+# Label per l'input
 tk.Label(control_frame, text="Inserisci il Link", bg='#34495e', fg='#ecf0f1').pack(pady=5)
-template_entry = tk.Entry(control_frame, width=80)
-template_entry.insert(tk.END, "//www.example.com/item_[x].html")
-template_entry.pack(pady=5)
+
+# Text Area per l'input
+input_text = tk.Text(control_frame, height=4, width=100, bg='#ecf0f1', fg='#2c3e50', wrap=tk.WORD)
+input_text.insert(tk.END, "//www.example.com/item_[x].html")
+input_text.pack(padx=10, pady=10)
 
 tk.Label(control_frame, text="Valore Iniziale", bg='#34495e', fg='#ecf0f1').pack(pady=5)
-start_entry = tk.Entry(control_frame, width=80)
+start_entry = tk.Entry(control_frame, width=10)
 start_entry.insert(tk.END, "1")
 start_entry.pack(pady=5)
 
 tk.Label(control_frame, text="Valore Finale", bg='#34495e', fg='#ecf0f1').pack(pady=5)
-end_entry = tk.Entry(control_frame, width=80)
+end_entry = tk.Entry(control_frame, width=10)
 end_entry.insert(tk.END, "9")
 end_entry.pack(pady=5)
 
 tk.Label(control_frame, text="Sostituisci il numero con [x]", bg='#34495e', fg='#ecf0f1').pack(pady=5)
-replace_entry = tk.Entry(control_frame, width=80)
+replace_entry = tk.Entry(control_frame, width=10)
 replace_entry.insert(tk.END, "[x]")
 replace_entry.pack(pady=5)
 
