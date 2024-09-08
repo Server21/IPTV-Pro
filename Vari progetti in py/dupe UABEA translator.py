@@ -1,11 +1,18 @@
 import tkinter as tk
 from tkinter import filedialog, scrolledtext, Menu
+from PIL import Image, ImageTk
+import requests
+from io import BytesIO
 from googletrans import Translator
 
 class TextTranslatorApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Traduttore di Testi")
+        self.root.title("dupe UABEA translator")
+
+        # Scarica e imposta l'icona dalla URL
+        icon_url = "https://i.ibb.co/Xp7rNcg/n.png"  # Sostituisci con il tuo URL
+        self.set_icon_from_url(icon_url)
 
         # Stile della finestra principale
         self.root.configure(bg="#2E3B4E")
@@ -51,6 +58,16 @@ class TextTranslatorApp:
 
         # Aggiungi menu contestuale per copia, taglia, incolla
         self.create_context_menu()
+
+    def set_icon_from_url(self, url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Controlla se la richiesta ha avuto successo
+            image_data = BytesIO(response.content)
+            image = Image.open(image_data)
+            self.root.iconphoto(False, ImageTk.PhotoImage(image))
+        except Exception as e:
+            print(f"Impossibile caricare l'icona dall'URL: {e}")
 
     def create_context_menu(self):
         self.context_menu = Menu(self.root, tearoff=0, bg="#1C2733", fg="#FFFFFF", font=("Helvetica", 10))
