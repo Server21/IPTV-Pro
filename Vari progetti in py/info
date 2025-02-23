@@ -12,3 +12,4 @@ VHSRegister.pyw: Consente di registrare dai link m3u8 ed convertirli in mp4 per 
 Reximon.pyw: Consente di estrarre all interno dei file di testo delle stringhe di testo cosi da modificarle ed reinserirle al suo interno attraverso delimitatore esempio  <Ciao ?  Delimitatore inizio mettete 
 <  mentre delimitatore fine mettete  ? cosi da estrarre la frase Ciao link versione .exe https://files.catbox.moe/uqt6kr.zip
 LocrePak: Ci sono dei strumenti utili per estrarre e importare i file .locres file .zip >>  https://files.catbox.moe/vjogc5.zip
+Convertersitetoexe.py: Consente di convertire qualunque sito web in .exe  
