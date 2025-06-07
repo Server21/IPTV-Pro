@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VixSRC Player - Senza Pubblicità (Migliorato)</title>
+  <style>
+    :root {
+      --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary: #1a1a2e;
+      --accent: #16213e;
+      --text: #ffffff;
+      --text-muted: #b3b3b3;
+      --success: #00ff88;
+      --error: #ff4757;
+      --info: #4db8ff; /* Colore per messaggi informativi */
+      --radius: 12px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      background: var(--primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .search-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .input-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .input-wrapper {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: rgba(102, 126, 234, 0.5);
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .input-field::placeholder {
+      color: var(--text-muted);
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: var(--text);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      min-width: 140px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+    
+    .btn-primary { /* Stile aggiuntivo per pulsanti primari diversi da quelli standard */
+        background: linear-gradient(135deg, #5668E0 0%, #E0569A 100%);
+    }
+    .btn-primary:hover {
+        box-shadow: 0 8px 25px rgba(86, 104, 224, 0.5);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+      box-shadow: 0 4px 15px rgba(45, 55, 72, 0.3);
+    }
+
+    .btn-secondary:hover {
+      box-shadow: 0 8px 25px rgba(45, 55, 72, 0.4);
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .player-section {
+      margin-top: 2rem;
+      text-align: center; /* Per centrare i pulsanti sotto il player */
+    }
+    
+    .player-section .btn { /* Stile per i bottoni sotto il player */
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+
+    .player-container {
+      position: relative;
+      width: 100%;
+      max-width: 100%; /* Full width */
+      aspect-ratio: 16/9;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--secondary);
+      margin: 0 auto 1rem auto; /* Centra e aggiunge margine sotto */
+    }
+
+    .player-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: var(--radius); /* Eredita il border radius se il contenuto lo permette */
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      flex-direction: column;
+      gap: 1rem;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .status {
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin: 1rem 0;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .status.success {
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      color: var(--success);
+    }
+
+    .status.error {
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid rgba(255, 71, 87, 0.3);
+      color: var(--error);
+    }
+    .status.info {
+      background: rgba(77, 184, 255, 0.1); /* Blu per info */
+      border: 1px solid rgba(77, 184, 255, 0.3);
+      color: var(--info);
+    }
+
+
+    .tips {
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-top: 2rem;
+    }
+
+    .tips h3 {
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .tips ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .tips li {
+      padding: 0.5rem 0;
+      color: var(--text-muted);
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .tips li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .ad-blocker-notice { /* Rinominato da .ad-blocker per chiarezza */
+      background: rgba(0, 255, 136, 0.08);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .ad-blocker-notice h3 {
+      color: var(--success);
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .input-group {
+        flex-direction: column;
+      }
+      
+      .quick-actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+       .player-section .btn {
+        width: auto; /* Ripristina larghezza auto per i pulsanti sotto il player */
+        min-width: 180px; /* Larghezza minima per leggibilità */
+        margin-bottom: 0.5rem;
+      }
+      .player-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">🎬 StreamFlix</h1>
+      <p class="subtitle">Player video ottimizzato con tentativi anti-pubblicità</p>
+    </header>
+
+    <div class="ad-blocker-notice">
+      <h3>✨ Esperienza Migliorata</h3>
+      <p>Questo player tenta di ridurre gli annunci. L'efficacia può variare.</p>
+    </div>
+
+    <div class="search-section">
+      <div class="input-group">
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="searchTerm" 
+            class="input-field"
+            placeholder="Cerca film o serie TV su TMDb..."
+          >
+        </div>
+        <button class="btn btn-secondary" onclick="handleSearchTMDb()">
+          🔍 Cerca
+        </button>
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <input 
+            type="url" 
+            id="tmdbUrl" 
+            class="input-field"
+            placeholder="Incolla URL da TheMovieDB (es. themoviedb.org/movie/...)"
+          >
+        </div>
+        <button class="btn" onclick="handleLoadPlayer()">
+          ▶️ Riproduci
+        </button>
+      </div>
+
+      <div class="quick-actions">
+        <button class="btn btn-secondary" onclick="handleAutoExtract()">
+          🔄 Auto-Estrai da Clipboard
+        </button>
+        <button class="btn btn-secondary" onclick="handleClearPlayer()">
+          🗑️ Pulisci Player
+        </button>
+      </div>
+    </div>
+
+    <div class="player-section">
+      <div id="status"></div>
+      <div id="playerContainer">
+        <!-- Il player iframe e i pulsanti di controllo verranno inseriti qui -->
+      </div>
+      <div id="playerControlsContainer" style="margin-top: 1rem;">
+          <!-- Contenitore per i pulsanti di controllo del player (es. Prova alternative) -->
+      </div>
+    </div>
+
+    <div class="tips">
+      <h3>💡 Suggerimenti</h3>
+      <ul>
+        <li>Cerca un titolo, vai sulla pagina TMDb e copia l'URL dal browser.</li>
+        <li>Incolla l'URL TMDb (es. `https://www.themoviedb.org/movie/299536-avengers`) e clicca Riproduci.</li>
+        <li>Funziona con film (`/movie/`) e serie TV (`/tv/`).</li>
+        <li>L'audio italiano è preferito, ma dipende dalla disponibilità della fonte.</li>
+        <li>Usa "Auto-Estrai" per tentare di rilevare automaticamente un URL TMDb dalla tua clipboard.</li>
+        <li>Se il player principale ha problemi, usa il pulsante "Prova Fonti Alternative".</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Modulo per la gestione del player e delle sue logiche
+    const PlayerManager = (() => {
+      let currentPlayerInfo = null; // { id, type, sourceUrl, isAlternative: boolean }
+      let currentIframe = null;
+      let alternativeSourcesCache = []; // Cache per le sorgenti alternative dell'elemento corrente
+      let currentAlternativeIndex = 0;
+
+      const TMDbPatterns = [
+        { regex: /themoviedb\.org\/movie\/(\d+)/, type: 'movie' },
+        { regex: /themoviedb\.org\/tv\/(\d+)/, type: 'tv' }
+      ];
+
+      // --- Funzioni Private del Modulo ---
+      function _showLoading() {
+        const playerContainer = document.getElementById('playerContainer');
+        const controlsContainer = document.getElementById('playerControlsContainer');
+        if (playerContainer) {
+            playerContainer.innerHTML = `
+            <div class="player-container">
+                <div class="loading">
+                <div class="spinner"></div>
+                <p>Caricamento player...</p>
+                </div>
+            </div>`;
+        }
+        if (controlsContainer) controlsContainer.innerHTML = ''; // Pulisce i controlli durante il caricamento
+      }
+
+      function _showStatus(message, type = 'info') { // Default a 'info'
+        const statusDiv = document.getElementById('status');
+        if (!statusDiv) return;
+        statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+        setTimeout(() => {
+          if (statusDiv.innerHTML.includes(message)) statusDiv.innerHTML = ''; // Pulisce solo se il messaggio è ancora quello
+        }, 5000);
+      }
+      
+      function _clearPlayerDOM() {
+        const playerContainer = document.getElementById('playerContainer');
+        const controlsContainer = document.getElementById('playerControlsContainer');
+        if (playerContainer) playerContainer.innerHTML = '';
+        if (controlsContainer) controlsContainer.innerHTML = '';
+        // Non pulire lo status qui, viene gestito da _showStatus o da altre azioni
+      }
+
+      function _createIframe(src) {
+        const iframe = document.createElement('iframe');
+        iframe.src = src;
+        iframe.className = 'player-frame';
+        iframe.allowFullscreen = true;
+        iframe.allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media'; // Aggiunto encrypted-media
+        iframe.sandbox = 'allow-scripts allow-same-origin allow-presentation allow-forms allow-popups allow-popups-to-escape-sandbox';
+        // NB: allow-forms e allow-popups sono necessari per alcuni embed, ma aumentano il rischio di ads.
+        // allow-popups-to-escape-sandbox è per pop-up che devono funzionare (es. login).
+        // Considerare una sandbox più restrittiva se gli ads sono un problema grave con una fonte specifica.
+        iframe.setAttribute('referrerpolicy', 'no-referrer');
+        
+        iframe.onload = () => {
+          _showStatus(`Player caricato da ${new URL(src).hostname}. Applicazione filtri...`, 'success');
+          AntiAdFeatures.applyToIframe(iframe);
+        };
+        iframe.onerror = () => {
+            _showStatus(`Errore caricando l'embed: ${new URL(src).hostname}`, 'error');
+            // Se è un'alternativa che fallisce, offre la successiva
+            if (currentPlayerInfo && currentPlayerInfo.isAlternative) {
+                 _showStatus(`Fonte alternativa ${currentAlternativeIndex + 1} fallita. Prova la successiva se disponibile.`, 'error');
+                 if (document.getElementById('playerControlsContainer')) {
+                    const nextButton = document.getElementById('playerControlsContainer').querySelector('.btn-try-next-embed');
+                    if (nextButton) nextButton.disabled = false; // Riabilita se era disabilitato
+                 }
+            } else if (currentPlayerInfo && !currentPlayerInfo.isAlternative && getAlternativeSourcesList(currentPlayerInfo).length > 0) {
+                 _showStatus('Player principale fallito. Prova una fonte alternativa.', 'error');
+            }
+        };
+        return iframe;
+      }
+
+      function _updatePlayerControls(info) {
+        const controlsContainer = document.getElementById('playerControlsContainer');
+        if (!controlsContainer) return;
+        controlsContainer.innerHTML = ''; // Pulisce i controlli esistenti
+
+        const availableAlternatives = getAlternativeSourcesList(info);
+
+        if (info.isAlternative) {
+          // Se siamo in un'alternativa e ce ne sono altre
+          if (currentAlternativeIndex < availableAlternatives.length -1) {
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = `Prova Fonte ${currentAlternativeIndex + 2}/${availableAlternatives.length}`;
+            nextBtn.className = 'btn btn-secondary btn-try-next-embed';
+            nextBtn.onclick = () => tryNextAlternative();
+            controlsContainer.appendChild(nextBtn);
+          } else {
+            _showStatus('Tutte le fonti alternative sono state provate.', 'info');
+          }
+          // Pulsante per tornare al principale
+          const backToMainBtn = document.createElement('button');
+          backToMainBtn.textContent = 'Torna al Player Principale';
+          backToMainBtn.className = 'btn btn-primary';
+          backToMainBtn.onclick = () => {
+              const mainInfo = { ...info, isAlternative: false }; // Rimuovi flag alternativa
+              loadMainPlayer(mainInfo, true); // true per forzare il ricaricamento
+          };
+          controlsContainer.appendChild(backToMainBtn);
+
+        } else {
+          // Se siamo nel player principale e ci sono alternative disponibili
+          if (availableAlternatives.length > 0) {
+            const tryAlternativesBtn = document.createElement('button');
+            tryAlternativesBtn.textContent = `Problemi? Prova Fonti Alternative (${availableAlternatives.length})`;
+            tryAlternativesBtn.className = 'btn btn-secondary';
+            tryAlternativesBtn.onclick = () => {
+              currentAlternativeIndex = 0; // Resetta l'indice
+              alternativeSourcesCache = availableAlternatives; // Popola la cache
+              tryNextAlternative(info); 
+            };
+            controlsContainer.appendChild(tryAlternativesBtn);
+          }
+        }
+      }
+      
+      function _displayIframe(iframe, info) {
+        const playerContainer = document.getElementById('playerContainer');
+        if (!playerContainer) return;
+        
+        _clearPlayerDOM(); // Pulisce solo il DOM del player, non lo status
+
+        playerContainer.appendChild(iframe);
+        currentIframe = iframe;
+        
+        // Aggiorna i pulsanti di controllo (es. "Prova successiva", "Torna al principale")
+        _updatePlayerControls(info);
+      }
+
+      // --- Funzioni Pubbliche del Modulo (esposte) ---
+      function extractTMDbInfo(url) {
+        if (!url || typeof url !== 'string') return null;
+        for (const pattern of TMDbPatterns) {
+          const match = url.match(pattern.regex);
+          if (match && match[1]) {
+            return { id: match[1], type: pattern.type };
+          }
+        }
+        return null;
+      }
+
+      function loadMainPlayer(info, forceReload = false) {
+        if (!info || !info.id || !info.type) {
+          _showStatus('Informazioni TMDb non valide fornite.', 'error');
+          return;
+        }
+        // Evita ricaricamenti non necessari se è già il player principale
+        if (!forceReload && currentPlayerInfo && currentPlayerInfo.id === info.id && currentPlayerInfo.type === info.type && !currentPlayerInfo.isAlternative) {
+            _showStatus('Player principale già caricato.', 'info');
+            return;
+        }
+
+        _showLoading();
+        currentPlayerInfo = { ...info, isAlternative: false }; // Imposta come player principale
+        alternativeSourcesCache = getAlternativeSourcesList(info); // Pre-carica le alternative per questo item
+        currentAlternativeIndex = 0; // Resetta l'indice delle alternative
+
+        setTimeout(() => {
+          const playerUrl = `https://vixsrc.to/${info.type}/${info.id}?lang=it&autoplay=true&primaryColor=667eea`;
+          // Altri parametri utili: &noads=1 (se supportato e funziona)
+          
+          const iframe = _createIframe(playerUrl);
+          currentPlayerInfo.sourceUrl = playerUrl;
+          _displayIframe(iframe, currentPlayerInfo);
+          _showStatus(`${info.type === 'movie' ? 'Film' : 'Serie TV'} (${info.id}) caricato da vixsrc.to.`, 'success');
+        }, 300);
+      }
+
+      function getAlternativeSourcesList(info) {
+          if (!info || !info.id || !info.type) return [];
+          // Definisci qui le alternative, in modo che siano accessibili
+          // È buona norma verificare periodicamente se questi embed sono ancora attivi/validi
+          return [
+            `https://embedder.net/e/${info.type === 'movie' ? 'imdb' : 'tmdb'}/${info.id}?lang=it`, // embedder.net usa imdb per film, tmdb per serie
+            `https://multiembed.mov/?video_id=${info.id}&tmdb=1&${info.type === 'movie' ? ' మీటారు': 's='}`, // La sintassi per film e serie è diversa
+            // `https://embed.smashystream.com/${info.type}/${info.id}`, // Spesso richiede interazione utente o ha molti ads
+            `https://vidsrc.me/embed/${info.type}/${info.id}?lang=it`, // Simile a vixsrc.to
+            `https://player.Lade.workers.dev/?id=${info.id}&type=${info.type}` // Esempio di un player generico basato su ID
+          ].filter(url => url); // Rimuove eventuali undefined/null se la logica di costruzione URL è complessa
+      }
+
+      function tryNextAlternative(originInfo) {
+        // Se originInfo è passato, significa che è la prima chiamata dal pulsante "Prova Fonti Alternative"
+        // e currentPlayerInfo dovrebbe essere quello del player principale.
+        if (originInfo && (!currentPlayerInfo || currentPlayerInfo.id !== originInfo.id)) {
+            currentPlayerInfo = { ...originInfo }; // Assicura che stiamo lavorando sulle info corrette
+            alternativeSourcesCache = getAlternativeSourcesList(currentPlayerInfo);
+            currentAlternativeIndex = 0;
+        }
+        
+        if (!currentPlayerInfo) {
+            _showStatus('Informazioni sul contenuto non disponibili per caricare alternative.', 'error');
+            return;
+        }
+
+        if (alternativeSourcesCache.length === 0) {
+             alternativeSourcesCache = getAlternativeSourcesList(currentPlayerInfo); // Popola se vuota
+        }
+
+        if (currentAlternativeIndex < alternativeSourcesCache.length) {
+          _showLoading();
+          const altUrl = alternativeSourcesCache[currentAlternativeIndex];
+          
+          setTimeout(() => {
+            const iframe = _createIframe(altUrl);
+            currentPlayerInfo = { ...currentPlayerInfo, sourceUrl: altUrl, isAlternative: true }; // Aggiorna e marca come alternativa
+            _displayIframe(iframe, currentPlayerInfo);
+            _showStatus(`Caricata fonte alternativa ${currentAlternativeIndex + 1}/${alternativeSourcesCache.length}: ${new URL(altUrl).hostname}.`, 'success');
+            currentAlternativeIndex++; // Incrementa per la prossima chiamata
+          }, 300);
+        } else {
+          _showStatus('Nessun\'altra fonte alternativa disponibile per questo contenuto.', 'info');
+          _updatePlayerControls(currentPlayerInfo); // Aggiorna i controlli per mostrare solo "Torna al principale"
+        }
+      }
+
+      function clearAll() {
+        _clearPlayerDOM(); // Pulisce player e controlli
+        if (document.getElementById('status')) document.getElementById('status').innerHTML = ''; // Pulisce anche lo status
+        if (document.getElementById('tmdbUrl')) document.getElementById('tmdbUrl').value = '';
+        if (document.getElementById('searchTerm')) document.getElementById('searchTerm').value = '';
+        currentPlayerInfo = null;
+        currentIframe = null;
+        alternativeSourcesCache = [];
+        currentAlternativeIndex = 0;
+        _showStatus('Player e campi di input puliti.', 'success');
+      }
+      
+      return {
+        extractTMDbInfo,
+        loadMainPlayer,
+        tryNextAlternative, 
+        clearAll,
+        showStatus: _showStatus
+      };
+    })();
+
+
+    // Modulo per le funzionalità Anti-Ad (con limitazioni note per iframe cross-origin)
+    const AntiAdFeatures = (() => {
+      
+      function _injectCSSIntoIframe(iframe) {
+        try {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+          if (iframeDoc) {
+            const style = iframeDoc.createElement('style');
+            style.textContent = `
+              /* Selettori comuni per ads - l'efficacia dipende dal contenuto dell'iframe */
+              div[id*="ad"], div[class*="ad"], div[class*="advert"], 
+              iframe[src*="ads."], iframe[id*="ads"],
+              #adsbox, .afs_ads, a[href*="/ads/"], .ad-placeholder,
+              .advertisement, .ad-container, .ad-wrapper, .banner-ad,
+              [data-ad-format], [data-google-query-id],
+              body > div[style*="z-index: 999999"], /* Overlay a schermo intero */
+              body > div[style*="position: fixed"][style*="bottom: 0"] /* Banner in basso */
+              {
+                display: none !important;
+                visibility: hidden !important;
+                width: 0 !important; height: 0 !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+              }`;
+            iframeDoc.head.appendChild(style);
+            console.log('AntiAd: Tentativo di iniezione CSS nell\'iframe completato.');
+          }
+        } catch (e) {
+          console.warn('AntiAd: Iniezione CSS nell\'iframe fallita (probabile restrizione cross-origin).', e.message);
+        }
+      }
+
+      function _overrideWindowOpenInIframe(iframe) {
+        try {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.open = (url, target, features) => {
+              console.warn(`AntiAd: Tentativo di popup bloccato dall'iframe (URL: ${url})`);
+              PlayerManager.showStatus('Popup pubblicitario (da iframe) bloccato.', 'info');
+              return null; 
+            };
+             iframe.contentWindow.alert = (message) => {
+                console.warn(`AntiAd: Tentativo di alert bloccato dall'iframe (Msg: ${message})`);
+                if (message && message.toLowerCase().includes("adblock")) {
+                    PlayerManager.showStatus('Messaggio di rilevamento AdBlock (da iframe) ignorato.', 'info');
+                    return true; // Tenta di sopprimere l'alert
+                }
+                return false; // Comportamento standard per altri alert
+            };
+          }
+        } catch (e) {
+          console.warn('AntiAd: Impossibile sovrascrivere window.open/alert nell\'iframe (probabile cross-origin).', e.message);
+        }
+      }
+      
+      function applyToIframe(iframe) {
+        if (!iframe) return;
+        console.log('AntiAd: Applicazione filtri anti-ad all\'iframe...');
+        _injectCSSIntoIframe(iframe); // Prova sempre, gestisce l'errore cross-origin
+        _overrideWindowOpenInIframe(iframe); // Prova sempre
+      }
+
+      function initGlobalStrategies() {
+        const originalFetch = window.fetch;
+        const adRelatedKeywords = [
+          'adserve', 'adtrack', 'advertis', 'banner', 'doubleclick', 'googlesyndication', 
+          'pagead', 'popunder', 'popup', 'propellerads', 'syndication', 'taboola', 'outbrain',
+          'exoclick', 'adsystem', 'adtelligent', 'adnxs', 'rubiconproject', 'openx'
+        ];
+
+        window.fetch = async function(...args) {
+          let requestUrlStr = '';
+          if (args[0] instanceof Request) {
+            requestUrlStr = args[0].url;
+          } else if (typeof args[0] === 'string') {
+            requestUrlStr = args[0];
+          }
+
+          if (requestUrlStr && adRelatedKeywords.some(keyword => requestUrlStr.toLowerCase().includes(keyword))) {
+            console.warn(`AntiAd: Richiesta Fetch (pagina principale) bloccata: ${requestUrlStr}`);
+            PlayerManager.showStatus(`Bloccata richiesta pubblicitaria: ${new URL(requestUrlStr).hostname}`, 'info');
+            return Promise.reject(new Error('Ad Request Blocked by StreamFlix Client'));
+          }
+          return originalFetch.apply(this, args);
+        };
+        console.log('AntiAd: Strategia globale di blocco Fetch (pagina principale) inizializzata.');
+
+        const globalStyle = document.createElement('style');
+        globalStyle.id = 'streamflix-global-ad-blocker-styles';
+        globalStyle.textContent = `
+            /* Stili globali per la pagina principale per nascondere tipi comuni di slot pubblicitari esterni all'iframe */
+            iframe[name^="google_ads_iframe"], iframe[id^="google_ads_iframe"],
+            div[aria-label="advertisement"], div[data-ad-status], ins.adsbygoogle,
+            .ad-slot, .ad-banner, .ad-wrapper, .advert, #ad_unit {
+                display: none !important;
+                visibility: hidden !important;
+                width: 0 !important; height: 0 !important;
+                opacity: 0 !important;
+            }
+        `;
+        document.head.appendChild(globalStyle);
+        console.log('AntiAd: Stili globali anti-ad (pagina principale) applicati.');
+      }
+
+      return {
+        applyToIframe,
+        initGlobalStrategies
+      };
+    })();
+
+
+    // --- Gestori di Eventi Globali e Inizializzazione ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const tmdbUrlInput = document.getElementById('tmdbUrl');
+      const searchTermInput = document.getElementById('searchTerm');
+
+      if (tmdbUrlInput) {
+        tmdbUrlInput.addEventListener('paste', (e) => {
+          setTimeout(() => { // Necessario per leggere il valore dopo l'incolla effettivo
+            const pastedValue = e.target.value;
+            if (!pastedValue) return;
+            const info = PlayerManager.extractTMDbInfo(pastedValue);
+            if (info) {
+              PlayerManager.showStatus('URL TMDb valido rilevato dall\'incolla!', 'success');
+              // Opzionale: caricare direttamente il player
+              // PlayerManager.loadMainPlayer(info); 
+            } else if (pastedValue.trim() !== '') {
+              PlayerManager.showStatus('Testo incollato, ma non sembra un URL TMDb valido.', 'error');
+            }
+          }, 50);
+        });
+        
+        tmdbUrlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleLoadPlayer();
+        });
+      }
+
+      if (searchTermInput) {
+        searchTermInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearchTMDb();
+        });
+      }
+      
+      AntiAdFeatures.initGlobalStrategies();
+      PlayerManager.showStatus("Player inizializzato e pronto. Incolla un URL TMDb o cerca.", "info");
+    });
+
+    // Funzioni globali esposte per gli onClick HTML
+    function handleSearchTMDb() {
+      const term = document.getElementById('searchTerm').value.trim();
+      if (!term) {
+        PlayerManager.showStatus('Per favore, inserisci un termine di ricerca TMDb.', 'error');
+        return;
+      }
+      const searchUrl = `https://www.themoviedb.org/search?query=${encodeURIComponent(term)}`;
+      window.open(searchUrl, '_blank');
+      PlayerManager.showStatus(`Ricerca TMDb per "${term}" aperta in una nuova scheda.`, 'success');
+    }
+
+    function handleLoadPlayer() {
+      const url = document.getElementById('tmdbUrl').value.trim();
+      if (!url) {
+        PlayerManager.showStatus('Per favore, inserisci un URL TMDb valido.', 'error');
+        return;
+      }
+      const info = PlayerManager.extractTMDbInfo(url);
+      if (!info) {
+        PlayerManager.showStatus('URL non valido o non riconosciuto. Assicurati sia un link TMDb per film o serie TV.', 'error');
+        return;
+      }
+      PlayerManager.loadMainPlayer(info);
+    }
+
+    async function handleAutoExtract() {
+      if (!navigator.clipboard || !navigator.clipboard.readText) {
+        PlayerManager.showStatus('Accesso alla clipboard non supportato o non permesso dal browser.', 'error');
+        return;
+      }
+      try {
+        const text = await navigator.clipboard.readText();
+        const tmdbUrlMatch = text.match(/https?:\/\/(www\.)?themoviedb\.org\/(movie|tv)\/\d+/i); 
+        
+        if (tmdbUrlMatch && tmdbUrlMatch[0]) {
+          const detectedUrl = tmdbUrlMatch[0];
+          document.getElementById('tmdbUrl').value = detectedUrl;
+          PlayerManager.showStatus('URL TMDb estratto con successo dalla clipboard!', 'success');
+          
+          const info = PlayerManager.extractTMDbInfo(detectedUrl);
+          if (info) {
+            PlayerManager.loadMainPlayer(info); // Carica direttamente il player
+          } else {
+            // Questo caso dovrebbe essere raro se la regex matcha
+            PlayerManager.showStatus('URL estratto ma non elaborabile, controlla il formato.', 'error');
+          }
+        } else {
+          PlayerManager.showStatus('Nessun URL TMDb valido trovato nella clipboard.', 'info');
+        }
+      } catch (err) {
+        console.error('Errore durante la lettura dalla clipboard:', err);
+        PlayerManager.showStatus('Impossibile accedere alla clipboard. Potrebbe essere necessario concedere il permesso.', 'error');
+      }
+    }
+
+    function handleClearPlayer() {
+      PlayerManager.clearAll();
+    }
+  </script>
+</body>
+</html>
