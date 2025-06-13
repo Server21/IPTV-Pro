@@ -15,3 +15,5 @@ LocrePak: Ci sono dei strumenti utili per estrarre e importare i file .locres fi
 Convertersitetoexe.py: Consente di convertire qualunque sito web in .exe  
 HLS Link Checker.pyw: Consente di controllare i flussi dei link per capire se sono ancora online 
 hls serch and play in vlc .py: Consente di trovare le fonti hls all interno di quei siti con dei player si copia il link ed si inserisce lui te lo processa e te lo mette nel vlc abinalo a questo scrypt >> https://greasyfork.org/it/scripts/536578-universal-link-extractor
+MM TO SS.pyw: Consente di convertire i minuti in secondi e i secondi in minuti in tempo reale 
+Fastlist Aumenta Valore piu testo.pyw: Consete di aggiungere una lista m3u ed aumentare il valore basandosi sul link ad esempio link https://stest_ep_01 lui ti inserisce aposta della x il numero 1 
