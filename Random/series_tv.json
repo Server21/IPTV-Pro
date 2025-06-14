@@ -1,0 +1,53 @@
+[
+  {
+    "title": "Breaking Bad",
+    "episodes": [
+      {
+        "episode": 1,
+        "link": "https://example.com/breakingbad/s01e01.mp4"
+      },
+      {
+        "episode": 2,
+        "link": "https://example.com/breakingbad/s01e02.mp4"
+      },
+      {
+        "episode": 3,
+        "link": "https://example.com/breakingbad/s01e03.mp4"
+      }
+    ]
+  },
+  {
+    "title": "Game of Thrones",
+    "episodes": [
+      {
+        "episode": 1,
+        "link": "https://example.com/got/s01e01.mp4"
+      },
+      {
+        "episode": 2,
+        "link": "https://example.com/got/s01e02.mp4"
+      },
+      {
+        "episode": 3,
+        "link": "https://example.com/got/s01e03.mp4"
+      }
+    ]
+  },
+  {
+    "title": "Stranger Things",
+    "episodes": [
+      {
+        "episode": 1,
+        "link": "https://example.com/strangerthings/s01e01.mp4"
+      },
+      {
+        "episode": 2,
+        "link": "https://example.com/strangerthings/s01e02.mp4"
+      },
+      {
+        "episode": 3,
+        "link": "https://example.com/strangerthings/s01e03.mp4"
+      }
+    ]
+  }
+]
