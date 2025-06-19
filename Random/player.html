@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Player Universale</title>
   <style>
-    /* CSS INVARIATO DALLA VERSIONE PRECEDENTE */
     body { margin: 0; background: #121212; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #fff; }
     .player-container { position: relative; width: 80%; max-width: 900px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
     .player-container.fullscreen { border-radius: 0; }
@@ -131,7 +130,6 @@
         showControls(); 
         if (CONFIG.contentType && CONFIG.contentType !== 'film') { 
             nextEpisodeButton.style.display = 'inline-flex'; 
-            // backToCatalogButton.style.display = 'inline-flex'; // Già mostrato da loadSource
         } 
         triggerNextEpisode(); 
     });
