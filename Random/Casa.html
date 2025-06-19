@@ -9,60 +9,66 @@
         header { background-color: #101010; padding: 1rem 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 1000; }
         nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
         nav .logo { font-size: 1.8em; font-weight: bold; color: #e50914; }
-        nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1.5rem; }
-        nav ul li a { text-decoration: none; color: #b0b0b0; font-size: 1.1em; font-weight: 500; transition: color 0.3s ease, text-shadow 0.3s ease; }
+        nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; /* Per mobile */ gap: 1rem; /* Gap ridotto per mobile */ }
+        nav ul li a { text-decoration: none; color: #b0b0b0; font-size: 1em; /* Leggermente ridotto */ font-weight: 500; transition: color 0.3s ease, text-shadow 0.3s ease; }
+        @media (min-width: 768px) { nav ul { gap: 1.5rem; } nav ul li a { font-size: 1.1em; } }
         nav ul li a:hover, nav ul li a.active { color: #ffffff; text-shadow: 0 0 5px rgba(229, 9, 20, 0.7); }
-        .search-container { display: flex; gap: 0.5rem; }
-        .search-container input[type="search"] { padding: 0.6rem 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: #222; color: #fff; min-width: 220px; font-size: 0.9em; }
-        .search-container input[type="search"]::placeholder { color: #777; }
-        .search-container button { padding: 0.6rem 1.2rem; border-radius: 4px; border: none; background-color: #e50914; color: #fff; cursor: pointer; font-weight: 500; transition: background-color 0.3s ease; }
+        
+        .search-container { display: flex; gap: 0.5rem; margin-top: 0.5rem; /* Spazio su mobile */ }
+        @media (min-width: 768px) { .search-container { margin-top: 0; } }
+        .search-container input[type="search"] { padding: 0.6rem 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: #222; color: #fff; flex-grow: 1; /* Per riempire lo spazio */ min-width: 150px; font-size: 0.9em; }
+        .search-container button { padding: 0.6rem 1rem; border-radius: 4px; border: none; background-color: #e50914; color: #fff; cursor: pointer; font-weight: 500; transition: background-color 0.3s ease; }
         .search-container button:hover { background-color: #f40612; }
-        main { flex-grow: 1; padding: 2rem; max-width: 1200px; width: 90%; margin: 0 auto; }
-        #section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-        #current-section-title { margin-bottom: 0; flex-grow: 1; font-size: 2.2em; color: #fff; text-align: left; border-bottom: 2px solid #333; padding-bottom: 0.5rem; }
-        #back-button { padding: 0.5rem 1rem; background-color: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em; transition: background-color 0.3s ease; }
+
+        main { flex-grow: 1; padding: 1rem; max-width: 1300px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+        #section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding: 0 0.5rem; }
+        @media (min-width: 768px) { main { padding: 2rem; } #section-header { padding: 0; } }
+        #current-section-title { margin-bottom: 0; flex-grow: 1; font-size: clamp(1.5em, 4vw, 2.2em); color: #fff; text-align: left; border-bottom: 2px solid #333; padding-bottom: 0.5rem; }
+        #back-button { padding: 0.4rem 0.8rem; font-size: clamp(0.8em, 2.5vw, 0.9em); background-color: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease;}
         #back-button:hover { background-color: #555; }
         #back-button.hidden { display: none; }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.5rem; } /* Minmax ridotto per più card */
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
+        @media (min-width: 480px) { .grid-container { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } }
+        @media (min-width: 768px) { .grid-container { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; } }
+        @media (min-width: 1024px) { .grid-container { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); } }
         #items-grid:not(.grid-container) { display: block; }
 
         .card { background-color: #1f1f1f; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-        .card img { width: 100%; height: 340px; /* Altezza leggermente ridotta */ object-fit: cover; display: block; cursor: pointer; border-bottom: 3px solid #e50914; }
-        .card-content { padding: 0.8rem 1rem; /* Padding ridotto */ text-align: left; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-content h3 { margin-top: 0; margin-bottom: 0.4rem; font-size: 1.2em; /* Font size ridotto */ color: #fff; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-        .card-content p.description { font-size: 0.85em; color: #b0b0b0; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; /* Ridotto a 2 righe */ -webkit-box-orient: vertical; max-height: calc(1.4em * 2); margin-bottom: 0.5rem; flex-grow: 1; }
-        .tags-container { margin-top: auto; padding-top: 0.4rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
-        .tag { background-color: #333; color: #ccc; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.7em; font-weight: 500; }
+        .card img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; cursor: pointer; border-bottom: 2px solid #e50914; }
+        .card-content { padding: 0.6rem 0.8rem; text-align: left; flex-grow: 1; display: flex; flex-direction: column; min-height: 80px; }
+        .card-content h3 { margin-top: 0; margin-bottom: 0.3rem; font-size: clamp(0.9em, 3vw, 1.1em); color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .card-content p.description { font-size: clamp(0.75em, 2.5vw, 0.85em); color: #b0b0b0; line-height: 1.3; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 0.4rem; flex-grow: 1; }
+        .tags-container { margin-top: auto; padding-top: 0.3rem; display: flex; flex-wrap: wrap; gap: 0.25rem; }
+        .tag { background-color: #333; color: #ccc; padding: 0.15rem 0.4rem; border-radius: 8px; font-size: clamp(0.6em, 2vw, 0.7em); font-weight: 500; }
         
         .detail-view-container { width: 100%; padding: 1rem; background-color: #1f1f1f; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .detail-header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #333; }
-        .detail-header img { width: 200px; max-width: 60%; height: auto; max-height: 300px; object-fit: cover; border-radius: 4px; }
-        .detail-header-info { flex: 1; }
-        .detail-header-info h3 { margin-top: 0; font-size: 2em; color: #fff; }
-        .detail-header-info p { font-size: 1em; color: #b0b0b0; line-height: 1.6; max-height: 120px; overflow-y: auto;}
+        .detail-header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #333; }
+        .detail-header img { width: 150px; max-width: 50%; height: auto; object-fit: cover; border-radius: 4px; }
+        .detail-header-info { flex: 1; width:100%;}
+        .detail-header-info h3 { font-size: clamp(1.6em, 5vw, 2em); }
+        .detail-header-info p { font-size: clamp(0.9em, 2.5vw, 1em); max-height: 150px; overflow-y: auto; }
         .detail-tags { margin-top: 1rem; }
-        @media (min-width: 768px) { /* Layout desktop per dettaglio */
-            .detail-header { flex-direction: row; text-align: left; align-items: flex-start;}
-            .detail-header img {max-width: 200px;}
-        }
+        @media (min-width: 768px) { .detail-header { flex-direction: row; text-align: left; align-items: flex-start;} .detail-header img {max-width: 200px;} }
 
-        .seasons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-        .season-card { background-color: #2a2a2a; border-radius: 6px; padding: 1rem; text-align: center; cursor: pointer; transition: background-color 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; }
+        .seasons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.8rem; margin-bottom: 1.5rem; }
+        .season-card { background-color: #2a2a2a; border-radius: 6px; padding: 0.8rem; text-align: center; cursor: pointer; transition: background-color 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; }
         .season-card:hover { background-color: #383838; }
-        .season-card img { width: 100%; height: auto; max-height: 120px; object-fit: cover; border-radius: 4px; margin-bottom: 0.5rem; }
-        .season-card h4 { margin: 0.5rem 0; font-size: 1.1em; }
+        .season-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; margin-bottom: 0.5rem; }
+        .season-card h4 { margin: 0.5rem 0; font-size: clamp(0.9em, 3vw, 1.1em); white-space: nowrap; overflow:hidden; text-overflow: ellipsis;}
         .season-card p { font-size: 0.8em; color: #888; margin: 0; }
-        
-        .episodes-list-section h4 { font-size: 1.6em; color: #e0e0e0; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #444; }
+        @media (min-width: 768px) { .seasons-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; } .season-card img { /* max-height: 150px; non serve con aspect-ratio */ } }
+
+        .episodes-list-section h4 { font-size: clamp(1.3em, 4vw, 1.6em); }
         .episodes-list { list-style: none; padding: 0; margin: 0; }
-        .episodes-list li { background-color: #2a2a2a; margin-bottom: 0.5rem; padding: 0.8rem 1.2rem; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; display: flex; justify-content: space-between; align-items: center; }
+        .episodes-list li { background-color: #2a2a2a; margin-bottom: 0.5rem; padding: 0.6rem 1rem; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; display: flex; justify-content: space-between; align-items: center; }
         .episodes-list li:hover { background-color: #e50914; color: #fff; transform: translateX(5px); }
         .episodes-list li .episode-info { display: flex; align-items: center; gap: 10px; overflow: hidden;}
-        .episodes-list li .episode-info img { width: 100px; height: 56px; object-fit: cover; border-radius: 3px; flex-shrink: 0;}
+        .episodes-list li .episode-info img { width: 90px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 3px; flex-shrink: 0;}
         .episodes-list li .episode-title-desc { overflow: hidden; }
-        .episodes-list li .episode-title-desc .main-title { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .episodes-list li .episode-title-desc .ep-desc { font-size: 0.8em; color: #999; display: block; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .episodes-list li .episode-title-desc .main-title { font-size: clamp(0.85em, 2.8vw, 1em); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .episodes-list li .episode-title-desc .ep-desc { font-size: clamp(0.7em, 2.2vw, 0.8em); color: #999; display: block; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
         .episodes-list li:hover .ep-desc { color: #eee; }
         .episodes-list li .play-icon { font-size: 1.2em; margin-left: 1rem; flex-shrink: 0;}
 
@@ -146,34 +152,35 @@
                 }
             }
 
-            const generateId = (str, prefix = '') => str ? prefix + str.toString().trim().replace(/\s+/g, '-').toLowerCase() : prefix + Math.random().toString(36).substring(2);
+            const generateId = (str, prefix = '') => str ? prefix + str.toString().trim().replace(/\s+/g, '-').toLowerCase().replace(/[^a-z0-9-]/g, '') : prefix + Math.random().toString(36).substring(2);
 
             const mapFilmData = (item) => ({ 
                 id: item.id || generateId(item.title, 'f-'), type: 'film',
                 titolo: item.title || item.name || "N/D", 
                 immagine: item.poster_path || item.image || item.thumbnail || "https://via.placeholder.com/300x450?text=No+Image",
                 descrizione: item.overview || item.description || "N/D",
-                url_video: item.url_video || item.video_url || item.file || item.link, // Assicurati che questo campo esista e sia corretto per i film
+                url_video: item.url_video || item.video_url || item.file || item.link,
                 tags: Array.isArray(item.genres) ? item.genres : (Array.isArray(item.tags) ? item.tags : [])
+                // NO SKIP/OUTRO per film
             });
 
             const mapSerieOrAnimeData = (item, type) => ({
                 id: item.id || generateId(item.title, type.substring(0,1) + '-'), type: type,
-                titolo: item.title || item.name || "N/D",
+                titolo: item.title || item.name || "N/D", // Titolo Anime/Serie
                 immagine: item.poster_path || item.image || item.thumbnail || "https://via.placeholder.com/300x450?text=No+Image",
                 descrizione: item.overview || item.description || "N/D",
-                tags: Array.isArray(item.genres) ? item.genres : (Array.isArray(item.tags) ? item.tags : []),
+                tags: Array.isArray(item.genres) ? item.genres : (Array.isArray(item.tags) ? item.tags : []), // Tags Anime/Serie
                 stagioni: (item.seasons || item.stagioni || []).map((s, seasonIndex) => ({ 
-                    id_stagione: s.id_stagione || generateId(s.name || s.season_name || `Stagione ${s.season_number || seasonIndex + 1}`, item.id + '_s' + seasonIndex + '-'),
-                    stagione_numero: s.season_number || s.season_name || s.name || `Stagione ${seasonIndex + 1}`,
-                    titolo_stagione: s.title || s.name || s.titolo_stagione, // Aggiunto s.title per compatibilità
+                    id_stagione: s.id_stagione || generateId(s.name || s.title || s.season_name || `Stagione ${s.season_number || seasonIndex + 1}`, item.id + '_s' + seasonIndex + '-'),
+                    stagione_numero: s.season_number || s.season_name || s.name || `Stagione ${seasonIndex + 1}`, // Nome/Numero Stagione
+                    titolo_stagione: s.title || s.name || s.titolo_stagione, // Titolo specifico della Stagione
                     immagine_stagione: s.poster_path || s.image_stagione || item.poster_path || item.image || item.thumbnail,
                     season_index_internal: seasonIndex, 
                     episodes: (s.episodes || []).map((ep, episodeIndex) => ({
                         id_episodio: ep.id_episodio || generateId(ep.name || ep.title || `Episodio ${ep.episode_number || episodeIndex + 1}`, item.id + '_s' + seasonIndex + '_e' + episodeIndex + '-'),
-                        episodio_numero: ep.episode_number || ep.episode || episodeIndex + 1,
-                        titolo_episodio: ep.name || ep.title || `Episodio ${ep.episode_number || episodeIndex + 1}`,
-                        link: ep.video_url || ep.file || ep.link, // Questo è l'URL del video
+                        episodio_numero: ep.episode_number || ep.episode || episodeIndex + 1, // Numero Episodio
+                        titolo_episodio: ep.name || ep.title || `Episodio ${ep.episode_number || episodeIndex + 1}`, // Titolo Episodio
+                        link: ep.video_url || ep.file || ep.link, // Link video
                         descrizione_episodio: ep.overview || ep.description_episodio,
                         immagine_episodio: ep.still_path || ep.image_episodio,
                         skipIntroStart: ep.skipIntroStart, 
@@ -205,15 +212,13 @@
             function playVideo(itemData, serieOrAnimeId, stagioneIndex, episodioIndex) {
                 const videoLink = itemData.link || itemData.url_video;
                 if (!videoLink) { alert("URL del video non trovato!"); return; }
-
                 let playerUrl = `player.html?videoUrl=${encodeURIComponent(videoLink)}`;
-                // Solo per serie/anime (non film semplici) e se i valori sono presenti
-                if (itemData.type !== 'film') {
+                if (itemData.type !== 'film') { // Solo per serie/anime
                     if (itemData.skipIntroStart) playerUrl += `&skipIntroStart=${encodeURIComponent(itemData.skipIntroStart)}`;
                     if (itemData.skipIntroEnd) playerUrl += `&skipIntroEnd=${encodeURIComponent(itemData.skipIntroEnd)}`;
                     if (itemData.outroStart) playerUrl += `&outroStart=${encodeURIComponent(itemData.outroStart)}`;
                 }
-                if (serieOrAnimeId !== undefined) { // Per serie/anime
+                if (serieOrAnimeId !== undefined) { 
                     playerUrl += `&serieId=${encodeURIComponent(serieOrAnimeId)}`;
                     playerUrl += `&stagioneIndex=${stagioneIndex}`;
                     playerUrl += `&episodioIndex=${episodioIndex}`;
@@ -333,29 +338,32 @@
             function displayFilm() { setActiveNav(navFilm); displayGrid(allFilm, 'Tutti i Film'); }
             function displaySerieTv() { setActiveNav(navSerieTv); displayGrid(allSerieTv, 'Tutte le Serie TV'); }
             function displayAnime() { setActiveNav(navAnime); displayGrid(allAnime, 'Tutti gli Anime'); }
+            
             function handleSearch() { 
                 const searchTerm = searchInput.value.toLowerCase().trim(); 
-                const currentHash = `#search&q=${encodeURIComponent(searchTerm)}`;
-                if (!searchTerm) { window.location.hash = breadcrumbs.length > 1 ? breadcrumbs[breadcrumbs.length - 2].hash : '#home'; return;}
-
+                // Non modificare l'hash qui, sarà fatto da chi chiama handleSearch se necessario
+                if (!searchTerm) { 
+                    // Se la ricerca è vuota, torna alla vista precedente salvata nei breadcrumbs
+                    if(breadcrumbs.length > 1 && breadcrumbs[breadcrumbs.length-1].hash.startsWith("#search")) {
+                        breadcrumbs.pop(); // Rimuovi l'hash della ricerca corrente
+                    }
+                    window.location.hash = breadcrumbs.length > 0 ? breadcrumbs[breadcrumbs.length - 1].hash : '#home';
+                    return;
+                }
                 const filtered = allContent.filter(item => (item.titolo.toLowerCase().includes(searchTerm) || 
                     (item.tags && item.tags.some(tag => ((typeof tag === 'object' && tag.name) ? tag.name : (typeof tag === 'string' ? tag : '')).toLowerCase().includes(searchTerm))))); 
                 
-                displayGrid(filtered, `Ricerca: "${searchInput.value}"`); 
+                const searchTitle = `Ricerca: "${searchInput.value}"`;
+                displayGrid(filtered, searchTitle); 
                 setActiveNav(null);
-                // Aggiorna breadcrumb per la ricerca
-                if (breadcrumbs.length === 0 || breadcrumbs[breadcrumbs.length - 1].hash !== currentHash) {
-                     breadcrumbs.push({hash: currentHash, title: `Ricerca: "${searchInput.value}"`});
-                } else {
-                    breadcrumbs[breadcrumbs.length - 1].title = `Ricerca: "${searchInput.value}"`;
-                }
-                updateBackButton();
+                // Non aggiornare i breadcrumbs qui se handleSearch è chiamato da handleRouteChange per #search
             }
+
             function setActiveNav(activeLink) { [navHome, navFilm, navSerieTv, navAnime].forEach(link => { if (link) link.classList.remove('active'); }); if (activeLink) { activeLink.classList.add('active'); } }
             
             function handleRouteChange(initialLoad = false) {
                 const rawHash = window.location.hash || '#home';
-                let currentRouteState = { hash: rawHash, title: '' }; // Il titolo sarà aggiornato dalle func di display
+                let pageTitle = "Catalogo"; // Titolo di default per il breadcrumb
 
                 if (rawHash.startsWith('#playNext')) {
                     const params = new URLSearchParams(rawHash.substring(rawHash.indexOf('?') + 1));
@@ -369,28 +377,22 @@
                     return; 
                 }
 
-                // Gestione breadcrumbs
-                if (initialLoad) { // Al primo caricamento, l'hash definisce il primo breadcrumb
-                    breadcrumbs = [currentRouteState];
+                if (initialLoad) {
+                    breadcrumbs = [{hash: rawHash, title: pageTitle}]; // Il titolo sarà aggiornato sotto
                 } else {
-                    // Se torniamo indietro (hash già presente ma non l'ultimo), taglia i breadcrumbs
                     const existingCrumbIndex = breadcrumbs.findIndex(b => b.hash === rawHash);
                     if (existingCrumbIndex !== -1) {
                         breadcrumbs = breadcrumbs.slice(0, existingCrumbIndex + 1);
-                         // Sovrascrive il titolo se stiamo tornando a uno stato precedente
-                        currentRouteState.title = breadcrumbs[existingCrumbIndex].title;
-                    } else { // Nuova navigazione, aggiungi
-                        breadcrumbs.push(currentRouteState);
+                        pageTitle = breadcrumbs[existingCrumbIndex].title; // Ripristina titolo
+                    } else { 
+                        breadcrumbs.push({hash: rawHash, title: pageTitle}); // Aggiungi, il titolo sarà aggiornato
                     }
                 }
                 if (breadcrumbs.length > 10) breadcrumbs.shift();
 
-
                 const parts = rawHash.substring(1).split('&');
                 const route = parts[0];
                 const params = new URLSearchParams(parts.slice(1).join('&'));
-
-                let pageTitle = "Catalogo"; // Default title
 
                 switch (route) {
                     case 'film': pageTitle = 'Tutti i Film'; displayFilm(); break;
@@ -418,13 +420,12 @@
                      case 'search': {
                         const query = params.get('q');
                         pageTitle = `Ricerca: "${query || ''}"`;
-                        if (query) { searchInput.value = query; handleSearch(); } // handleSearch aggiornerà i breadcrumbs
-                        else { displayHome(); }
+                        if (query) { searchInput.value = query; handleSearch(); } 
+                        else { window.location.hash = '#home'; } // Se la query è vuota, torna a home
                         break;
                     }
                     case 'home': default: pageTitle = 'Home'; displayHome(); break;
                 }
-                // Aggiorna il titolo del breadcrumb corrente
                 if(breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length - 1].hash === rawHash) {
                      breadcrumbs[breadcrumbs.length - 1].title = pageTitle;
                 }
@@ -434,13 +435,12 @@
             [navHome, navFilm, navSerieTv, navAnime].forEach(navLink => { 
                 navLink.addEventListener('click', (e) => {
                     const targetHash = e.currentTarget.getAttribute('href');
-                    // Se l'hash corrente è già quello del link cliccato, forza il reload della vista
-                    if (window.location.hash === targetHash && (targetHash === '#home' || targetHash === '#film' || targetHash === '#serietv' || targetHash === '#anime')) {
-                        breadcrumbs = [{hash: targetHash, title: ''}]; // Resetta breadcrumbs per la sezione principale
-                        handleRouteChange(true); // Forza il re-rendering della vista
+                    if (window.location.hash === targetHash) {
+                        breadcrumbs = [{hash: targetHash, title: ''}];
+                        handleRouteChange(true); 
                     } else {
-                        // Altrimenti, lascia che hashchange faccia il suo corso, ma resetta i breadcrumbs
                          breadcrumbs = [{hash: targetHash, title: ''}];
+                         // L'hashchange event gestirà il resto
                     }
                 }); 
             });
