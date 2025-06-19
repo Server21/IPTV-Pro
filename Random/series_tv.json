@@ -1,33 +1,25 @@
 [
   {
-    // --- Informazioni sulla SERIE TV ---
-    "title": "Le Cronache di Eldoria", // Titolo principale della serie
-    "poster_path": "https://via.placeholder.com/300x450/2E8B57/FFFFFF?Text=Eldoria+Serie", // Immagine di copertina della serie
-    "overview": "In un regno magico sull'orlo della guerra, un giovane eroe e i suoi improbabili compagni devono ritrovare antichi artefatti per salvare Eldoria da un'oscura minaccia.", // Descrizione della serie
-    "genres": ["Fantasy", "Avventura", "Magia", "Medievale"], // Generi/tag della serie
-
-    // --- STAGIONI della serie "Le Cronache di Eldoria" ---
+    "title": "Le Cronache di Eldoria",
+    "poster_path": "https://via.placeholder.com/300x450/2E8B57/FFFFFF?Text=Eldoria+Serie",
+    "overview": "In un regno magico sull'orlo della guerra, un giovane eroe e i suoi improbabili compagni devono ritrovare antichi artefatti per salvare Eldoria da un'oscura minaccia.",
+    "genres": ["Fantasy", "Avventura", "Magia", "Medievale"],
     "seasons": [
-      // PRIMA STAGIONE
       {
-        "season_number": 1, // Numero o nome identificativo della stagione
-        "name": "L'Alba della Profezia", // Titolo specifico di questa stagione (opzionale)
-        "poster_path": "https://via.placeholder.com/300x200/556B2F/FFFFFF?Text=Eldoria+S1", // Immagine per questa stagione (opzionale)
-        
-        // --- EPISODI della Stagione 1 ---
+        "season_number": 1,
+        "name": "L'Alba della Profezia",
+        "poster_path": "https://via.placeholder.com/300x200/556B2F/FFFFFF?Text=Eldoria+S1",
         "episodes": [
-          // PRIMO EPISODIO della Stagione 1
           {
-            "episode_number": 1, // Numero dell'episodio
-            "name": "Il Villaggio Dimenticato", // Titolo dell'episodio
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", // URL diretto al video
-            "overview": "Kael scopre un'antica mappa che lo guida verso il suo destino.", // Descrizione dell'episodio (opzionale)
-            "still_path": "https://via.placeholder.com/160x90/8FBC8F/000000?Text=Eldoria+S1E1", // Immagine/thumbnail dell'episodio (opzionale)
-            "skipIntroStart": "0:25", // Inizio skip intro (opzionale)
-            "skipIntroEnd": "1:30",   // Fine skip intro (opzionale)
-            "outroStart": "23:40"      // Inizio outro (opzionale)
-          }, // VIRGOLA perché segue un altro episodio
-          // SECONDO EPISODIO della Stagione 1
+            "episode_number": 1,
+            "name": "Il Villaggio Dimenticato",
+            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+            "overview": "Kael scopre un'antica mappa che lo guida verso il suo destino.",
+            "still_path": "https://via.placeholder.com/160x90/8FBC8F/000000?Text=Eldoria+S1E1",
+            "skipIntroStart": "0:25",
+            "skipIntroEnd": "1:30",
+            "outroStart": "23:40"
+          },
           {
             "episode_number": 2,
             "name": "La Foresta dei Sussurri",
@@ -37,16 +29,14 @@
             "skipIntroStart": "0:15",
             "skipIntroEnd": "1:10",
             "outroStart": "21:50"
-          } // NESSUNA VIRGOLA perché è l'ultimo episodio di questa stagione
+          }
         ]
-      }, // VIRGOLA perché segue un'altra stagione
-      // SECONDA STAGIONE
+      },
       {
         "season_number": 2,
         "name": "L'Ombra si Addensa",
         "poster_path": "https://via.placeholder.com/300x200/483D8B/FFFFFF?Text=Eldoria+S2",
         "episodes": [
-          // PRIMO EPISODIO della Stagione 2
           {
             "episode_number": 1,
             "name": "La Cittadella Assediata",
@@ -55,21 +45,18 @@
             "skipIntroStart": "0:30",
             "skipIntroEnd": "1:35",
             "outroStart": "24:00"
-          }, // VIRGOLA perché segue un altro episodio
-          // SECONDO EPISODIO della Stagione 2
+          },
           {
             "episode_number": 2,
             "name": "Il Tradimento",
             "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
             "overview": "Un alleato inaspettato si rivela un nemico, mettendo a rischio la missione.",
-            "outroStart": "22:15" // Esempio senza skip intro
-          } // NESSUNA VIRGOLA perché è l'ultimo episodio di questa stagione
+            "outroStart": "22:15"
+          }
         ]
-      } // NESSUNA VIRGOLA perché è l'ultima stagione di questa serie
+      }
     ]
-  }, // VIRGOLA perché segue un'altra serie TV
-
-  // SECONDA SERIE TV DI ESEMPIO
+  },
   {
     "title": "Codice Delta: Operazioni Segrete",
     "poster_path": "https://via.placeholder.com/300x450/191970/FFFFFF?Text=Codice+Delta",
@@ -117,14 +104,14 @@
           {
             "episode_number": 2,
             "name": "Doppio Gioco",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4", // Attenzione: Sintel è corto!
+            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
             "overview": "Un membro della squadra è sospettato di essere una talpa.",
             "skipIntroStart": "0:08",
             "skipIntroEnd": "1:00",
-            "outroStart": "13:50" // Adattato alla durata di Sintel
+            "outroStart": "13:50"
           }
         ]
       }
     ]
-  } // NESSUNA VIRGOLA perché è l'ultima serie TV nell'array
+  }
 ]
