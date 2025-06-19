@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Film e Serie TV</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #141414;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #101010;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #e50914;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #b0b0b0;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(229, 9, 20, 0.7);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-container input[type="search"] {
+            padding: 0.6rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background-color: #222;
+            color: #fff;
+            min-width: 220px;
+            font-size: 0.9em;
+        }
+
+        .search-container input[type="search"]::placeholder {
+            color: #777;
+        }
+
+        .search-container button {
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            border: none;
+            background-color: #e50914;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background-color: #f40612;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        #section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #current-section-title {
+            margin-bottom: 0;
+            flex-grow: 1;
+            font-size: 2.2em;
+            color: #fff;
+            text-align: left;
+            border-bottom: 2px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        #back-button {
+            padding: 0.5rem 1rem;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        #back-button:hover {
+            background-color: #555;
+        }
+
+        #back-button.hidden {
+            display: none;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        #items-grid:not(.grid-container) {
+            display: block;
+        }
+
+        .card {
+            background-color: #1f1f1f;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .card img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+            border-bottom: 3px solid #e50914;
+        }
+
+        .card-content {
+            padding: 1rem 1.2rem;
+            text-align: left;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.4em;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .card-content p.description {
+            font-size: 0.9em;
+            color: #b0b0b0;
+            line-height: 1.5;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            max-height: calc(1.5em * 3);
+            margin-bottom: 0.75rem;
+            flex-grow: 1;
+        }
+
+        .tags-container {
+            margin-top: auto;
+            padding-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            background-color: #333;
+            color: #ccc;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #101010;
+            color: #777;
+            margin-top: auto;
+            font-size: 0.9em;
+        }
+
+        .message {
+            font-size: 1.2em;
+            color: #aaa;
+            text-align: center;
+            padding: 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .episodes-list-container {
+            width: 100%;
+            padding: 1rem;
+            background-color: #1f1f1f;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .episodes-list-container .serie-info {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .episodes-list-container .serie-info img {
+            width: 150px;
+            height: auto;
+            max-height: 225px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .episodes-list-container .serie-info div {
+            flex: 1;
+        }
+
+        .episodes-list-container .serie-info h3 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color: #fff;
+        }
+
+        .episodes-list-container .serie-info p {
+            font-size: 1em;
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .season-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .season-container h4 {
+            font-size: 1.4em;
+            color: #e0e0e0;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid #444;
+        }
+
+        .episodes-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .episodes-list li {
+            background-color: #2a2a2a;
+            margin-bottom: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .episodes-list li:hover {
+            background-color: #e50914;
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .episodes-list li .episode-title {
+            flex-grow: 1;
+        }
+
+        .episodes-list li .play-icon {
+            font-size: 1.2em;
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">MioStream</div>
+            <ul>
+                <li><a href="#home" id="nav-home" class="active">Home</a></li>
+                <li><a href="#film" id="nav-film">Film</a></li>
+                <li><a href="#serietv" id="nav-serietv">Serie TV</a></li>
+            </ul>
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Cerca titolo o tag...">
+                <button id="search-button">Cerca</button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="content-area">
+        <div id="section-header">
+            <button id="back-button" class="hidden">← Torna al catalogo</button>
+            <h2 id="current-section-title">Caricamento...</h2>
+        </div>
+        <div id="items-grid" class="grid-container">
+            <!-- Le card o la lista episodi verranno generate e inserite qui -->
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Catalogo Multimediale Moderno</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const itemsGrid = document.getElementById('items-grid');
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const navHome = document.getElementById('nav-home');
+            const navFilm = document.getElementById('nav-film');
+            const navSerieTv = document.getElementById('nav-serietv');
+            const sectionTitleElement = document.getElementById('current-section-title');
+            const backButton = document.getElementById('back-button');
+
+            let allFilm = [];
+            let allSerieTv = [];
+            let allContent = [];
+            let currentView = 'grid';
+            let previousHash = '#home';
+
+            const HOME_RANDOM_ITEMS_COUNT = 12;
+
+            const GITHUB_FILM_URL = 'https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Random/film.json';
+            const GITHUB_SERIETV_URL = 'https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Random/series_tv.json';
+
+
+            async function fetchData() {
+                try {
+                    sectionTitleElement.textContent = "Caricamento...";
+                    itemsGrid.innerHTML = '<p class="message">Recupero dati in corso...</p>';
+
+                    const [filmResponse, serieTvResponse] = await Promise.all([
+                        fetch(GITHUB_FILM_URL),
+                        fetch(GITHUB_SERIETV_URL)
+                    ]);
+
+                    if (!filmResponse.ok) {
+                        const filmErrorText = await filmResponse.text();
+                        console.error('Errore filmResponse:', filmResponse.status, filmResponse.statusText, filmErrorText);
+                        throw new Error(`Errore caricamento film (${filmResponse.status}): ${filmResponse.statusText}. Controlla console.`);
+                    }
+                    if (!serieTvResponse.ok) {
+                        const serieErrorText = await serieTvResponse.text();
+                        console.error('Errore serieTvResponse:', serieTvResponse.status, serieTvResponse.statusText, serieErrorText);
+                        throw new Error(`Errore caricamento serie TV (${serieTvResponse.status}): ${serieTvResponse.statusText}. Controlla console.`);
+                    }
+                    
+                    let filmData, serieTvData;
+                    try {
+                        filmData = await filmResponse.json();
+                    } catch (e) {
+                        console.error("Errore parsing JSON film:", e);
+                        let filmTextResponse = "Impossibile leggere il testo della risposta film.";
+                        try { filmTextResponse = await filmResponse.text(); } catch (readErr) {}
+                        console.error("Contenuto film.json (non valido):", filmTextResponse.substring(0, 500) + "...");
+                        throw new Error("Formato JSON non valido per i film.");
+                    }
+
+                    try {
+                        serieTvData = await serieTvResponse.json();
+                    } catch (e) {
+                        console.error("Errore parsing JSON serie TV:", e);
+                        let serieTextResponse = "Impossibile leggere il testo della risposta serie.";
+                        try { serieTextResponse = await serieTvResponse.text(); } catch (readErr) {}
+                        console.error("Contenuto series_tv.json (non valido):", serieTextResponse.substring(0, 500) + "...");
+                        throw new Error("Formato JSON non valido per le serie TV.");
+                    }
+                    
+                    allFilm = filmData.map(item => ({ 
+                        id: item.id || (item.title ? item.title.replace(/\s+/g, '-').toLowerCase() : Math.random().toString(36).substring(7)),
+                        titolo: item.title || item.name || "Titolo non disponibile", 
+                        immagine: item.poster_path || item.image || item.thumbnail || "https://via.placeholder.com/300x450/cccccc/000000?Text=No+Image",
+                        descrizione: item.overview || item.description || "Nessuna descrizione.",
+                        url_video: item.url_video || item.video_url || item.file || item.link, 
+                        tags: item.genres || item.tags || [], 
+                        type: 'film' 
+                    }));
+
+                    allSerieTv = serieTvData.map(item => ({
+                        id: item.id || (item.title ? item.title.replace(/\s+/g, '-').toLowerCase() : Math.random().toString(36).substring(7)),
+                        titolo: item.title || item.name || "Titolo non disponibile",
+                        immagine: item.poster_path || item.image || item.thumbnail || "https://via.placeholder.com/300x450/cccccc/000000?Text=No+Image",
+                        descrizione: item.overview || item.description || "Nessuna descrizione.",
+                        tags: item.genres || item.tags || [],
+                        stagioni: (item.seasons || item.episodes_by_season || item.stagioni || []).map((s, seasonIndex) => ({ 
+                            stagione: s.season_number || s.season_name || s.name || `Stagione ${seasonIndex + 1}`,
+                            episodes: (s.episodes || []).map((ep, episodeIndex) => ({
+                                episodio: ep.episode_number || ep.episode || `Episodio ${episodeIndex + 1}`,
+                                titolo_episodio: ep.name || ep.title || `Episodio ${episodeIndex + 1}`,
+                                link: ep.video_url || ep.file || ep.link 
+                            }))
+                        })),
+                        type: 'serietv'
+                    }));
+                    
+                    allContent = [...allFilm, ...allSerieTv];
+                    
+                    handleRouteChange();
+
+                } catch (error) {
+                    console.error('Errore generale nel fetchData:', error);
+                    itemsGrid.innerHTML = `<p class="message">Impossibile caricare i contenuti. ${error.message}</p>`;
+                    sectionTitleElement.textContent = "Errore";
+                    backButton.classList.add('hidden');
+                }
+            }
+
+            function createItemCard(item) {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                let tagsHtml = '';
+                if (item.tags && Array.isArray(item.tags) && item.tags.length > 0) {
+                    const tagNames = item.tags.map(tag => typeof tag === 'object' && tag.name ? tag.name : tag);
+                    tagsHtml = `
+                        <div class="tags-container">
+                            ${tagNames.filter(tag => typeof tag === 'string').map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <img src="${item.immagine}" alt="${item.titolo}" data-id="${item.id}" data-type="${item.type}">
+                    <div class="card-content">
+                        <h3>${item.titolo}</h3>
+                        <p class="description">${item.descrizione}</p> 
+                        ${tagsHtml}
+                    </div>
+                `;
+                
+                const imgElement = card.querySelector('img');
+                imgElement.addEventListener('click', () => {
+                    const itemId = imgElement.dataset.id;
+                    const itemType = imgElement.dataset.type;
+
+                    if (itemType === 'film') {
+                        const film = allFilm.find(f => f.id === itemId);
+                        if (film && film.url_video) {
+                            window.location.href = `player.html?videoUrl=${encodeURIComponent(film.url_video)}`;
+                        } else {
+                            console.warn("URL video non trovato per il film:", film);
+                            alert("URL del video non disponibile per questo film.");
+                        }
+                    } else if (itemType === 'serietv') {
+                        const serie = allSerieTv.find(s => s.id === itemId);
+                        if (serie) {
+                            displayEpisodesForSerie(serie);
+                        }
+                    }
+                });
+                return card;
+            }
+
+            function displayEpisodesForSerie(serie) {
+                currentView = 'episodes';
+                itemsGrid.innerHTML = ''; 
+                itemsGrid.classList.remove('grid-container'); 
+                backButton.classList.remove('hidden');
+                sectionTitleElement.textContent = `Episodi di: ${serie.titolo}`;
+
+                const episodesContainer = document.createElement('div');
+                episodesContainer.className = 'episodes-list-container';
+
+                let serieInfoHtml = `
+                    <div class="serie-info">
+                        <img src="${serie.immagine}" alt="${serie.titolo}">
+                        <div>
+                            <h3>${serie.titolo}</h3>
+                            <p>${serie.descrizione}</p>
+                        </div>
+                    </div>
+                `;
+                episodesContainer.innerHTML += serieInfoHtml;
+
+                if (serie.stagioni && serie.stagioni.length > 0) {
+                    serie.stagioni.forEach(stagione => {
+                        const seasonDiv = document.createElement('div');
+                        seasonDiv.className = 'season-container';
+                        seasonDiv.innerHTML = `<h4>Stagione ${stagione.stagione}</h4>`;
+                        
+                        const ul = document.createElement('ul');
+                        ul.className = 'episodes-list';
+
+                        if (stagione.episodes && stagione.episodes.length > 0) {
+                            stagione.episodes.forEach(ep => { 
+                                const li = document.createElement('li');
+                                li.innerHTML = `
+                                    <span class="episode-title">Ep. ${ep.episodio}: ${ep.titolo_episodio || 'Episodio ' + ep.episodio}</span>
+                                    <span class="play-icon">▶</span>
+                                `;
+                                li.addEventListener('click', () => {
+                                    if (ep.link) {
+                                        window.location.href = `player.html?videoUrl=${encodeURIComponent(ep.link)}`;
+                                    } else {
+                                        console.warn("URL video non trovato per l'episodio:", ep);
+                                        alert("URL del video non disponibile per questo episodio.");
+                                    }
+                                });
+                                ul.appendChild(li);
+                            });
+                        } else {
+                             ul.innerHTML = '<li>Nessun episodio disponibile per questa stagione.</li>';
+                        }
+                        seasonDiv.appendChild(ul);
+                        episodesContainer.appendChild(seasonDiv); 
+                    });
+                } else {
+                    episodesContainer.innerHTML += '<p class="message">Nessun episodio disponibile per questa serie.</p>';
+                }
+                
+                itemsGrid.appendChild(episodesContainer);
+            }
+
+            function displayItems(items, sectionTitle = "Catalogo") {
+                currentView = 'grid';
+                itemsGrid.innerHTML = ''; 
+                itemsGrid.classList.add('grid-container'); 
+                backButton.classList.add('hidden'); 
+                sectionTitleElement.textContent = sectionTitle;
+
+                if (!items || items.length === 0) {
+                    itemsGrid.innerHTML = '<p class="message">Nessun contenuto trovato per questa selezione.</p>';
+                    return;
+                }
+                items.forEach(item => {
+                    const card = createItemCard(item);
+                    itemsGrid.appendChild(card);
+                });
+            }
+
+            function displayHome() {
+                setActiveNav(navHome);
+                const randomItems = getRandomItems(allContent, HOME_RANDOM_ITEMS_COUNT);
+                displayItems(randomItems, 'Home - Consigliati per te');
+            }
+
+            function getRandomItems(array, count) {
+                if (!array || array.length === 0) return [];
+                const shuffled = [...array].sort(() => 0.5 - Math.random());
+                return shuffled.slice(0, Math.min(count, shuffled.length));
+            }
+
+            function displayFilm() {
+                setActiveNav(navFilm);
+                displayItems(allFilm, 'Tutti i Film');
+            }
+
+            function displaySerieTv() {
+                setActiveNav(navSerieTv);
+                displayItems(allSerieTv, 'Tutte le Serie TV');
+            }
+            
+            function handleSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                if (!searchTerm) {
+                    window.location.hash = previousHash || '#home'; 
+                    return;
+                }
+                
+                const filteredItems = allContent.filter(item => {
+                    const titleMatch = item.titolo.toLowerCase().includes(searchTerm);
+                    let tagMatch = false;
+                    if (item.tags && Array.isArray(item.tags)) {
+                        tagMatch = item.tags.some(tag => {
+                            const tagName = typeof tag === 'object' && tag.name ? tag.name : tag;
+                            return typeof tagName === 'string' && tagName.toLowerCase().includes(searchTerm);
+                        });
+                    }
+                    return titleMatch || tagMatch;
+                });
+
+                displayItems(filteredItems, `Risultati per: "${searchInput.value}"`);
+                setActiveNav(null); 
+                backButton.classList.add('hidden'); 
+            }
+
+            function setActiveNav(activeLink) {
+                [navHome, navFilm, navSerieTv].forEach(link => {
+                    if (link) link.classList.remove('active');
+                });
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+            
+            function handleRouteChange() {
+                if (allContent.length === 0 && (window.location.hash !== '' && window.location.hash !== '#')) return;
+
+                const currentHash = window.location.hash;
+
+                if (currentView === 'episodes' && (currentHash === '#home' || currentHash === '#film' || currentHash === '#serietv' || currentHash === '')) {
+                   // Non è necessaria un'azione specifica qui, la logica di display gestirà il cambio
+                }
+
+                if (currentHash === '#home' || currentHash === '#film' || currentHash === '#serietv' || currentHash === '') {
+                    previousHash = currentHash || '#home';
+                }
+
+                switch (currentHash) {
+                    case '#film':
+                        displayFilm();
+                        break;
+                    case '#serietv':
+                        displaySerieTv();
+                        break;
+                    case '#home':
+                    default: 
+                        displayHome();
+                        break;
+                }
+                if (currentView === 'grid') { // Assicura che il back button sia nascosto e la griglia attiva se non siamo in vista episodi
+                    backButton.classList.add('hidden');
+                    itemsGrid.classList.add('grid-container'); 
+                }
+            }
+
+            backButton.addEventListener('click', () => {
+                window.location.hash = previousHash; 
+            });
+
+            [navHome, navFilm, navSerieTv].forEach(navLink => {
+                navLink.addEventListener('click', (e) => {
+                    // Se l'utente clicca su un link di navigazione mentre è in vista episodi,
+                    // forza il reset della vista a griglia prima che hashchange gestisca il resto.
+                    if (currentView === 'episodes') {
+                        itemsGrid.innerHTML = ''; 
+                        itemsGrid.classList.add('grid-container');
+                        backButton.classList.add('hidden');
+                        currentView = 'grid'; // Aggiorna lo stato della vista
+                    }
+                });
+            });
+
+            window.addEventListener('hashchange', handleRouteChange);
+
+            searchButton.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+
+            fetchData();
+        });
+    </script>
+</body>
+</html>
