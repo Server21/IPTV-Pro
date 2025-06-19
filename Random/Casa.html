@@ -370,6 +370,7 @@
 
             const HOME_RANDOM_ITEMS_COUNT = 12;
 
+            // URL dei file JSON su GitHub (RAW links)
             const GITHUB_FILM_URL = 'https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Random/film.json';
             const GITHUB_SERIETV_URL = 'https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Random/series_tv.json';
 
@@ -416,12 +417,14 @@
                         throw new Error("Formato JSON non valido per le serie TV.");
                     }
                     
+                    // --- INIZIO MAPPING DATI ---
+                    // IMPORTANTE: Adatta questi mapping alla struttura ESATTA dei tuoi file JSON!
                     allFilm = filmData.map(item => ({ 
                         id: item.id || (item.title ? item.title.replace(/\s+/g, '-').toLowerCase() : Math.random().toString(36).substring(7)),
                         titolo: item.title || item.name || "Titolo non disponibile", 
                         immagine: item.poster_path || item.image || item.thumbnail || "https://via.placeholder.com/300x450/cccccc/000000?Text=No+Image",
                         descrizione: item.overview || item.description || "Nessuna descrizione.",
-                        url_video: item.url_video || item.video_url || item.file || item.link, 
+                        url_video: item.url_video || item.video_url || item.file || item.link, // CRUCIALE per i film
                         tags: item.genres || item.tags || [], 
                         type: 'film' 
                     }));
@@ -437,11 +440,12 @@
                             episodes: (s.episodes || []).map((ep, episodeIndex) => ({
                                 episodio: ep.episode_number || ep.episode || `Episodio ${episodeIndex + 1}`,
                                 titolo_episodio: ep.name || ep.title || `Episodio ${episodeIndex + 1}`,
-                                link: ep.video_url || ep.file || ep.link 
+                                link: ep.video_url || ep.file || ep.link // CRUCIALE per gli episodi
                             }))
                         })),
                         type: 'serietv'
                     }));
+                    // --- FINE MAPPING DATI ---
                     
                     allContent = [...allFilm, ...allSerieTv];
                     
@@ -486,6 +490,7 @@
                     if (itemType === 'film') {
                         const film = allFilm.find(f => f.id === itemId);
                         if (film && film.url_video) {
+                            // Quando ospitato su GitHub Pages, il percorso a player.html è relativo alla posizione corrente
                             window.location.href = `player.html?videoUrl=${encodeURIComponent(film.url_video)}`;
                         } else {
                             console.warn("URL video non trovato per il film:", film);
@@ -540,6 +545,7 @@
                                 `;
                                 li.addEventListener('click', () => {
                                     if (ep.link) {
+                                        // Quando ospitato su GitHub Pages, il percorso a player.html è relativo
                                         window.location.href = `player.html?videoUrl=${encodeURIComponent(ep.link)}`;
                                     } else {
                                         console.warn("URL video non trovato per l'episodio:", ep);
@@ -658,7 +664,7 @@
                         displayHome();
                         break;
                 }
-                if (currentView === 'grid') { // Assicura che il back button sia nascosto e la griglia attiva se non siamo in vista episodi
+                if (currentView === 'grid') { 
                     backButton.classList.add('hidden');
                     itemsGrid.classList.add('grid-container'); 
                 }
@@ -670,13 +676,11 @@
 
             [navHome, navFilm, navSerieTv].forEach(navLink => {
                 navLink.addEventListener('click', (e) => {
-                    // Se l'utente clicca su un link di navigazione mentre è in vista episodi,
-                    // forza il reset della vista a griglia prima che hashchange gestisca il resto.
                     if (currentView === 'episodes') {
                         itemsGrid.innerHTML = ''; 
                         itemsGrid.classList.add('grid-container');
                         backButton.classList.add('hidden');
-                        currentView = 'grid'; // Aggiorna lo stato della vista
+                        currentView = 'grid'; 
                     }
                 });
             });
