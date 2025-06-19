@@ -1,6 +1,5 @@
 [
   {
-    "id": "f1",
     "title": "Viaggio Incredibile nel Tempo",
     "poster_path": "https://via.placeholder.com/300x450/FF6347/FFFFFF?Text=Film+Tempo",
     "overview": "Uno scienziato scopre una macchina del tempo e si imbarca in un'avventura pericolosa attraverso le epoche, cercando di correggere un errore del passato.",
@@ -8,7 +7,6 @@
     "genres": ["Sci-Fi", "Avventura", "Dramma"]
   },
   {
-    "id": "f2",
     "title": "La Ricetta Segreta della Felicità",
     "poster_path": "https://via.placeholder.com/300x450/3CB371/FFFFFF?Text=Film+Commedia",
     "overview": "Una chef sfortunata eredita un vecchio libro di ricette dalla nonna e scopre che i suoi piatti hanno poteri magici, portando scompiglio e gioia nella sua vita.",
@@ -16,7 +14,6 @@
     "genres": ["Commedia", "Romantico", "Fantasy"]
   },
   {
-    "id": "f3",
     "title": "Codice Rosso: Minaccia Globale",
     "poster_path": "https://via.placeholder.com/300x450/DC143C/FFFFFF?Text=Film+Azione",
     "overview": "Un ex agente segreto deve tornare in azione quando un'organizzazione terroristica minaccia di scatenare un'arma biologica.",
