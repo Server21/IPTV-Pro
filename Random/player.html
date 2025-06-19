@@ -3,173 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Player Universale - Controlli Animati e Volume</title>
+  <title>Player Universale</title>
   <style>
-    body {
-      margin: 0;
-      background: #121212;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: #fff;
-    }
-    .player-container {
-      position: relative;
-      width: 80%;
-      max-width: 900px;
-      background: #000;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-    .player-container.fullscreen {
-      border-radius: 0; 
-    }
-    video {
-      width: 100%;
-      display: block;
-      background: #000;
-      cursor: pointer;
-    }
-    .pause-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 64px;
-      color: rgba(255,255,255,0.8);
-      display: none;
-      animation: fade 0.5s ease-in-out;
-      pointer-events: none;
-    }
+    /* CSS INVARIATO DALLA VERSIONE PRECEDENTE */
+    body { margin: 0; background: #121212; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #fff; }
+    .player-container { position: relative; width: 80%; max-width: 900px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+    .player-container.fullscreen { border-radius: 0; }
+    video { width: 100%; display: block; background: #000; cursor: pointer; }
+    .pause-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 64px; color: rgba(255,255,255,0.8); display: none; animation: fade 0.5s ease-in-out; pointer-events: none; }
     @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-    .controls {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 1;
-      transition: opacity 0.5s ease;
-      z-index: 2147483647; 
-    }
-    .controls.hidden {
-      opacity: 0;
-    }
-    .control-button {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 32px;
-      height: 32px;
-    }
-    .control-button:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    .progress-bar {
-      position: relative;
-      flex: 1;
-      height: 6px;
-      background: #444;
-      cursor: pointer;
-      border-radius: 3px;
-    }
-    .progress-filled {
-      width: 0;
-      height: 100%;
-      background: #00ff00;
-      border-radius: 3px;
-      transition: width 0.1s linear; 
-    }
-    .progress-buffered {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      background: #0066ff; 
-      border-radius: 3px;
-      opacity: 0.7;
-      z-index: 1; 
-    }
-    .progress-handle {
-      position: absolute;
-      top: 50%;
-      left: 0; 
-      width: 12px;
-      height: 12px;
-      background: #00ff00;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 3; 
-    }
-    .progress-bar:hover .progress-handle {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.2);
-    }
-    .progress-handle.dragging {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.3);
-    }
-    .preview-thumb {
-      position: absolute;
-      bottom: 100%; 
-      left: 0; 
-      width: 120px;
-      height: 68px; 
-      margin-bottom: 4px; 
-      background: #000;
-      border: 1px solid #555;
-      display: none; 
-      pointer-events: none; 
-    }
+    .controls { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); padding: 8px; display: flex; align-items: center; gap: 8px; opacity: 1; transition: opacity 0.5s ease; z-index: 2147483647; }
+    .controls.hidden { opacity: 0; }
+    .control-button { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; }
+    .control-button:hover { background-color: rgba(255,255,255,0.1); }
+    .progress-bar { position: relative; flex: 1; height: 6px; background: #444; cursor: pointer; border-radius: 3px; }
+    .progress-filled { width: 0; height: 100%; background: #00ff00; border-radius: 3px; transition: width 0.1s linear; }
+    .progress-buffered { position: absolute; top: 0; left: 0; width: 0; height: 100%; background: #0066ff; border-radius: 3px; opacity: 0.7; z-index: 1; }
+    .progress-handle { position: absolute; top: 50%; left: 0; width: 12px; height: 12px; background: #00ff00; border: 2px solid #fff; border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; opacity: 0; transition: opacity 0.2s ease, transform 0.2s ease; z-index: 3; }
+    .progress-bar:hover .progress-handle { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    .progress-handle.dragging { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+    .preview-thumb { position: absolute; bottom: 100%; left: 0; width: 120px; height: 68px; margin-bottom: 4px; background: #000; border: 1px solid #555; display: none; pointer-events: none; }
     .preview-thumb video { width: 100%; height: 100%; object-fit: cover; }
-    .tooltip {
-      position: absolute;
-      bottom: 100%; 
-      padding: 2px 4px;
-      background: rgba(0,0,0,0.8);
-      color: #fff; font-size:12px;
-      border-radius:2px;
-      transform: translateX(-50%); 
-      display: none; 
-      white-space:nowrap;
-      margin-bottom: 4px; 
-      pointer-events: none;
-    }
-    .volume-control {
-      display: flex; align-items: center; gap:4px;
-    }
-    .volume-control input[type=range] {
-      width: 80px;
-    }
-    select {
-      background: #1f1f1f; color: #fff; border: none; border-radius:4px; padding:4px;
-      cursor: pointer;
-    }
+    .tooltip { position: absolute; bottom: 100%; padding: 2px 4px; background: rgba(0,0,0,0.8); color: #fff; font-size:12px; border-radius:2px; transform: translateX(-50%); display: none; white-space:nowrap; margin-bottom: 4px; pointer-events: none;}
+    .volume-control { display: flex; align-items: center; gap:4px; }
+    .volume-control input[type=range] { width: 80px; }
+    select { background: #1f1f1f; color: #fff; border: none; border-radius:4px; padding:4px; cursor: pointer; }
     span#time-display { color: #fff; font-size: 0.9em; }
-    #loading {
-        font-size: 1.2em;
-    }
+    #loading { font-size: 1.2em; }
+    #nextEpisodeButton, #backToCatalogButton { display: none; margin-left: 8px; padding: 4px 10px; background-color: #555; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;}
+    #nextEpisodeButton { background-color: #e50914;}
+    #nextEpisodeButton:hover, #backToCatalogButton:hover { background-color: #777; }
+    #nextEpisodeButton:hover { background-color: #f40612; }
   </style>
 </head>
 <body>
@@ -180,16 +44,33 @@
     const skipIntroStartFromQuery = urlParams.get('skipIntroStart');
     const skipIntroEndFromQuery = urlParams.get('skipIntroEnd');
     const outroStartFromQuery = urlParams.get('outroStart');
+    const serieIdFromQuery = urlParams.get('serieId');
+    const stagioneIndexFromQuery = urlParams.get('stagioneIndex');
+    const episodioIndexFromQuery = urlParams.get('episodioIndex');
+    const contentTypeFromQuery = urlParams.get('contentType'); 
+    const returnToFromQuery = urlParams.get('returnTo'); // NUOVO per tornare indietro
+
 
     const CONFIG = {
-      source: videoUrlFromQuery || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', // Fallback
+      source: videoUrlFromQuery || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
       startTime: startTimeFromQuery || '0:00',
-      skipIntroStart: skipIntroStartFromQuery || '0:00',
-      skipIntroEnd: skipIntroEndFromQuery || '0:00',
-      outroStart: outroStartFromQuery || '99:99' 
+      skipIntroStart: skipIntroStartFromQuery, // Vengono passati solo se contentType non è film
+      skipIntroEnd: skipIntroEndFromQuery,
+      outroStart: outroStartFromQuery,
+      serieId: serieIdFromQuery,
+      stagioneIndex: stagioneIndexFromQuery,
+      episodioIndex: episodioIndexFromQuery,
+      contentType: contentTypeFromQuery,
+      returnTo: returnToFromQuery || 'Casa.html#home' // Default a home se non specificato
     };
     function parseTime(val){ if(typeof val==='string'&&val.includes(':')){ const [m,s]=val.split(':').map(n=>parseInt(n,10)); return (m||0)*60+(s||0);} else if(typeof val==='number') return val*60; return 0; }
-    const startTime=parseTime(CONFIG.startTime), skipIntroStart=parseTime(CONFIG.skipIntroStart), skipIntroEnd=parseTime(CONFIG.skipIntroEnd), outroStart=parseTime(CONFIG.outroStart);
+    
+    const isFilmSimple = !CONFIG.contentType || CONFIG.contentType === 'film';
+    const startTime=parseTime(CONFIG.startTime);
+    const skipIntroStart = !isFilmSimple && CONFIG.skipIntroStart ? parseTime(CONFIG.skipIntroStart) : 0;
+    const skipIntroEnd = !isFilmSimple && CONFIG.skipIntroEnd ? parseTime(CONFIG.skipIntroEnd) : 0;
+    const outroStart = !isFilmSimple && CONFIG.outroStart ? parseTime(CONFIG.outroStart) : 0;
+
   </script>
   <div class="player-container" id="playerContainer">
     <video id="video" playsinline></video>
@@ -197,13 +78,11 @@
     <div id="loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:none;color:#fff;">Caricamento...</div>
     <div class="controls" id="controls">
       <button class="control-button" id="playPauseBtn" title="Play/Pausa">▶️</button>
+      <button class="control-button" id="backToCatalogButton" title="Torna al Catalogo">←</button> <!-- NUOVO BOTTONE -->
       <span id="time-display">00:00 / 00:00</span>
       <div class="progress-bar" id="progress-bar">
-        <div class="progress-buffered" id="progress-buffered"></div>
-        <div class="progress-filled" id="progress-filled"></div>
-        <div class="progress-handle" id="progress-handle"></div>
-        <div class="preview-thumb" id="preview-thumb"><video muted></video></div>
-        <div class="tooltip" id="tooltip">00:00</div>
+        <!-- ... progress bar elements ... -->
+        <div class="progress-buffered" id="progress-buffered"></div><div class="progress-filled" id="progress-filled"></div><div class="progress-handle" id="progress-handle"></div><div class="preview-thumb" id="preview-thumb"><video muted></video></div><div class="tooltip" id="tooltip">00:00</div>
       </div>
       <div class="volume-control">
         <span id="volumeIcon" class="control-button" style="cursor:pointer;">🔊</span>
@@ -214,137 +93,65 @@
         <option value="1" selected>1x</option><option value="1.25">1.25x</option>
         <option value="1.5">1.5x</option><option value="2">2x</option>
       </select>
+      <button class="control-button" id="nextEpisodeButton">Prossimo</button> 
       <button class="control-button" id="fullscreenBtn" title="Schermo Intero">⛶</button>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
-    const playerContainer=document.getElementById('playerContainer'), video=document.getElementById('video'), pauseOverlay=document.getElementById('pauseOverlay'),
-      controls=document.getElementById('controls'), progressBar=document.getElementById('progress-bar'), progressFilled=document.getElementById('progress-filled'),
-      progressBuffered=document.getElementById('progress-buffered'), progressHandle=document.getElementById('progress-handle'), timeDisplay=document.getElementById('time-display'), loadingEl=document.getElementById('loading'), previewThumb=document.getElementById('preview-thumb'),
-      previewVideo=previewThumb.querySelector('video'), tooltip=document.getElementById('tooltip'), speedSelector=document.getElementById('speed-selector'), 
-      volumeSlider=document.getElementById('volumeSlider'), volumeIcon = document.getElementById('volumeIcon'), playPauseBtn=document.getElementById('playPauseBtn'), fullscreenBtn=document.getElementById('fullscreenBtn');
+    const playerContainer=document.getElementById('playerContainer'), video=document.getElementById('video'), /* ... altri const ... */
+      nextEpisodeButton = document.getElementById('nextEpisodeButton'), 
+      backToCatalogButton = document.getElementById('backToCatalogButton'), // RIFERIMENTO BOTTONE INDIETRO
+      fullscreenBtn=document.getElementById('fullscreenBtn');
 
-    let isDragging = false;
-    let hideControlsTimeout;
-    let hlsInstance = null;
+    let isDragging = false; let hideControlsTimeout; let hlsInstance = null; let hasTriggeredNextEpisode = false; 
 
-    function togglePlayPause() {
-      if (video.readyState < 1) return; 
-      if (video.paused || video.ended) {
-        video.play().catch(e => console.error("Errore play:", e));
-      } else {
-        video.pause();
-      }
+    function triggerNextEpisode() {
+        if (hasTriggeredNextEpisode) return; 
+        if (CONFIG.serieId && CONFIG.stagioneIndex !== null && CONFIG.episodioIndex !== null && CONFIG.contentType && CONFIG.contentType !== 'film') {
+            hasTriggeredNextEpisode = true; 
+            // Usa il percorso relativo corretto per GitHub Pages
+            let casaUrl = `Casa.html#playNext?serieId=${encodeURIComponent(CONFIG.serieId)}&stagioneIndex=${CONFIG.stagioneIndex}&episodioIndex=${CONFIG.episodioIndex}&contentType=${CONFIG.contentType}`;
+            window.location.href = casaUrl;
+        }
     }
+    nextEpisodeButton.addEventListener('click', triggerNextEpisode);
+    backToCatalogButton.addEventListener('click', () => {
+        window.location.href = decodeURIComponent(CONFIG.returnTo); // Torna all'hash salvato
+    });
 
-    playPauseBtn.addEventListener('click', togglePlayPause);
-    video.addEventListener('click', togglePlayPause);
 
+    // Funzioni core del player (COPIA DALLA VERSIONE PRECEDENTE DEL PLAYER.HTML)
+    // ... togglePlayPause, updateBufferedBar, fullscreen, volume, speed, loadSource, formatTime, updateTime, showControls, seek, drag, preview ...
+    function togglePlayPause() { if (video.readyState < 1) return; if (video.paused || video.ended) { video.play().catch(e => console.error("Errore play:", e));} else { video.pause();}}
+    playPauseBtn.addEventListener('click', togglePlayPause); video.addEventListener('click', togglePlayPause);
     video.addEventListener('play', () => { playPauseBtn.textContent = '⏸️'; pauseOverlay.style.display = 'none'; showControls(); });
     video.addEventListener('pause', () => { playPauseBtn.textContent = '▶️'; if (!isDragging) { pauseOverlay.style.display = 'block'; setTimeout(() => pauseOverlay.style.display = 'none', 600);} showControls(); });
-    video.addEventListener('ended', () => { playPauseBtn.textContent = '▶️'; showControls();});
-
-    function updateBufferedBar() {
-      if (!isFinite(video.duration) || video.buffered.length === 0) { progressBuffered.style.width = '0%'; return; }
-      let bufferedEnd = 0;
-      for (let i = 0; i < video.buffered.length; i++) {
-        if (video.buffered.start(i) <= video.currentTime && video.currentTime < video.buffered.end(i)) {
-          bufferedEnd = video.buffered.end(i); break;
-        } else if (video.buffered.start(i) > video.currentTime && bufferedEnd === 0) {
-            bufferedEnd = video.buffered.start(i); 
-        }
-      }
-      if (bufferedEnd === 0 && video.buffered.length > 0) bufferedEnd = video.buffered.end(video.buffered.length - 1); 
-      const bufferedPercent = (bufferedEnd / video.duration) * 100;
-      progressBuffered.style.width = `${Math.min(100, bufferedPercent)}%`;
-    }
-    
-    video.addEventListener('progress', updateBufferedBar);
-    video.addEventListener('loadedmetadata', updateBufferedBar);
-    video.addEventListener('canplaythrough', updateBufferedBar);
-
-
-    fullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) { playerContainer.requestFullscreen().catch(err => console.error("Fullscreen error:", err));} 
-      else { document.exitFullscreen(); }
-    });
+    video.addEventListener('ended', () => { playPauseBtn.textContent = '▶️'; showControls(); if (CONFIG.contentType && CONFIG.contentType !== 'film') { nextEpisodeButton.style.display = 'inline-flex'; backToCatalogButton.style.display = 'inline-flex'; } triggerNextEpisode(); });
+    function updateBufferedBar() { if (!isFinite(video.duration) || video.buffered.length === 0) { progressBuffered.style.width = '0%'; return; } let bufferedEnd = 0; for (let i = 0; i < video.buffered.length; i++) { if (video.buffered.start(i) <= video.currentTime && video.currentTime < video.buffered.end(i)) { bufferedEnd = video.buffered.end(i); break; } else if (video.buffered.start(i) > video.currentTime && bufferedEnd === 0) { bufferedEnd = video.buffered.start(i); } } if (bufferedEnd === 0 && video.buffered.length > 0) bufferedEnd = video.buffered.end(video.buffered.length - 1); const bufferedPercent = (bufferedEnd / video.duration) * 100; progressBuffered.style.width = `${Math.min(100, bufferedPercent)}%`; }
+    video.addEventListener('progress', updateBufferedBar); video.addEventListener('loadedmetadata', updateBufferedBar); video.addEventListener('canplaythrough', updateBufferedBar);
+    fullscreenBtn.addEventListener('click', () => { if (!document.fullscreenElement) { playerContainer.requestFullscreen().catch(err => console.error("Fullscreen error:", err));} else { document.exitFullscreen(); }});
     document.addEventListener('fullscreenchange', () => { playerContainer.classList.toggle('fullscreen', !!document.fullscreenElement); showControls(); });
     video.addEventListener('dblclick', () => { if (!document.fullscreenElement) { playerContainer.requestFullscreen(); } else { document.exitFullscreen(); }});
-
     volumeSlider.addEventListener('input', () => { video.volume = parseFloat(volumeSlider.value); video.muted = video.volume === 0; });
-    video.addEventListener('volumechange', () => {
-        volumeSlider.value = video.muted ? 0 : video.volume;
-        volumeIcon.textContent = video.muted || video.volume === 0 ? '🔇' : (video.volume < 0.5 ? '🔉' : '🔊');
-    });
+    video.addEventListener('volumechange', () => { volumeSlider.value = video.muted ? 0 : video.volume; volumeIcon.textContent = video.muted || video.volume === 0 ? '🔇' : (video.volume < 0.5 ? '🔉' : '🔊'); });
     volumeIcon.addEventListener('click', () => { video.muted = !video.muted; });
-
     speedSelector.addEventListener('change', () => video.playbackRate = parseFloat(speedSelector.value));
-
-    function loadSource(src) {
-        if (!src) { console.error("Nessuna sorgente video fornita."); loadingEl.style.display = 'none'; alert("Nessun video da caricare."); return; }
-        loadingEl.style.display = 'block'; video.poster = '';
-        if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
-
-        if (src.includes('.m3u8')) {
-            if (Hls.isSupported()) {
-                hlsInstance = new Hls({ abrEwmaDefaultEstimate: 500000 }); 
-                hlsInstance.loadSource(src);
-                hlsInstance.attachMedia(video);
-                hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
-                    loadingEl.style.display = 'none';
-                    if (startTime > 0 && startTime < video.duration) video.currentTime = startTime;
-                    video.play().catch(e => console.error("HLS Playback error:", e));
-                });
-                hlsInstance.on(Hls.Events.ERROR, function (event, data) {
-                    console.error('HLS Error:', data);
-                    if (data.fatal) {
-                        switch(data.type) {
-                            case Hls.ErrorTypes.NETWORK_ERROR: hlsInstance.startLoad(); break;
-                            case Hls.ErrorTypes.MEDIA_ERROR: hlsInstance.recoverMediaError(); break;
-                            default: hlsInstance.destroy(); loadingEl.style.display = 'none'; alert("Errore HLS fatale."); break;
-                        }
-                    }
-                });
-                 if (previewVideo.canPlayType('application/vnd.apple.mpegurl')) { previewVideo.src = src; } 
-                 else if (Hls.isSupported()) { const hlsPreview = new Hls(); hlsPreview.loadSource(src); hlsPreview.attachMedia(previewVideo); }
-
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) { video.src = src; previewVideo.src = src; } 
-            else { alert('HLS non è supportato.'); loadingEl.style.display = 'none'; }
-        } else { video.src = src; previewVideo.src = src; }
-
-        video.onloadedmetadata = () => {
-            if (!src.includes('.m3u8')) loadingEl.style.display = 'none';
-            updateTime(); updateBufferedBar();
-            if (startTime > 0 && startTime < video.duration) video.currentTime = startTime;
-            if (!src.includes('.m3u8')) video.play().catch(e => console.error("MP4 Playback error:", e));
-        };
-        video.onerror = (e) => { console.error("Errore caricamento video:", e); loadingEl.style.display = 'none'; alert("Impossibile caricare il video."); };
-    }
-
-    function formatTime(s) {
-      if (isNaN(s) || s === Infinity || s < 0) return '00:00';
-      const m = Math.floor(s / 60).toString().padStart(2, '0');
-      const sec = Math.floor(s % 60).toString().padStart(2, '0');
-      return `${m}:${sec}`;
-    }
-    function updateTime() {
-      timeDisplay.textContent = `${formatTime(video.currentTime)} / ${isFinite(video.duration) ? formatTime(video.duration) : '--:--'}`;
-    }
-    video.addEventListener('loadedmetadata', updateTime); 
-    video.addEventListener('timeupdate', updateTime); 
-
-    function showControls() {
-      controls.classList.remove('hidden'); clearTimeout(hideControlsTimeout);
-      if (!video.paused || document.activeElement === playPauseBtn) { 
-        hideControlsTimeout = setTimeout(() => { if (!controls.matches(':hover') && !Array.from(controls.querySelectorAll('*')).some(el => el.matches(':hover'))) controls.classList.add('hidden'); }, 3000);
-      }
-    }
-    playerContainer.addEventListener('mousemove', showControls);
-    playerContainer.addEventListener('focusin', showControls); 
-    playerContainer.addEventListener('mouseleave', () => { if (!video.paused && !controls.matches(':hover')) hideControlsTimeout = setTimeout(() => controls.classList.add('hidden'), 500);});
-    controls.addEventListener('mouseenter', () => clearTimeout(hideControlsTimeout));
-    controls.addEventListener('mouseleave', showControls);
+    function loadSource(src) { if (!src) { console.error("Nessuna sorgente video fornita."); loadingEl.style.display = 'none'; alert("Nessun video da caricare."); return; } loadingEl.style.display = 'block'; video.poster = ''; hasTriggeredNextEpisode = false; backToCatalogButton.style.display = 'inline-flex'; if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; } if (src.includes('.m3u8')) { if (Hls.isSupported()) { hlsInstance = new Hls({ abrEwmaDefaultEstimate: 500000 }); hlsInstance.loadSource(src); hlsInstance.attachMedia(video); hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => { loadingEl.style.display = 'none'; if (startTime > 0 && startTime < video.duration) video.currentTime = startTime; video.play().catch(e => console.error("HLS Playback error:", e)); }); hlsInstance.on(Hls.Events.ERROR, function (event, data) { console.error('HLS Error:', data); if (data.fatal) { switch(data.type) { case Hls.ErrorTypes.NETWORK_ERROR: hlsInstance.startLoad(); break; case Hls.ErrorTypes.MEDIA_ERROR: hlsInstance.recoverMediaError(); break; default: hlsInstance.destroy(); loadingEl.style.display = 'none'; alert("Errore HLS fatale."); break;}}}); if (previewVideo.canPlayType('application/vnd.apple.mpegurl')) { previewVideo.src = src; }  else if (Hls.isSupported()) { const hlsPreview = new Hls(); hlsPreview.loadSource(src); hlsPreview.attachMedia(previewVideo); }} else if (video.canPlayType('application/vnd.apple.mpegurl')) { video.src = src; previewVideo.src = src; }  else { alert('HLS non è supportato.'); loadingEl.style.display = 'none'; }} else { video.src = src; previewVideo.src = src; } video.onloadedmetadata = () => { if (!src.includes('.m3u8')) loadingEl.style.display = 'none'; updateTime(); updateBufferedBar(); if (startTime > 0 && startTime < video.duration) video.currentTime = startTime; if (!src.includes('.m3u8')) video.play().catch(e => console.error("MP4 Playback error:", e)); if (CONFIG.contentType && CONFIG.contentType !== 'film') { nextEpisodeButton.style.display = 'inline-flex'; } else { nextEpisodeButton.style.display = 'none'; }}; video.onerror = (e) => { console.error("Errore caricamento video:", e); loadingEl.style.display = 'none'; alert("Impossibile caricare il video."); };}
+    function formatTime(s) { if (isNaN(s) || s === Infinity || s < 0) return '00:00'; const m = Math.floor(s / 60).toString().padStart(2, '0'); const sec = Math.floor(s % 60).toString().padStart(2, '0'); return `${m}:${sec}`; }
+    function updateTime() { timeDisplay.textContent = `${formatTime(video.currentTime)} / ${isFinite(video.duration) ? formatTime(video.duration) : '--:--'}`; }
+    video.addEventListener('loadedmetadata', updateTime); video.addEventListener('timeupdate', updateTime); 
+    function showControls() { controls.classList.remove('hidden'); clearTimeout(hideControlsTimeout); if (!video.paused || document.activeElement === playPauseBtn) { hideControlsTimeout = setTimeout(() => { if (!controls.matches(':hover') && !Array.from(controls.querySelectorAll('*')).some(el => el.matches(':hover'))) controls.classList.add('hidden'); }, 3000);}}
+    playerContainer.addEventListener('mousemove', showControls); playerContainer.addEventListener('focusin', showControls); playerContainer.addEventListener('mouseleave', () => { if (!video.paused && !controls.matches(':hover')) hideControlsTimeout = setTimeout(() => controls.classList.add('hidden'), 500);});
+    controls.addEventListener('mouseenter', () => clearTimeout(hideControlsTimeout)); controls.addEventListener('mouseleave', showControls);
+    function seek(e) { const progressBarRect = progressBar.getBoundingClientRect(); const clickPositionInBar = e.clientX - progressBarRect.left; const time = (clickPositionInBar / progressBarRect.width) * video.duration; if (isFinite(time) && isFinite(video.duration)) video.currentTime = Math.max(0, Math.min(time, video.duration));}
+    progressBar.addEventListener('click', seek);
+    progressHandle.addEventListener('mousedown', (e) => { isDragging = true; progressHandle.classList.add('dragging'); document.body.style.userSelect = 'none'; e.preventDefault(); });
+    document.addEventListener('mousemove', (e) => { if (isDragging) { const progressBarRect = progressBar.getBoundingClientRect(); let newLeft = e.clientX - progressBarRect.left; let percentage = (newLeft / progressBarRect.width) * 100; percentage = Math.max(0, Math.min(100, percentage)); progressFilled.style.width = `${percentage}%`; progressHandle.style.left = `${percentage}%`; if (isFinite(video.duration)) { video.currentTime = (percentage / 100) * video.duration; } updateTime(); }});
+    document.addEventListener('mouseup', () => { if (isDragging) { isDragging = false; progressHandle.classList.remove('dragging'); document.body.style.userSelect = ''; }});
+    progressBar.addEventListener('mousemove', e => { if (isDragging || !isFinite(video.duration) || video.readyState < 1) return; const r = progressBar.getBoundingClientRect(); const hoverPos = e.clientX - r.left; const percentage = (hoverPos / r.width); const time = percentage * video.duration; if (previewVideo.src && isFinite(time) && previewVideo.readyState >= 1) { previewVideo.currentTime = time; previewThumb.style.left = `${Math.max(0, Math.min(hoverPos - previewThumb.offsetWidth / 2, r.width - previewThumb.offsetWidth))}px`; previewThumb.style.display = 'block';} tooltip.style.left = `${Math.max(0, Math.min(hoverPos, r.width))}px`; tooltip.textContent = formatTime(time); tooltip.style.display = 'block';});
+    progressBar.addEventListener('mouseout', () => { if (!isDragging) { previewThumb.style.display = 'none'; tooltip.style.display = 'none'; }});
+    
 
     video.addEventListener('timeupdate', () => {
       if (!isFinite(video.duration)) return;
@@ -354,45 +161,15 @@
         progressHandle.style.left = `${progressPercent}%`;
       }
       updateTime(); updateBufferedBar();
-      if (skipIntroStart > 0 && skipIntroEnd > skipIntroStart && video.currentTime >= skipIntroStart && video.currentTime < skipIntroEnd) { video.currentTime = skipIntroEnd; }
-      if (outroStart > 0 && video.currentTime >= outroStart && video.currentTime < video.duration -1 && !video.paused) { video.pause(); }
-    });
-
-    function seek(e) {
-      const progressBarRect = progressBar.getBoundingClientRect();
-      const clickPositionInBar = e.clientX - progressBarRect.left;
-      const time = (clickPositionInBar / progressBarRect.width) * video.duration;
-      if (isFinite(time) && isFinite(video.duration)) video.currentTime = Math.max(0, Math.min(time, video.duration));
-    }
-    progressBar.addEventListener('click', seek);
-
-    progressHandle.addEventListener('mousedown', (e) => { isDragging = true; progressHandle.classList.add('dragging'); document.body.style.userSelect = 'none'; e.preventDefault(); });
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        const progressBarRect = progressBar.getBoundingClientRect();
-        let newLeft = e.clientX - progressBarRect.left;
-        let percentage = (newLeft / progressBarRect.width) * 100;
-        percentage = Math.max(0, Math.min(100, percentage)); 
-        progressFilled.style.width = `${percentage}%`; progressHandle.style.left = `${percentage}%`;
-        if (isFinite(video.duration)) { video.currentTime = (percentage / 100) * video.duration; }
-        updateTime(); 
+      
+      if (!isFilmSimple && skipIntroStart > 0 && skipIntroEnd > skipIntroStart && video.currentTime >= skipIntroStart && video.currentTime < skipIntroEnd) { 
+        video.currentTime = skipIntroEnd; 
+      }
+      if (!isFilmSimple && outroStart > 0 && video.currentTime >= outroStart && video.currentTime < video.duration - 0.5 && !video.paused) { 
+        video.pause(); 
+        if (CONFIG.serieId) { nextEpisodeButton.style.display = 'inline-flex'; backToCatalogButton.style.display = 'inline-flex'; }
       }
     });
-    document.addEventListener('mouseup', () => { if (isDragging) { isDragging = false; progressHandle.classList.remove('dragging'); document.body.style.userSelect = ''; }});
-
-    progressBar.addEventListener('mousemove', e => {
-      if (isDragging || !isFinite(video.duration) || video.readyState < 1) return;
-      const r = progressBar.getBoundingClientRect(); const hoverPos = e.clientX - r.left;
-      const percentage = (hoverPos / r.width); const time = percentage * video.duration;
-      if (previewVideo.src && isFinite(time) && previewVideo.readyState >= 1) { 
-          previewVideo.currentTime = time;
-          previewThumb.style.left = `${Math.max(0, Math.min(hoverPos - previewThumb.offsetWidth / 2, r.width - previewThumb.offsetWidth))}px`;
-          previewThumb.style.display = 'block';
-      }
-      tooltip.style.left = `${Math.max(0, Math.min(hoverPos, r.width))}px`;
-      tooltip.textContent = formatTime(time); tooltip.style.display = 'block';
-    });
-    progressBar.addEventListener('mouseout', () => { if (!isDragging) { previewThumb.style.display = 'none'; tooltip.style.display = 'none'; }});
     
     showControls(); video.volume = parseFloat(volumeSlider.value); video.playbackRate = parseFloat(speedSelector.value); 
     if (CONFIG.source) { loadSource(CONFIG.source); } 
