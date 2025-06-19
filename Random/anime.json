@@ -1,0 +1,84 @@
+[
+  {
+    "title": "L'Attacco dei Giganti",
+    "poster_path": "https://via.placeholder.com/300x450/8B0000/FFFFFF?Text=Anime+AOT",
+    "overview": "In un mondo alternativo, l'umanità è quasi stata sterminata da creature umanoidi chiamate Giganti. I pochi sopravvissuti si sono ritirati all'interno di imponenti mura.",
+    "genres": ["Azione", "Dark Fantasy", "Post-apocalittico", "Dramma"],
+    "seasons": [
+      {
+        "season_number": 1,
+        "name": "Stagione 1",
+        "poster_path": "https://via.placeholder.com/300x200/A52A2A/FFFFFF?Text=AOT+S1",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "name": "A te, duemila anni dopo - La caduta di Shiganshina (1)",
+            "file": "https://sample-videos.com/video123/mp4/480/big_buck_bunny_480p_1mb.mp4",
+            "overview": "L'improvvisa comparsa del Gigante Colossale e del Gigante Corazzato porta alla distruzione del Wall Maria.",
+            "still_path": "https://via.placeholder.com/160x90/A52A2A/FFFFFF?Text=AOT+S1E1",
+            "skipIntroStart": "01:32",
+            "skipIntroEnd": "02:57",
+            "outroStart": "23:10"
+          },
+          {
+            "episode_number": 2,
+            "name": "Quel giorno - La caduta di Shiganshina (2)",
+            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+            "overview": "Dopo la tragedia, Eren giura di sterminare tutti i Giganti.",
+            "still_path": "https://via.placeholder.com/160x90/B22222/FFFFFF?Text=AOT+S1E2",
+            "skipIntroStart": "00:58",
+            "skipIntroEnd": "02:23",
+            "outroStart": "22:40"
+          }
+        ]
+      },
+      {
+        "season_number": "Finale",
+        "name": "The Final Season - Parte 1",
+        "poster_path": "https://via.placeholder.com/300x200/2F4F4F/FFFFFF?Text=AOT+S4P1",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "name": "L'altra sponda del mare",
+            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+            "overview": "Quattro anni dopo. La guerra tra Marley e le Forze Alleate del Medio Oriente sta per concludersi.",
+            "still_path": "https://via.placeholder.com/160x90/2F4F4F/FFFFFF?Text=AOT+S4P1E1",
+            "skipIntroStart": "01:05",
+            "skipIntroEnd": "02:20",
+            "outroStart": "23:05"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Jujutsu Kaisen",
+    "poster_path": "https://via.placeholder.com/300x450/000080/FFFFFF?Text=Anime+JJK",
+    "overview": "Yuji Itadori, uno studente liceale con una forza fisica straordinaria, ingoia un dito maledetto per salvare un amico, diventando l'ospite di Sukuna, una potente maledizione.",
+    "genres": ["Azione", "Soprannaturale", "Dark Fantasy", "Scolastico"],
+    "seasons": [
+      {
+        "season_number": 1,
+        "name": "Stagione 1",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "name": "Ryomen Sukuna",
+            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+            "skipIntroStart": "00:42",
+            "skipIntroEnd": "02:12",
+            "outroStart": "23:00"
+          },
+          {
+            "episode_number": 2,
+            "name": "Per Me Stesso",
+            "file": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+            "skipIntroStart": "00:30",
+            "skipIntroEnd": "01:50",
+            "outroStart": "22:45"
+          }
+        ]
+      }
+    ]
+  }
+]
