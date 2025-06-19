@@ -48,20 +48,20 @@
     const stagioneIndexFromQuery = urlParams.get('stagioneIndex');
     const episodioIndexFromQuery = urlParams.get('episodioIndex');
     const contentTypeFromQuery = urlParams.get('contentType'); 
-    const returnToFromQuery = urlParams.get('returnTo'); // NUOVO per tornare indietro
+    const returnToFromQuery = urlParams.get('returnTo');
 
 
     const CONFIG = {
       source: videoUrlFromQuery || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
       startTime: startTimeFromQuery || '0:00',
-      skipIntroStart: skipIntroStartFromQuery, // Vengono passati solo se contentType non è film
+      skipIntroStart: skipIntroStartFromQuery, 
       skipIntroEnd: skipIntroEndFromQuery,
       outroStart: outroStartFromQuery,
       serieId: serieIdFromQuery,
       stagioneIndex: stagioneIndexFromQuery,
       episodioIndex: episodioIndexFromQuery,
       contentType: contentTypeFromQuery,
-      returnTo: returnToFromQuery || 'Casa.html#home' // Default a home se non specificato
+      returnTo: returnToFromQuery || 'Casa.html#home' 
     };
     function parseTime(val){ if(typeof val==='string'&&val.includes(':')){ const [m,s]=val.split(':').map(n=>parseInt(n,10)); return (m||0)*60+(s||0);} else if(typeof val==='number') return val*60; return 0; }
     
@@ -78,10 +78,9 @@
     <div id="loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:none;color:#fff;">Caricamento...</div>
     <div class="controls" id="controls">
       <button class="control-button" id="playPauseBtn" title="Play/Pausa">▶️</button>
-      <button class="control-button" id="backToCatalogButton" title="Torna al Catalogo">←</button> <!-- NUOVO BOTTONE -->
+      <button class="control-button" id="backToCatalogButton" title="Torna al Catalogo">←</button> 
       <span id="time-display">00:00 / 00:00</span>
       <div class="progress-bar" id="progress-bar">
-        <!-- ... progress bar elements ... -->
         <div class="progress-buffered" id="progress-buffered"></div><div class="progress-filled" id="progress-filled"></div><div class="progress-handle" id="progress-handle"></div><div class="preview-thumb" id="preview-thumb"><video muted></video></div><div class="tooltip" id="tooltip">00:00</div>
       </div>
       <div class="volume-control">
@@ -99,9 +98,13 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
-    const playerContainer=document.getElementById('playerContainer'), video=document.getElementById('video'), /* ... altri const ... */
+    const playerContainer=document.getElementById('playerContainer'), video=document.getElementById('video'), pauseOverlay=document.getElementById('pauseOverlay'),
+      controls=document.getElementById('controls'), progressBar=document.getElementById('progress-bar'), progressFilled=document.getElementById('progress-filled'),
+      progressBuffered=document.getElementById('progress-buffered'), progressHandle=document.getElementById('progress-handle'), timeDisplay=document.getElementById('time-display'), loadingEl=document.getElementById('loading'), previewThumb=document.getElementById('preview-thumb'),
+      previewVideo=previewThumb.querySelector('video'), tooltip=document.getElementById('tooltip'), speedSelector=document.getElementById('speed-selector'), 
+      volumeSlider=document.getElementById('volumeSlider'), volumeIcon = document.getElementById('volumeIcon'), playPauseBtn=document.getElementById('playPauseBtn'), 
       nextEpisodeButton = document.getElementById('nextEpisodeButton'), 
-      backToCatalogButton = document.getElementById('backToCatalogButton'), // RIFERIMENTO BOTTONE INDIETRO
+      backToCatalogButton = document.getElementById('backToCatalogButton'),
       fullscreenBtn=document.getElementById('fullscreenBtn');
 
     let isDragging = false; let hideControlsTimeout; let hlsInstance = null; let hasTriggeredNextEpisode = false; 
@@ -110,24 +113,28 @@
         if (hasTriggeredNextEpisode) return; 
         if (CONFIG.serieId && CONFIG.stagioneIndex !== null && CONFIG.episodioIndex !== null && CONFIG.contentType && CONFIG.contentType !== 'film') {
             hasTriggeredNextEpisode = true; 
-            // Usa il percorso relativo corretto per GitHub Pages
             let casaUrl = `Casa.html#playNext?serieId=${encodeURIComponent(CONFIG.serieId)}&stagioneIndex=${CONFIG.stagioneIndex}&episodioIndex=${CONFIG.episodioIndex}&contentType=${CONFIG.contentType}`;
             window.location.href = casaUrl;
         }
     }
     nextEpisodeButton.addEventListener('click', triggerNextEpisode);
     backToCatalogButton.addEventListener('click', () => {
-        window.location.href = decodeURIComponent(CONFIG.returnTo); // Torna all'hash salvato
+        window.location.href = decodeURIComponent(CONFIG.returnTo); 
     });
 
-
-    // Funzioni core del player (COPIA DALLA VERSIONE PRECEDENTE DEL PLAYER.HTML)
-    // ... togglePlayPause, updateBufferedBar, fullscreen, volume, speed, loadSource, formatTime, updateTime, showControls, seek, drag, preview ...
     function togglePlayPause() { if (video.readyState < 1) return; if (video.paused || video.ended) { video.play().catch(e => console.error("Errore play:", e));} else { video.pause();}}
     playPauseBtn.addEventListener('click', togglePlayPause); video.addEventListener('click', togglePlayPause);
     video.addEventListener('play', () => { playPauseBtn.textContent = '⏸️'; pauseOverlay.style.display = 'none'; showControls(); });
     video.addEventListener('pause', () => { playPauseBtn.textContent = '▶️'; if (!isDragging) { pauseOverlay.style.display = 'block'; setTimeout(() => pauseOverlay.style.display = 'none', 600);} showControls(); });
-    video.addEventListener('ended', () => { playPauseBtn.textContent = '▶️'; showControls(); if (CONFIG.contentType && CONFIG.contentType !== 'film') { nextEpisodeButton.style.display = 'inline-flex'; backToCatalogButton.style.display = 'inline-flex'; } triggerNextEpisode(); });
+    video.addEventListener('ended', () => { 
+        playPauseBtn.textContent = '▶️'; 
+        showControls(); 
+        if (CONFIG.contentType && CONFIG.contentType !== 'film') { 
+            nextEpisodeButton.style.display = 'inline-flex'; 
+            // backToCatalogButton.style.display = 'inline-flex'; // Già mostrato da loadSource
+        } 
+        triggerNextEpisode(); 
+    });
     function updateBufferedBar() { if (!isFinite(video.duration) || video.buffered.length === 0) { progressBuffered.style.width = '0%'; return; } let bufferedEnd = 0; for (let i = 0; i < video.buffered.length; i++) { if (video.buffered.start(i) <= video.currentTime && video.currentTime < video.buffered.end(i)) { bufferedEnd = video.buffered.end(i); break; } else if (video.buffered.start(i) > video.currentTime && bufferedEnd === 0) { bufferedEnd = video.buffered.start(i); } } if (bufferedEnd === 0 && video.buffered.length > 0) bufferedEnd = video.buffered.end(video.buffered.length - 1); const bufferedPercent = (bufferedEnd / video.duration) * 100; progressBuffered.style.width = `${Math.min(100, bufferedPercent)}%`; }
     video.addEventListener('progress', updateBufferedBar); video.addEventListener('loadedmetadata', updateBufferedBar); video.addEventListener('canplaythrough', updateBufferedBar);
     fullscreenBtn.addEventListener('click', () => { if (!document.fullscreenElement) { playerContainer.requestFullscreen().catch(err => console.error("Fullscreen error:", err));} else { document.exitFullscreen(); }});
@@ -137,7 +144,32 @@
     video.addEventListener('volumechange', () => { volumeSlider.value = video.muted ? 0 : video.volume; volumeIcon.textContent = video.muted || video.volume === 0 ? '🔇' : (video.volume < 0.5 ? '🔉' : '🔊'); });
     volumeIcon.addEventListener('click', () => { video.muted = !video.muted; });
     speedSelector.addEventListener('change', () => video.playbackRate = parseFloat(speedSelector.value));
-    function loadSource(src) { if (!src) { console.error("Nessuna sorgente video fornita."); loadingEl.style.display = 'none'; alert("Nessun video da caricare."); return; } loadingEl.style.display = 'block'; video.poster = ''; hasTriggeredNextEpisode = false; backToCatalogButton.style.display = 'inline-flex'; if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; } if (src.includes('.m3u8')) { if (Hls.isSupported()) { hlsInstance = new Hls({ abrEwmaDefaultEstimate: 500000 }); hlsInstance.loadSource(src); hlsInstance.attachMedia(video); hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => { loadingEl.style.display = 'none'; if (startTime > 0 && startTime < video.duration) video.currentTime = startTime; video.play().catch(e => console.error("HLS Playback error:", e)); }); hlsInstance.on(Hls.Events.ERROR, function (event, data) { console.error('HLS Error:', data); if (data.fatal) { switch(data.type) { case Hls.ErrorTypes.NETWORK_ERROR: hlsInstance.startLoad(); break; case Hls.ErrorTypes.MEDIA_ERROR: hlsInstance.recoverMediaError(); break; default: hlsInstance.destroy(); loadingEl.style.display = 'none'; alert("Errore HLS fatale."); break;}}}); if (previewVideo.canPlayType('application/vnd.apple.mpegurl')) { previewVideo.src = src; }  else if (Hls.isSupported()) { const hlsPreview = new Hls(); hlsPreview.loadSource(src); hlsPreview.attachMedia(previewVideo); }} else if (video.canPlayType('application/vnd.apple.mpegurl')) { video.src = src; previewVideo.src = src; }  else { alert('HLS non è supportato.'); loadingEl.style.display = 'none'; }} else { video.src = src; previewVideo.src = src; } video.onloadedmetadata = () => { if (!src.includes('.m3u8')) loadingEl.style.display = 'none'; updateTime(); updateBufferedBar(); if (startTime > 0 && startTime < video.duration) video.currentTime = startTime; if (!src.includes('.m3u8')) video.play().catch(e => console.error("MP4 Playback error:", e)); if (CONFIG.contentType && CONFIG.contentType !== 'film') { nextEpisodeButton.style.display = 'inline-flex'; } else { nextEpisodeButton.style.display = 'none'; }}; video.onerror = (e) => { console.error("Errore caricamento video:", e); loadingEl.style.display = 'none'; alert("Impossibile caricare il video."); };}
+    function loadSource(src) { 
+        if (!src) { console.error("Nessuna sorgente video fornita."); loadingEl.style.display = 'none'; alert("Nessun video da caricare."); return; } 
+        loadingEl.style.display = 'block'; video.poster = ''; hasTriggeredNextEpisode = false; 
+        backToCatalogButton.style.display = 'inline-flex'; 
+        if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; } 
+        if (src.includes('.m3u8')) { 
+            if (Hls.isSupported()) { 
+                hlsInstance = new Hls({ abrEwmaDefaultEstimate: 500000 }); 
+                hlsInstance.loadSource(src); 
+                hlsInstance.attachMedia(video); 
+                hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => { loadingEl.style.display = 'none'; if (startTime > 0 && startTime < video.duration) video.currentTime = startTime; video.play().catch(e => console.error("HLS Playback error:", e)); }); 
+                hlsInstance.on(Hls.Events.ERROR, function (event, data) { console.error('HLS Error:', data); if (data.fatal) { switch(data.type) { case Hls.ErrorTypes.NETWORK_ERROR: hlsInstance.startLoad(); break; case Hls.ErrorTypes.MEDIA_ERROR: hlsInstance.recoverMediaError(); break; default: hlsInstance.destroy(); loadingEl.style.display = 'none'; alert("Errore HLS fatale."); break;}}}); 
+                if (previewVideo.canPlayType('application/vnd.apple.mpegurl')) { previewVideo.src = src; }  
+                else if (Hls.isSupported()) { const hlsPreview = new Hls(); hlsPreview.loadSource(src); hlsPreview.attachMedia(previewVideo); }
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) { video.src = src; previewVideo.src = src; }  
+            else { alert('HLS non è supportato.'); loadingEl.style.display = 'none'; }
+        } else { video.src = src; previewVideo.src = src; } 
+        video.onloadedmetadata = () => { 
+            if (!src.includes('.m3u8')) loadingEl.style.display = 'none'; 
+            updateTime(); updateBufferedBar(); 
+            if (startTime > 0 && startTime < video.duration) video.currentTime = startTime; 
+            if (!src.includes('.m3u8')) video.play().catch(e => console.error("MP4 Playback error:", e)); 
+            if (CONFIG.contentType && CONFIG.contentType !== 'film') { nextEpisodeButton.style.display = 'inline-flex'; } else { nextEpisodeButton.style.display = 'none'; }
+        }; 
+        video.onerror = (e) => { console.error("Errore caricamento video:", e); loadingEl.style.display = 'none'; alert("Impossibile caricare il video."); };
+    }
     function formatTime(s) { if (isNaN(s) || s === Infinity || s < 0) return '00:00'; const m = Math.floor(s / 60).toString().padStart(2, '0'); const sec = Math.floor(s % 60).toString().padStart(2, '0'); return `${m}:${sec}`; }
     function updateTime() { timeDisplay.textContent = `${formatTime(video.currentTime)} / ${isFinite(video.duration) ? formatTime(video.duration) : '--:--'}`; }
     video.addEventListener('loadedmetadata', updateTime); video.addEventListener('timeupdate', updateTime); 
@@ -152,7 +184,6 @@
     progressBar.addEventListener('mousemove', e => { if (isDragging || !isFinite(video.duration) || video.readyState < 1) return; const r = progressBar.getBoundingClientRect(); const hoverPos = e.clientX - r.left; const percentage = (hoverPos / r.width); const time = percentage * video.duration; if (previewVideo.src && isFinite(time) && previewVideo.readyState >= 1) { previewVideo.currentTime = time; previewThumb.style.left = `${Math.max(0, Math.min(hoverPos - previewThumb.offsetWidth / 2, r.width - previewThumb.offsetWidth))}px`; previewThumb.style.display = 'block';} tooltip.style.left = `${Math.max(0, Math.min(hoverPos, r.width))}px`; tooltip.textContent = formatTime(time); tooltip.style.display = 'block';});
     progressBar.addEventListener('mouseout', () => { if (!isDragging) { previewThumb.style.display = 'none'; tooltip.style.display = 'none'; }});
     
-
     video.addEventListener('timeupdate', () => {
       if (!isFinite(video.duration)) return;
       if (!isDragging) {
@@ -167,7 +198,7 @@
       }
       if (!isFilmSimple && outroStart > 0 && video.currentTime >= outroStart && video.currentTime < video.duration - 0.5 && !video.paused) { 
         video.pause(); 
-        if (CONFIG.serieId) { nextEpisodeButton.style.display = 'inline-flex'; backToCatalogButton.style.display = 'inline-flex'; }
+        if (CONFIG.serieId) { nextEpisodeButton.style.display = 'inline-flex'; /* backToCatalogButton già visibile */ }
       }
     });
     
