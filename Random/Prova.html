@@ -3,36 +3,207 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sito Streaming</title>
+  <title>StreamFlix Pro</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#e50914',
+            secondary: '#221f1f',
+            accent: '#b3b3b3',
+            dark: '#141414'
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-up': 'slideUp 0.3s ease-out',
+            'pulse-glow': 'pulseGlow 2s infinite',
+            'float': 'float 3s ease-in-out infinite'
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(10px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' }
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(229, 9, 20, 0.3)' },
+              '50%': { boxShadow: '0 0 30px rgba(229, 9, 20, 0.6)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          },
+          backdropBlur: {
+            xs: '2px'
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    [tabindex]:focus { outline: 3px solid #3B82F6; }
-    :root { font-size: 1rem; }
-    @media (min-width: 640px) { :root { font-size: 1.1rem; } }
-    @media (min-width: 1024px) { :root { font-size: 1.2rem; } }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #e50914 #141414;
+    }
+    *::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    *::-webkit-scrollbar-track {
+      background: #141414;
+      border-radius: 10px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #e50914, #ff6b6b);
+      border-radius: 10px;
+    }
+    *::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #ff1744, #e50914);
+    }
+    
+    .glass-effect {
+      background: rgba(20, 20, 20, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card-hover:hover {
+      transform: scale(1.05) translateY(-10px);
+      box-shadow: 0 25px 50px rgba(229, 9, 20, 0.3);
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #e50914, #ff6b6b, #ffd93d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .neon-border {
+      box-shadow: 0 0 20px rgba(229, 9, 20, 0.5), inset 0 0 20px rgba(229, 9, 20, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-padding { padding: 1rem; }
+    }
+    
+    @media (min-width: 1920px) {
+      .tv-scale { font-size: 1.25rem; }
+    }
+    
+    .loading-skeleton {
+      background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+    
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans leading-normal">
-  <header class="bg-gray-900 text-white sticky top-0 z-50">
-    <nav class="max-w-screen-2xl mx-auto flex flex-wrap items-center justify-between p-4">
-      <h1 class="text-2xl sm:text-3xl font-bold">My Stream</h1>
-      <ul class="flex flex-wrap space-x-4 sm:space-x-6" role="menubar">
-        <li><button data-type="anime" tabindex="0" class="hover:text-gray-300 focus:text-blue-400">Anime</button></li>
-        <li><button data-type="film" tabindex="0" class="hover:text-gray-300 focus:text-blue-400">Film</button></li>
-        <li><button data-type="series_tv" tabindex="0" class="hover:text-gray-300 focus:text-blue-400">Serie TV</button></li>
-      </ul>
-      <div class="flex flex-wrap items-center space-x-2 mt-2 sm:mt-0">
-        <input id="search" type="search" placeholder="Cerca..." class="px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        <select id="genreFilter" class="px-3 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="">Tutti i generi</option>
-        </select>
+<body class="bg-gradient-to-br from-dark via-secondary to-black text-white font-sans antialiased overflow-x-hidden">
+  <!-- Hero Background -->
+  <div class="fixed inset-0 bg-gradient-to-br from-dark via-secondary to-black opacity-90 z-0"></div>
+  <div class="fixed inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.02"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] z-0"></div>
+
+  <!-- Header -->
+  <header class="relative z-50 glass-effect sticky top-0">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+        <!-- Logo -->
+        <div class="flex items-center space-x-4">
+          <div class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-primary to-red-600 rounded-xl flex items-center justify-center animate-pulse-glow">
+            <svg class="w-6 h-6 lg:w-8 lg:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <h1 class="text-2xl lg:text-4xl font-bold gradient-text animate-float">StreamFlix Pro</h1>
+        </div>
+
+        <!-- Navigation -->
+        <div class="hidden md:flex items-center space-x-8">
+          <button data-type="anime" class="nav-btn px-6 py-3 rounded-full bg-gradient-to-r from-primary to-red-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 neon-border">
+            🎌 Anime
+          </button>
+          <button data-type="film" class="nav-btn px-6 py-3 rounded-full bg-gray-700 hover:bg-gradient-to-r hover:from-primary hover:to-red-600 text-white font-semibold hover:scale-105 transition-all duration-300">
+            🎬 Film
+          </button>
+          <button data-type="series_tv" class="nav-btn px-6 py-3 rounded-full bg-gray-700 hover:bg-gradient-to-r hover:from-primary hover:to-red-600 text-white font-semibold hover:scale-105 transition-all duration-300">
+            📺 Serie TV
+          </button>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <input id="search" type="search" placeholder="Cerca contenuti..." 
+                   class="w-48 lg:w-64 px-4 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:border-primary focus:ring-2 focus:ring-primary focus:outline-none transition-all duration-300" />
+            <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <select id="genreFilter" class="px-4 py-3 rounded-full bg-gray-800 text-white border border-gray-600 focus:border-primary focus:ring-2 focus:ring-primary focus:outline-none transition-all duration-300">
+            <option value="">🎭 Tutti i generi</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <div class="md:hidden flex justify-center space-x-2 pb-4">
+        <button data-type="anime" class="nav-btn px-4 py-2 rounded-full bg-gradient-to-r from-primary to-red-600 text-white text-sm font-semibold neon-border">
+          🎌 Anime
+        </button>
+        <button data-type="film" class="nav-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gradient-to-r hover:from-primary hover:to-red-600 text-white text-sm font-semibold transition-all duration-300">
+          🎬 Film
+        </button>
+        <button data-type="series_tv" class="nav-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gradient-to-r hover:from-primary hover:to-red-600 text-white text-sm font-semibold transition-all duration-300">
+          📺 Serie
+        </button>
       </div>
     </nav>
   </header>
 
-  <main class="max-w-screen-2xl mx-auto p-4">
-    <div id="gallery"></div>
+  <!-- Main Content -->
+  <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Loading Indicator -->
+    <div id="loading" class="hidden flex justify-center items-center py-20">
+      <div class="animate-spin rounded-full h-16 w-16 border-4 border-gray-600 border-t-primary"></div>
+    </div>
+
+    <!-- Content Gallery -->
+    <div id="gallery" class="animate-fade-in"></div>
+
+    <!-- No Results -->
+    <div id="no-results" class="hidden text-center py-20">
+      <div class="text-6xl mb-4">🔍</div>
+      <h3 class="text-2xl font-bold mb-2">Nessun risultato trovato</h3>
+      <p class="text-gray-400">Prova a modificare i tuoi filtri di ricerca</p>
+    </div>
   </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 glass-effect mt-20 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-gray-400">© 2025 StreamFlix Pro - Il futuro dello streaming</p>
+      <div class="flex justify-center space-x-6 mt-4">
+        <span class="text-sm text-gray-500">📱 Mobile Friendly</span>
+        <span class="text-sm text-gray-500">💻 Desktop Optimized</span>
+        <span class="text-sm text-gray-500">📺 TV Compatible</span>
+      </div>
+    </div>
+  </footer>
 
   <script>
     const dataFiles = {
@@ -45,126 +216,271 @@
     const gallery = document.getElementById('gallery');
     const searchInput = document.getElementById('search');
     const genreFilter = document.getElementById('genreFilter');
-    const navButtons = document.querySelectorAll('nav button');
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const loading = document.getElementById('loading');
+    const noResults = document.getElementById('no-results');
+
+    // Update active navigation button
+    function updateActiveNav(activeType) {
+      navButtons.forEach(btn => {
+        btn.classList.remove('bg-gradient-to-r', 'from-primary', 'to-red-600', 'neon-border');
+        btn.classList.add('bg-gray-700');
+        if (btn.dataset.type === activeType) {
+          btn.classList.remove('bg-gray-700');
+          btn.classList.add('bg-gradient-to-r', 'from-primary', 'to-red-600', 'neon-border');
+        }
+      });
+    }
 
     async function loadData(type) {
-      currentType = type; rawData = []; flatItems = [];
-      const res = await fetch(dataFiles[type]); rawData = await res.json();
-      if (['anime', 'series_tv'].includes(type)) {
-        rawData.forEach((item, seriesIndex) => {
-          item.seasons.forEach((season, seasonIndex) => {
-            season.episodes.forEach((ep, episodeIndex) => {
-              flatItems.push({
-                ...ep,
-                title: item.title,
-                seasonName: season.name,
-                seasonIndex,
-                seriesIndex,
-                episodeIndex,
-                poster: ep.still_path || item.poster_path,
-                genres: item.genres
+      loading.classList.remove('hidden');
+      gallery.classList.add('hidden');
+      noResults.classList.add('hidden');
+      
+      currentType = type;
+      rawData = [];
+      flatItems = [];
+      updateActiveNav(type);
+      
+      try {
+        const res = await fetch(dataFiles[type]);
+        rawData = await res.json();
+        
+        if (['anime', 'series_tv'].includes(type)) {
+          rawData.forEach((item, seriesIndex) => {
+            item.seasons.forEach((season, seasonIndex) => {
+              season.episodes.forEach((ep, episodeIndex) => {
+                flatItems.push({
+                  ...ep,
+                  title: item.title,
+                  seasonName: season.name,
+                  seasonIndex,
+                  seriesIndex,
+                  episodeIndex,
+                  poster: ep.still_path || item.poster_path,
+                  genres: item.genres
+                });
               });
             });
           });
-        });
-      } else {
-        flatItems = rawData.map((f, idx) => ({
-          ...f,
-          seasonName: '',
-          seasonIndex: -1,
-          seriesIndex: idx,
-          episodeIndex: -1,
-          poster: f.poster_path,
-          genres: f.genres
-        }));
+        } else {
+          flatItems = rawData.map((f, idx) => ({
+            ...f,
+            seasonName: '',
+            seasonIndex: -1,
+            seriesIndex: idx,
+            episodeIndex: -1,
+            poster: f.poster_path,
+            genres: f.genres
+          }));
+        }
+        
+        populateGenres();
+        renderGallery();
+      } catch (error) {
+        console.error('Errore nel caricamento dei dati:', error);
+        gallery.innerHTML = '<div class="text-center py-20"><div class="text-6xl mb-4">⚠️</div><h3 class="text-2xl font-bold mb-2">Errore di caricamento</h3><p class="text-gray-400">Impossibile caricare i contenuti</p></div>';
+      } finally {
+        loading.classList.add('hidden');
+        gallery.classList.remove('hidden');
       }
-      populateGenres(); renderGallery();
     }
 
     function populateGenres() {
-      const opts = ['<option value="">Tutti i generi</option>'];
-      new Set(flatItems.flatMap(i => i.genres)).forEach(g => opts.push(`<option value="${g}">${g}</option>`));
+      const opts = ['<option value="">🎭 Tutti i generi</option>'];
+      const genres = new Set(flatItems.flatMap(i => i.genres));
+      genres.forEach(g => opts.push(`<option value="${g}">🏷️ ${g}</option>`));
       genreFilter.innerHTML = opts.join('');
     }
 
     function renderGallery() {
+      const q = searchInput.value.toLowerCase();
+      const g = genreFilter.value;
+      let hasResults = false;
+      
       gallery.innerHTML = '';
-      const q = searchInput.value.toLowerCase(), g = genreFilter.value;
+      
       if (['anime', 'series_tv'].includes(currentType)) {
         rawData.forEach((item, seriesIndex) => {
-          const sec = document.createElement('section');
-          const h2 = document.createElement('h2');
-          h2.textContent = item.title;
-          h2.className = 'text-2xl font-bold mt-6';
-          sec.append(h2);
+          const matchingSeasons = [];
+          
           item.seasons.forEach((season, seasonIndex) => {
-            const h3 = document.createElement('h3');
-            h3.textContent = season.name;
-            h3.className = 'text-xl mt-3 font-semibold';
-            sec.append(h3);
-            const list = document.createElement('div');
-            list.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3';
-            season.episodes.forEach((ep, episodeIndex) => {
-              if (ep.name.toLowerCase().includes(q) && (!g || item.genres.includes(g))) {
+            const matchingEpisodes = season.episodes.filter(ep => 
+              ep.name.toLowerCase().includes(q) && (!g || item.genres.includes(g))
+            );
+            
+            if (matchingEpisodes.length > 0) {
+              matchingSeasons.push({ ...season, episodes: matchingEpisodes, seasonIndex });
+              hasResults = true;
+            }
+          });
+          
+          if (matchingSeasons.length > 0) {
+            const section = document.createElement('section');
+            section.className = 'mb-12 animate-slide-up';
+            
+            const title = document.createElement('h2');
+            title.textContent = item.title;
+            title.className = 'text-3xl lg:text-4xl font-bold mb-6 gradient-text';
+            section.appendChild(title);
+            
+            matchingSeasons.forEach(season => {
+              const seasonTitle = document.createElement('h3');
+              seasonTitle.textContent = season.name;
+              seasonTitle.className = 'text-xl lg:text-2xl font-semibold mb-4 text-accent';
+              section.appendChild(seasonTitle);
+              
+              const grid = document.createElement('div');
+              grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6 mb-8';
+              
+              season.episodes.forEach((ep, episodeIndex) => {
                 const card = document.createElement('div');
-                card.className = 'cursor-pointer';
+                card.className = 'card-hover cursor-pointer glass-effect rounded-xl overflow-hidden';
+                
                 card.innerHTML = `
-                  <img src="${ep.still_path || item.poster_path}" class="w-full h-24 object-cover rounded" />
-                  <p class="mt-1 text-sm truncate">${ep.name}</p>
+                  <div class="relative">
+                    <img src="${ep.still_path || item.poster_path}" 
+                         class="w-full h-24 sm:h-32 lg:h-40 object-cover" 
+                         loading="lazy"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 300\\'%3E%3Crect width=\\'100%\\' height=\\'100%\\' fill=\\'%23333\\'/%3E%3Ctext x=\\'50%\\' y=\\'50%\\' fill=\\'%23999\\' text-anchor=\\'middle\\' dy=\\'.3em\\'%3EImmagine non disponibile%3C/text%3E%3C/svg%3E'" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
+                      <div class="p-3">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-3">
+                    <p class="text-sm lg:text-base font-medium truncate">${ep.name}</p>
+                    <p class="text-xs text-gray-400 mt-1">Episodio ${episodeIndex + 1}</p>
+                  </div>
                 `;
+                
                 card.addEventListener('click', () => {
                   const params = new URLSearchParams({
                     videoUrl: ep.file,
                     contentType: currentType,
                     title: item.title,
                     seasonName: season.name,
-                    seasonIndex,
+                    seasonIndex: season.seasonIndex,
                     episodeIndex,
-                    skipIntroStart: ep.skipIntroStart,
-                    skipIntroEnd: ep.skipIntroEnd,
-                    outroStart: ep.outroStart,
+                    skipIntroStart: ep.skipIntroStart || '',
+                    skipIntroEnd: ep.skipIntroEnd || '',
+                    outroStart: ep.outroStart || '',
                     returnTo: window.location.pathname
                   });
                   window.location.href = `player.html?${params.toString()}`;
                 });
-                list.append(card);
-              }
+                
+                grid.appendChild(card);
+              });
+              
+              section.appendChild(grid);
             });
-            sec.append(list);
-          });
-          gallery.append(sec);
+            
+            gallery.appendChild(section);
+          }
         });
       } else {
-        const grid = document.createElement('div');
-        grid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4';
-        flatItems.forEach(i => {
-          if (i.title.toLowerCase().includes(q) && (!g || i.genres.includes(g))) {
-            const c = document.createElement('div');
-            c.className = 'bg-white p-2 rounded shadow cursor-pointer hover:shadow-lg';
-            c.innerHTML = `
-              <img src="${i.poster}" class="w-full h-32 object-cover rounded"/>
-              <h3 class="mt-2 text-lg truncate">${i.title}</h3>
+        const filteredItems = flatItems.filter(i => 
+          i.title.toLowerCase().includes(q) && (!g || i.genres.includes(g))
+        );
+        
+        if (filteredItems.length > 0) {
+          hasResults = true;
+          const grid = document.createElement('div');
+          grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6 animate-slide-up';
+          
+          filteredItems.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card-hover cursor-pointer glass-effect rounded-xl overflow-hidden';
+            
+            card.innerHTML = `
+              <div class="relative">
+                <img src="${item.poster}" 
+                     class="w-full h-48 sm:h-56 lg:h-64 object-cover" 
+                     loading="lazy"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 400 600\\'%3E%3Crect width=\\'100%\\' height=\\'100%\\' fill=\\'%23333\\'/%3E%3Ctext x=\\'50%\\' y=\\'50%\\' fill=\\'%23999\\' text-anchor=\\'middle\\' dy=\\'.3em\\'%3EImmagine non disponibile%3C/text%3E%3C/svg%3E'" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center animate-pulse">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="text-sm lg:text-base font-bold truncate">${item.title}</h3>
+                ${item.genres && item.genres.length > 0 ? `<p class="text-xs text-gray-400 mt-1">${item.genres.slice(0, 2).join(', ')}</p>` : ''}
+              </div>
             `;
-            c.addEventListener('click', () => {
+            
+            card.addEventListener('click', () => {
               const params = new URLSearchParams({
-                videoUrl: i.url_video,
+                videoUrl: item.url_video,
                 contentType: 'film',
-                title: i.title,
+                title: item.title,
                 returnTo: window.location.pathname
               });
               window.location.href = `player.html?${params.toString()}`;
             });
-            grid.append(c);
-          }
-        });
-        gallery.append(grid);
+            
+            grid.appendChild(card);
+          });
+          
+          gallery.appendChild(grid);
+        }
+      }
+      
+      if (!hasResults) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
       }
     }
 
-    searchInput.addEventListener('input', renderGallery);
+    // Event listeners
+    searchInput.addEventListener('input', debounce(renderGallery, 300));
     genreFilter.addEventListener('change', renderGallery);
-    navButtons.forEach(b => b.addEventListener('click', () => loadData(b.dataset.type)));
+    navButtons.forEach(btn => btn.addEventListener('click', () => loadData(btn.dataset.type)));
+
+    // Debounce function for search
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    // Keyboard navigation support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && !searchInput.matches(':focus')) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+
+    // Initialize
     loadData(currentType);
+
+    // Add some loading skeletons while content loads
+    function showLoadingSkeletons() {
+      gallery.innerHTML = `
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
+          ${Array(24).fill().map(() => `
+            <div class="loading-skeleton rounded-xl h-48 sm:h-56 lg:h-64"></div>
+          `).join('')}
+        </div>
+      `;
+    }
   </script>
 </body>
 </html>
