@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Player Universale</title>
-  <link rel="icon" href="data:,"> <!-- Aggiunto per prevenire l'errore 404 per favicon.ico -->
+  <link rel="icon" href="data:,">
   <style>
     body { margin: 0; background: #121212; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #fff; }
     .player-container { position: relative; width: 80%; max-width: 900px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
@@ -29,7 +29,7 @@
     .volume-control input[type=range] { width: 80px; }
     select { background: #1f1f1f; color: #fff; border: none; border-radius:4px; padding:4px; cursor: pointer; }
     span#time-display { color: #fff; font-size: 0.9em; }
-    #loading { font-size: 1.2em; }
+    /* #loading rimosso dallo stile */
     #nextEpisodeButton, #backToCatalogButton { display: none; margin-left: 8px; padding: 4px 10px; background-color: #555; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;}
     #nextEpisodeButton { background-color: #e50914;}
     #nextEpisodeButton:hover, #backToCatalogButton:hover { background-color: #777; }
@@ -38,7 +38,6 @@
 </head>
 <body>
   <script>
-    // Variabili di configurazione (lette dai parametri URL)
     const urlParams = new URLSearchParams(window.location.search);
     const videoUrlFromQuery = urlParams.get('videoUrl');
     const startTimeFromQuery = urlParams.get('startTime'); 
@@ -71,13 +70,18 @@
     const skipIntroStart = !isFilmSimple && CONFIG.skipIntroStart ? parseTime(CONFIG.skipIntroStart) : 0;
     const skipIntroEnd = !isFilmSimple && CONFIG.skipIntroEnd ? parseTime(CONFIG.skipIntroEnd) : 0;
     const outroStart = !isFilmSimple && CONFIG.outroStart ? parseTime(CONFIG.outroStart) : 0;
+
+    // Funzione per determinare se una risorsa è "interna"
+    function isInternalResource(url) {
+        if (!url) return false;
+        return !url.toLowerCase().startsWith('http://') && !url.toLowerCase().startsWith('https://');
+    }
   </script>
 
   <div class="player-container" id="playerContainer">
-    <!-- Aggiunto attributo autoplay -->
     <video id="video" playsinline autoplay></video> 
     <div class="pause-overlay" id="pauseOverlay">⏸️</div>
-    <div id="loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:none;color:#fff;">Caricamento...</div>
+    <!-- <div id="loading" ...> rimosso -->
     <div class="controls" id="controls">
       <button class="control-button" id="playPauseBtn" title="Play/Pausa">▶️</button>
       <button class="control-button" id="backToCatalogButton" title="Torna al Catalogo">←</button> 
@@ -114,7 +118,7 @@
           progressBuffered=document.getElementById('progress-buffered'), 
           progressHandle=document.getElementById('progress-handle'), 
           timeDisplay=document.getElementById('time-display'), 
-          loadingEl=document.getElementById('loading'), 
+          // loadingEl rimosso
           previewThumb=document.getElementById('preview-thumb'),
           previewVideo=previewThumb.querySelector('video'), 
           tooltip=document.getElementById('tooltip'), 
@@ -148,11 +152,7 @@
     function togglePlayPause() { 
       if (video.readyState < 1) return; 
       if (video.paused || video.ended) { 
-        video.play().catch(e => {
-            console.error("Errore durante il tentativo di play manuale:", e.message);
-            // Se il play manuale fallisce (raro, ma possibile se lo stato del media è corrotto),
-            // non fare alert, ma l'utente potrebbe dover ricaricare.
-        });
+        video.play().catch(e => console.error("Errore durante il tentativo di play manuale:", e.message));
       } else { 
         video.pause();
       }
@@ -165,16 +165,23 @@
       pauseOverlay.style.display = 'none'; 
       showControls(); 
 
-      if (!hasAttemptedInitialFullscreen && !document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+      // Logica per il fullscreen automatico
+      // Ora condizionato anche da isInternalResource per le "risorse interne"
+      if (isInternalResource(CONFIG.source) && // Aggiunto controllo per risorsa interna
+          !hasAttemptedInitialFullscreen && 
+          !document.fullscreenElement && 
+          !document.webkitFullscreenElement && 
+          !document.msFullscreenElement) {
+        
         const fsPromise = playerContainer.requestFullscreen ? playerContainer.requestFullscreen() :
                           playerContainer.webkitRequestFullscreen ? playerContainer.webkitRequestFullscreen() :
                           playerContainer.msRequestFullscreen ? playerContainer.msRequestFullscreen() :
                           Promise.reject(new Error("Fullscreen API not supported"));
         
         fsPromise.then(() => {
-          console.log("Fullscreen automatico richiesto con successo.");
+          console.log("Fullscreen automatico per risorsa interna richiesto con successo.");
         }).catch(err => {
-          console.warn("Autofullscreen non riuscito (potrebbe richiedere interazione utente o non essere supportato):", err.message);
+          console.warn("Autofullscreen per risorsa interna non riuscito:", err.message);
         });
         hasAttemptedInitialFullscreen = true; 
       }
@@ -260,10 +267,10 @@
     function loadSource(src) { 
         if (!src) { 
           console.error("Nessuna sorgente video fornita."); 
-          loadingEl.style.display = 'none'; 
+          // loadingEl rimosso, non c'è più un elemento da manipolare qui
           alert("Nessun video da caricare."); return; 
         } 
-        loadingEl.style.display = 'block'; 
+        // loadingEl rimosso
         video.poster = ''; 
         hasTriggeredNextEpisode = false; 
         hasAttemptedInitialFullscreen = false;
@@ -273,25 +280,18 @@
         
         const setupAndPlayVideo = (readyPromise) => {
             readyPromise.then(() => {
-                loadingEl.style.display = 'none'; 
+                // loadingEl rimosso
                 if (startTime > 0 && startTime < video.duration) {
                     video.currentTime = startTime;
                 }
-                // Il video ha l'attributo autoplay, quindi il browser tenterà di avviarlo.
-                // La chiamata video.play() qui può essere una ridondanza o un fallback,
-                // ma è più sicuro tentare esplicitamente se l'attributo autoplay non bastasse
-                // o per sovrascrivere stati di pausa precedenti.
-                // L'evento 'play' (che gestisce il fullscreen) verrà comunque scatenato.
                 return video.play(); 
             })
             .catch(e => {
-                console.warn("Autoplay/Setup Playback fallito:", e.message); // Usiamo warn per non essere troppo allarmistici
-                loadingEl.style.display = 'none';
-                playPauseBtn.textContent = '▶️'; // Mostra il pulsante play se l'autoplay fallisce
+                console.warn("Autoplay/Setup Playback fallito:", e.message); 
+                // loadingEl rimosso
+                playPauseBtn.textContent = '▶️'; 
                 if (e.name === 'NotAllowedError') {
                     console.log("Autoplay con audio bloccato dal browser. L'utente deve interagire per avviare il video.");
-                } else if (e.name !== 'AbortError') { 
-                   // Non mostrare alert per errori comuni come AbortError o NotAllowedError
                 }
             });
         };
@@ -307,7 +307,7 @@
                     hlsInstance.once(Hls.Events.ERROR, (event, data) => {
                         console.error('HLS Error:', data); 
                         if (data.fatal) { 
-                            if (hlsInstance) { // Verifica che hlsInstance esista ancora
+                            if (hlsInstance) {
                                 switch(data.type) { 
                                     case Hls.ErrorTypes.NETWORK_ERROR: hlsInstance.startLoad(); break; 
                                     case Hls.ErrorTypes.MEDIA_ERROR: hlsInstance.recoverMediaError(); break; 
@@ -338,7 +338,7 @@
                 setupAndPlayVideo(loadedMetaPromise);
             } else { 
                 alert('HLS non è supportato da questo browser.'); 
-                loadingEl.style.display = 'none'; 
+                // loadingEl rimosso
             }
         } else { 
             video.src = src; 
@@ -361,9 +361,8 @@
         }; 
         video.onerror = (e) => { 
             console.error("Errore elemento video:", e); 
-            loadingEl.style.display = 'none'; 
+            // loadingEl rimosso
             if (!e.target.error || e.target.error.code !== MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
-              // Non mostrare alert per errori gestiti altrove o comuni.
             }
         };
     }
@@ -465,8 +464,8 @@
       loadSource(CONFIG.source); 
     } else { 
       console.error("Nessuna sorgente video specificata nei parametri URL (videoUrl)."); 
-      loadingEl.textContent = "Nessun video da caricare. Aggiungere ?videoUrl=... all'URL.";
-      loadingEl.style.display = 'block'; 
+      // loadingEl rimosso, mostriamo un alert se non c'è sorgente.
+      alert("Nessun video da caricare. Specificare 'videoUrl' nei parametri."); 
     }
 
   </script>
