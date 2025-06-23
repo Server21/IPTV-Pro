@@ -1,8 +1,9 @@
 [
   {
+    "id": "cronache_eldoria",
     "title": "Le Cronache di Eldoria",
     "poster_path": "https://via.placeholder.com/300x450/2E8B57/FFFFFF?Text=Eldoria+Serie",
-    "overview": "In un regno magico sull'orlo della guerra, un giovane eroe e i suoi improbabili compagni devono ritrovare antichi artefatti per salvare Eldoria da un'oscura minaccia.",
+    "overview": "In un regno magico sull'orlo della guerra...",
     "genres": ["Fantasy", "Avventura", "Magia", "Medievale"],
     "seasons": [
       {
@@ -13,21 +14,21 @@
           {
             "episode_number": 1,
             "name": "Il Villaggio Dimenticato",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-            "overview": "Kael scopre un'antica mappa che lo guida verso il suo destino.",
+            "file": "https://video-example-eldoria-s1e1.mp4",
+            "overview": "Kael scopre un'antica mappa...",
             "still_path": "https://via.placeholder.com/160x90/8FBC8F/000000?Text=Eldoria+S1E1",
-            "skipIntroStart": "0:25",
-            "skipIntroEnd": "1:30",
+            "skipIntroStart": "00:25",
+            "skipIntroEnd": "01:30",
             "outroStart": "23:40"
           },
           {
             "episode_number": 2,
             "name": "La Foresta dei Sussurri",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-            "overview": "Il gruppo affronta i pericoli della foresta incantata per trovare il primo artefatto.",
+            "file": "https://video-example-eldoria-s1e2.mp4",
+            "overview": "Il gruppo affronta i pericoli...",
             "still_path": "https://via.placeholder.com/160x90/3CB371/FFFFFF?Text=Eldoria+S1E2",
-            "skipIntroStart": "0:15",
-            "skipIntroEnd": "1:10",
+            "skipIntroStart": "00:15",
+            "skipIntroEnd": "01:10",
             "outroStart": "21:50"
           }
         ]
@@ -40,17 +41,17 @@
           {
             "episode_number": 1,
             "name": "La Cittadella Assediata",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-            "overview": "I nostri eroi devono difendere la capitale dall'esercito del Signore Oscuro.",
-            "skipIntroStart": "0:30",
-            "skipIntroEnd": "1:35",
+            "file": "https://video-example-eldoria-s2e1.mp4",
+            "overview": "I nostri eroi devono difendere...",
+            "skipIntroStart": "00:30",
+            "skipIntroEnd": "01:35",
             "outroStart": "24:00"
           },
           {
             "episode_number": 2,
             "name": "Il Tradimento",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-            "overview": "Un alleato inaspettato si rivela un nemico, mettendo a rischio la missione.",
+            "file": "https://video-example-eldoria-s2e2.mp4",
+            "overview": "Un alleato inaspettato...",
             "outroStart": "22:15"
           }
         ]
@@ -58,31 +59,33 @@
     ]
   },
   {
+    "id": "codice_delta",
     "title": "Codice Delta: Operazioni Segrete",
     "poster_path": "https://via.placeholder.com/300x450/191970/FFFFFF?Text=Codice+Delta",
-    "overview": "Una squadra d'élite di agenti speciali affronta minacce globali che il mondo non conosce, operando nell'ombra per mantenere la pace.",
+    "overview": "Una squadra d'élite di agenti speciali...",
     "genres": ["Azione", "Thriller", "Spionaggio", "Militare"],
     "seasons": [
       {
         "season_number": 1,
         "name": "Protocollo Zero",
+        "poster_path": "https://via.placeholder.com/300x200/191970/FFFFFF?Text=Delta+S1",
         "episodes": [
           {
             "episode_number": 1,
             "name": "L'Inizio della Fine",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-            "overview": "La squadra viene formata per contrastare un trafficante d'armi internazionale.",
-            "skipIntroStart": "0:10",
-            "skipIntroEnd": "1:05",
+            "file": "https://video-example-delta-s1e1.mp4",
+            "overview": "La squadra viene formata...",
+            "skipIntroStart": "00:10",
+            "skipIntroEnd": "01:05",
             "outroStart": "43:20"
           },
           {
             "episode_number": 2,
             "name": "Caccia all'Uomo a Berlino",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-            "overview": "Un inseguimento mozzafiato per le strade di Berlino per catturare un informatore chiave.",
-            "skipIntroStart": "0:05",
-            "skipIntroEnd": "0:55",
+            "file": "https://video-example-delta-s1e2.mp4",
+            "overview": "Un inseguimento mozzafiato...",
+            "skipIntroStart": "00:05",
+            "skipIntroEnd": "00:55",
             "outroStart": "45:00"
           }
         ]
@@ -95,19 +98,19 @@
           {
             "episode_number": 1,
             "name": "Il Virus Dormiente",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-            "overview": "Un cyber-attacco minaccia di destabilizzare le infrastrutture critiche globali.",
-            "skipIntroStart": "0:12",
-            "skipIntroEnd": "1:18",
+            "file": "https://video-example-delta-s2e1.mp4",
+            "overview": "Un cyber-attacco minaccia...",
+            "skipIntroStart": "00:12",
+            "skipIntroEnd": "01:18",
             "outroStart": "40:30"
           },
           {
             "episode_number": 2,
             "name": "Doppio Gioco",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-            "overview": "Un membro della squadra è sospettato di essere una talpa.",
-            "skipIntroStart": "0:08",
-            "skipIntroEnd": "1:00",
+            "file": "https://video-example-delta-s2e2.mp4",
+            "overview": "Un membro della squadra è sospettato...",
+            "skipIntroStart": "00:08",
+            "skipIntroEnd": "01:00",
             "outroStart": "13:50"
           }
         ]
