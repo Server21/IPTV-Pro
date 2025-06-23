@@ -13,7 +13,7 @@
         "episodes": [
           {
             "episode_number": 1,
-            "name": "A te, duemila anni dopo - La caduta di Shiganshina (1)",
+            "name": "Ep 1",
             "file": "https://srv17-geisha.sweetpixel.org/DDL/ANIME/ShingekiNoKyojinITA/ShingekiNoKyojin_Ep_01_ITA.mp4",
             "overview": "L'improvvisa comparsa del Gigante Colossale...",
             "still_path": "https://img.animeworld.ac/locandine/44560l.jpg",
@@ -23,7 +23,7 @@
           },
           {
             "episode_number": 2,
-            "name": "Quel giorno - La caduta di Shiganshina (2)",
+            "name": "Ep 2",
             "file": "https://srv17-geisha.sweetpixel.org/DDL/ANIME/ShingekiNoKyojinITA/ShingekiNoKyojin_Ep_02_ITA.mp4",
             "overview": "Dopo la tragedia, Eren giura di sterminare tutti i Giganti.",
             "still_path": "https://img.animeworld.ac/locandine/44560l.jpg",
@@ -31,6 +31,16 @@
             "skipIntroEnd": "02:23",
             "outroStart": "22:40"
           }
+           {
+            "episode_number": 3,
+            "name": "Ep 3",
+            "file": "https://srv17-geisha.sweetpixel.org/DDL/ANIME/ShingekiNoKyojinITA/ShingekiNoKyojin_Ep_03_ITA.mp4",
+            "overview": "Dopo la tragedia, Eren giura di sterminare tutti i Giganti.",
+            "still_path": "https://img.animeworld.ac/locandine/44560l.jpg",
+            "skipIntroStart": "00:58",
+            "skipIntroEnd": "02:23",
+            "outroStart": "22:40"
+          },
         ]
       },
       {
@@ -40,7 +50,7 @@
         "episodes": [
           {
             "episode_number": 1,
-            "name": "Il gigante bestia",
+            "name": "Ep 1,
             "file": "https://srv17-geisha.sweetpixel.org/DDL/ANIME/ShingekiNoKyojinITA/S2/ShingekiNoKyojin_S2_Ep_01_ITA.mp4",
             "overview": "La ricognitiva si scontra con il Gigante Bestia.",
             "still_path": "https://img.animeworld.ac/locandine/44560l.jpg",
@@ -50,7 +60,7 @@
           },
           {
             "episode_number": 2,
-            "name": "Sono a casa",
+            "name": "Ep 2",
             "file": "https://srv17-geisha.sweetpixel.org/DDL/ANIME/ShingekiNoKyojinITA/S2/ShingekiNoKyojin_S2_Ep_02_ITA.mp4",
             "overview": "Sasha torna al suo villaggio.",
             "still_path": "https://img.animeworld.ac/locandine/44560l.jpg",
