@@ -1,992 +1,146 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo Multimediale Integrato</title>
-    <style>
-        /* STILI GENERALI DI CASA.HTML */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #141414; color: #e0e0e0; display: flex; flex-direction: column; min-height: 100vh; }
-        header { background-color: #101010; padding: 1rem 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
-        nav .logo { font-size: 1.8em; font-weight: bold; color: #e50914; margin-right: auto; }
-        nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; justify-content: center; }
-        nav ul li a { text-decoration: none; color: #b0b0b0; font-size: 1em; font-weight: 500; transition: color 0.3s ease, text-shadow 0.3s ease; padding: 0.3rem 0.5rem; }
-        @media (min-width: 768px) { nav { flex-wrap: nowrap; } nav ul { gap: 1.5rem; } nav ul li a { font-size: 1.1em; padding: 0; } }
-        nav ul li a:hover, nav ul li a.active { color: #ffffff; text-shadow: 0 0 5px rgba(229, 9, 20, 0.7); }
-        .search-container { display: flex; gap: 0.5rem; margin-top: 0.5rem; width:100%;}
-        @media (min-width: 600px) { .search-container { width: auto; margin-top: 0; margin-left: 1rem;} }
-        .search-container input[type="search"] { padding: 0.6rem 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: #222; color: #fff; flex-grow: 1; min-width: 150px; font-size: 0.9em; }
-        .search-container button { padding: 0.6rem 1rem; border-radius: 4px; border: none; background-color: #e50914; color: #fff; cursor: pointer; font-weight: 500; transition: background-color 0.3s ease; }
-        .search-container button:hover { background-color: #f40612; }
-        main { flex-grow: 1; padding: 1rem; max-width: 1300px; width: 100%; margin: 0 auto; box-sizing: border-box; }
-        #section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding: 0 0.5rem; }
-        @media (min-width: 768px) { main { padding: 2rem; } #section-header { padding: 0; } }
-        #current-section-title { margin-bottom: 0; flex-grow: 1; font-size: clamp(1.5em, 4vw, 2.2em); color: #fff; text-align: left; border-bottom: 2px solid #333; padding-bottom: 0.5rem; }
-        #back-button { padding: 0.4rem 0.8rem; font-size: clamp(0.8em, 2.5vw, 0.9em); background-color: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease;}
-        #back-button:hover { background-color: #555; }
-        #back-button.hidden { display: none; }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.8rem; }
-        @media (min-width: 480px) { .grid-container { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); } }
-        @media (min-width: 768px) { .grid-container { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1.2rem; } }
-        @media (min-width: 1024px) { .grid-container { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; } }
-        #items-grid:not(.grid-container) { display: block; }
-        .card { background-color: #1f1f1f; border-radius: 8px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.3); transition: transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; cursor: pointer; }
-        .card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
-        .card img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-bottom: 2px solid #e50914; }
-        .card-content { padding: 0.6rem 0.8rem; text-align: left; flex-grow: 1; display: flex; flex-direction: column; min-height: 70px; }
-        .card-content h3 { margin-top: 0; margin-bottom: 0.3rem; font-size: clamp(0.85em, 2.8vw, 1em); color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-        .card-content p.description { font-size: clamp(0.7em, 2.2vw, 0.8em); color: #b0b0b0; line-height: 1.3; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 0.4rem; flex-grow: 1; }
-        .tags-container { margin-top: auto; padding-top: 0.3rem; display: flex; flex-wrap: wrap; gap: 0.25rem; }
-        .tag { background-color: #333; color: #ccc; padding: 0.15rem 0.4rem; border-radius: 8px; font-size: clamp(0.55em, 1.8vw, 0.65em); font-weight: 500; }
-        .detail-view-container { width: 100%; padding: 1rem; background-color: #181818; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .detail-header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #333; }
-        .detail-header img { width: 150px; max-width: 50%; height: auto; object-fit: cover; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);}
-        .detail-header-info { flex: 1; width:100%;}
-        .detail-header-info h3 { font-size: clamp(1.6em, 5vw, 2em); margin-bottom: 0.5rem; }
-        .detail-header-info p { font-size: clamp(0.9em, 2.5vw, 1em); max-height: 150px; overflow-y: auto; line-height: 1.5; color: #ccc;}
-        .detail-tags { margin-top: 0.8rem; }
-        @media (min-width: 768px) { .detail-header { flex-direction: row; text-align: left; align-items: flex-start;} .detail-header img {max-width: 200px;} .detail-header-info p {max-height: 200px;} }
-        .seasons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.8rem; margin-bottom: 1.5rem; }
-        .season-card { background-color: #2a2a2a; border-radius: 6px; padding: 0.8rem; text-align: center; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; display: flex; flex-direction: column; justify-content: space-between; }
-        .season-card:hover { background-color: #383838; transform: scale(1.03); }
-        .season-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; margin-bottom: 0.5rem; }
-        .season-card h4 { margin: 0.5rem 0; font-size: clamp(0.85em, 2.8vw, 1em); white-space: nowrap; overflow:hidden; text-overflow: ellipsis;}
-        .season-card p { font-size: 0.75em; color: #888; margin: 0; }
-        @media (min-width: 768px) { .seasons-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; } }
-        .episodes-list-section h4 { font-size: clamp(1.3em, 4vw, 1.6em); color: #e0e0e0; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #444; }
-        .episodes-list { list-style: none; padding: 0; margin: 0; }
-        .episodes-list li { background-color: #2a2a2a; margin-bottom: 0.5rem; padding: 0.6rem 1rem; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease, transform 0.1s ease; display: flex; justify-content: space-between; align-items: center; }
-        .episodes-list li:hover { background-color: #e50914; color: #fff; transform: translateX(3px); }
-        .episodes-list li .episode-info { display: flex; align-items: center; gap: 10px; overflow: hidden; flex-grow: 1;}
-        .episodes-list li .episode-info img { width: 80px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 3px; flex-shrink: 0;}
-        .episodes-list li .episode-title-desc { overflow: hidden; margin-right: 10px;}
-        .episodes-list li .episode-title-desc .main-title { font-size: clamp(0.8em, 2.5vw, 0.95em); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .episodes-list li .episode-title-desc .ep-desc { font-size: clamp(0.65em, 2vw, 0.75em); color: #999; display: block; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-        .episodes-list li:hover .ep-desc { color: #eee; }
-        .episodes-list li .play-icon { font-size: 1.1em; margin-left: auto; flex-shrink: 0;}
-        footer { text-align: center; padding: 1.5rem; background-color: #101010; color: #777; margin-top: auto; font-size: 0.9em; }
-        .message { font-size: 1.2em; color: #aaa; text-align: center; padding: 2rem; grid-column: 1 / -1; }
-
-
-        /* STILI PER IL PLAYER MODALE E OVERLAY */
-        .player-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); 
-            display: none; justify-content: center; align-items: center;
-            z-index: 2000; 
-        }
-        .player-container-modal {
-            position: relative; width: 90vw; max-width: 1100px;
-            height: auto; max-height: 90vh;
-            background: #000; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.7);
-            display: flex; flex-direction: column;
-        }
-        .player-container-modal.fullscreen-modal { 
-            border-radius: 0; width: 100% !important; height: 100% !important;
-            max-width: none !important; max-height: none !important;
-        }
-        .player-container-modal video#videoPlayerModal { 
-            width: 100%; display: block; background: #000; cursor: pointer; outline: none; 
-        }
-        .player-container-modal .pause-overlay-modal {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: clamp(48px, 10vw, 80px); color: rgba(255,255,255,0.8);
-            display: none; animation: fadeModal 0.5s ease-in-out;
-            pointer-events: none; z-index: 10;
-        }
-        @keyframes fadeModal { from { opacity: 0; } to { opacity: 1; } }
-        .player-container-modal .controls-modal {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: rgba(0,0,0,0.7); padding: 10px 15px;
-            display: flex; align-items: center; gap: 12px;
-            opacity: 1; transition: opacity 0.4s ease; z-index: 2147483647;
-        }
-        .player-container-modal .controls-modal.hidden-modal { opacity: 0; pointer-events: none; }
-        .player-container-modal .control-button-modal {
-            background: none; border: none; color: #fff;
-            font-size: clamp(18px, 3vw, 24px); cursor: pointer;
-            padding: 5px 10px; border-radius: 4px;
-            display: flex; align-items: center; justify-content: center;
-            min-width: 38px; height: 38px; transition: background-color 0.2s ease;
-        }
-        .player-container-modal .control-button-modal:hover { background-color: rgba(255,255,255,0.15); }
-        .player-container-modal .progress-bar-modal {
-            position: relative; flex: 1; height: 8px;
-            background: #555; cursor: pointer; border-radius: 4px;
-        }
-        .player-container-modal .progress-filled-modal {
-            width: 0; height: 100%; background: #00AEEF;
-            border-radius: 4px; transition: width 0.1s linear;
-        }
-        .player-container-modal .progress-buffered-modal {
-            position: absolute; top: 0; left: 0; width: 0; height: 100%;
-            background: #888; border-radius: 4px; opacity: 0.7; z-index: 1;
-        }
-        .player-container-modal .progress-handle-modal {
-            position: absolute; top: 50%; left: 0; width: 14px; height: 14px;
-            background: #00AEEF; border: 2px solid #fff; border-radius: 50%;
-            transform: translate(-50%, -50%); cursor: grab;
-            opacity: 0; transition: opacity 0.2s ease, transform 0.2s ease; z-index: 3;
-        }
-        .player-container-modal .progress-bar-modal:hover .progress-handle-modal {
-            opacity: 1; transform: translate(-50%, -50%) scale(1.1);
-        }
-        .player-container-modal .progress-handle-modal.dragging-modal {
-            opacity: 1; transform: translate(-50%, -50%) scale(1.2); cursor: grabbing;
-        }
-        .player-container-modal .preview-thumb-modal {
-            position: absolute; bottom: 100%; left: 0; width: 140px; height: 79px;
-            margin-bottom: 6px; background: #000; border: 1px solid #666;
-            display: none; pointer-events: none; z-index: 5;
-        }
-        .player-container-modal .preview-thumb-modal video { width: 100%; height: 100%; object-fit: cover; }
-        .player-container-modal .tooltip-modal {
-            position: absolute; bottom: 100%; padding: 3px 6px;
-            background: rgba(0,0,0,0.85); color: #fff; font-size:13px;
-            border-radius:3px; transform: translateX(-50%); display: none;
-            white-space:nowrap; margin-bottom: 6px; pointer-events: none; z-index: 6;
-        }
-        .player-container-modal .volume-control-modal { display: flex; align-items: center; gap:6px; }
-        .player-container-modal .volume-control-modal input[type=range] { width: 90px; cursor: pointer; }
-        .player-container-modal select#speedSelectorModal {
-            background: #2f2f2f; color: #fff; border: 1px solid #444;
-            border-radius:4px; padding:6px 8px; cursor: pointer; font-size: 0.9em;
-        }
-        .player-container-modal span#timeDisplayModal { color: #fff; font-size: 0.95em; min-width: 90px; text-align: center;}
-        .player-container-modal #loadingModal {
-            position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-            display:none; color:#fff; font-size: 1.3em;
-            background-color: rgba(0,0,0,0.5); padding: 10px 15px; border-radius: 5px;
-        }
-        .player-container-modal #nextEpisodeButtonModal,
-        .player-container-modal #closePlayerButtonModal {
-            display: none; margin-left: auto; padding: 6px 12px;
-            background-color: #555; color: white; border: none;
-            border-radius: 4px; cursor: pointer; font-size: 0.9em;
-            transition: background-color 0.2s ease;
-        }
-        .player-container-modal #nextEpisodeButtonModal { background-color: #e50914; margin-left: 10px; }
-        .player-container-modal #closePlayerButtonModal { background-color: #333; margin-left: 10px; order: 10; }
-        .player-container-modal #nextEpisodeButtonModal:hover { background-color: #f40612; }
-        .player-container-modal #closePlayerButtonModal:hover { background-color: #777; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sito Streaming</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    [tabindex]:focus { outline: 3px solid #3B82F6; }
+    :root { font-size: 1rem; }
+    @media (min-width: 640px) { :root { font-size: 1.1rem; } }
+    @media (min-width: 1024px) { :root { font-size: 1.2rem; } }
+  </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">MioStream</div>
-            <ul>
-                <li><a href="#home" id="nav-home" class="active">Home</a></li>
-                <li><a href="#film" id="nav-film">Film</a></li>
-                <li><a href="#serietv" id="nav-serietv">Serie TV</a></li>
-                <li><a href="#anime" id="nav-anime">Anime</a></li>
-            </ul>
-            <div class="search-container">
-                <input type="search" id="search-input" placeholder="Cerca titolo o tag...">
-                <button id="search-button">Cerca</button>
-            </div>
-        </nav>
-    </header>
+<body class="bg-gray-100 text-gray-800 font-sans leading-normal">
+  <!-- Navbar -->
+  <header class="bg-gray-900 text-white sticky top-0 z-50">
+    <nav class="max-w-screen-2xl mx-auto flex flex-wrap items-center justify-between p-4">
+      <h1 class="text-2xl sm:text-3xl font-bold">My Stream</h1>
+      <ul class="flex flex-wrap space-x-4 sm:space-x-6" role="menubar">
+        <li><button data-type="anime" tabindex="0" class="hover:text-gray-300 focus:text-blue-400">Anime</button></li>
+        <li><button data-type="film" tabindex="0" class="hover:text-gray-300 focus:text-blue-400">Film</button></li>
+        <li><button data-type="series_tv" tabindex="0" class="hover:text-gray-300 focus:text-blue-400">Serie TV</button></li>
+      </ul>
+      <div class="flex flex-wrap items-center space-x-2 mt-2 sm:mt-0">
+        <input id="search" type="search" placeholder="Cerca..." class="px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <select id="genreFilter" class="px-3 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">Tutti i generi</option>
+        </select>
+      </div>
+    </nav>
+  </header>
 
-    <main id="content-area">
-        <div id="section-header">
-            <button id="back-button" class="hidden">← Indietro</button>
-            <h2 id="current-section-title">Caricamento...</h2>
-        </div>
-        <div id="items-grid" class="grid-container">
-            <!-- Contenuto dinamico del catalogo qui -->
-        </div>
-    </main>
+  <!-- Content -->
+  <main class="max-w-screen-2xl mx-auto p-4">
+    <div id="gallery"></div>
+  </main>
 
-    <footer>
-        <p>© 2024 Catalogo Multimediale Integrato</p>
-    </footer>
+  <script>
+    const dataFiles = {
+      anime: 'https://raw.githubusercontent.com/Server21/IPTV-Pro/refs/heads/master/Random/anime.json',
+      film: 'https://raw.githubusercontent.com/Server21/IPTV-Pro/refs/heads/master/Random/film.json',
+      series_tv: 'https://raw.githubusercontent.com/Server21/IPTV-Pro/refs/heads/master/Random/series_tv.json'
+    };
+    let currentType='anime', rawData=[], flatItems=[];
+    const gallery=document.getElementById('gallery');
+    const searchInput=document.getElementById('search');
+    const genreFilter=document.getElementById('genreFilter');
+    const navButtons=document.querySelectorAll('nav button');
 
-    <!-- PLAYER MODALE HTML -->
-    <div class="player-modal-overlay" id="playerModalOverlay">
-        <div class="player-container-modal" id="playerContainerModal">
-            <video id="videoPlayerModal" playsinline crossorigin="anonymous"></video>
-            <div class="pause-overlay-modal" id="pauseOverlayModal">⏸️</div>
-            <div id="loadingModal">Caricamento...</div>
-            <div class="controls-modal" id="controlsModal">
-                <button class="control-button-modal" id="playPauseBtnModal" title="Play/Pausa">▶️</button>
-                <span id="timeDisplayModal">00:00 / 00:00</span>
-                <div class="progress-bar-modal" id="progressBarModal">
-                    <div class="progress-buffered-modal" id="progressBufferedModal"></div>
-                    <div class="progress-filled-modal" id="progressFilledModal"></div>
-                    <div class="progress-handle-modal" id="progressHandleModal"></div>
-                    <div class="preview-thumb-modal" id="previewThumbModal"><video muted></video></div>
-                    <div class="tooltip-modal" id="tooltipModal">00:00</div>
-                </div>
-                <div class="volume-control-modal">
-                    <span id="volumeIconModal" class="control-button-modal" style="cursor:pointer;">🔊</span>
-                    <input type="range" id="volumeSliderModal" min="0" max="1" step="0.01" value="1">
-                </div>
-                <select id="speedSelectorModal" title="Velocità" class="control-button-modal" style="padding: 5px; min-width: 60px;">
-                    <option value="0.5">0.5x</option><option value="0.75">0.75x</option>
-                    <option value="1" selected>1x</option><option value="1.25">1.25x</option>
-                    <option value="1.5">1.5x</option><option value="2">2x</option>
-                </select>
-                <button class="control-button-modal" id="fullscreenBtnModal" title="Schermo Intero">⛶</button>
-                <button id="nextEpisodeButtonModal">Prossimo</button> 
-                <button id="closePlayerButtonModal" title="Chiudi Player">✖</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- VARIABILI E COSTANTI DEL CATALOGO ---
-            const itemsGrid = document.getElementById('items-grid');
-            const searchInput = document.getElementById('search-input');
-            const searchButton = document.getElementById('search-button'); // Dichiarato qui
-            const navHome = document.getElementById('nav-home');
-            const navFilm = document.getElementById('nav-film');
-            const navSerieTv = document.getElementById('nav-serietv');
-            const navAnime = document.getElementById('nav-anime'); 
-            const sectionTitleElement = document.getElementById('current-section-title');
-            const backButton = document.getElementById('back-button');
-
-            let allFilm = [], allSerieTv = [], allAnime = [], allContent = [];
-            let currentView = 'grid'; 
-            let breadcrumbs = []; 
-
-            const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Server21/IPTV-Pro/master/Random/';
-            const GITHUB_FILM_URL = `${GITHUB_BASE_URL}film.json`;
-            const GITHUB_SERIETV_URL = `${GITHUB_BASE_URL}series_tv.json`;
-            const GITHUB_ANIME_URL = `${GITHUB_BASE_URL}anime.json`;
-
-            // --- VARIABILI E COSTANTI DEL PLAYER MODALE ---
-            const playerModalOverlay = document.getElementById('playerModalOverlay');
-            const playerContainerModal = document.getElementById('playerContainerModal');
-            const videoPlayerModal = document.getElementById('videoPlayerModal');
-            const pauseOverlayModal = document.getElementById('pauseOverlayModal');
-            const loadingModal = document.getElementById('loadingModal');
-            const controlsModal = document.getElementById('controlsModal');
-            const playPauseBtnModal = document.getElementById('playPauseBtnModal');
-            const timeDisplayModal = document.getElementById('timeDisplayModal');
-            const progressBarModal = document.getElementById('progressBarModal');
-            const progressBufferedModal = document.getElementById('progressBufferedModal');
-            const progressFilledModal = document.getElementById('progressFilledModal');
-            const progressHandleModal = document.getElementById('progressHandleModal');
-            const previewThumbModal = document.getElementById('previewThumbModal');
-            const previewVideoModal = previewThumbModal.querySelector('video');
-            const tooltipModal = document.getElementById('tooltipModal');
-            const volumeIconModal = document.getElementById('volumeIconModal');
-            const volumeSliderModal = document.getElementById('volumeSliderModal');
-            const speedSelectorModal = document.getElementById('speedSelectorModal');
-            const fullscreenBtnModal = document.getElementById('fullscreenBtnModal');
-            const nextEpisodeButtonModal = document.getElementById('nextEpisodeButtonModal');
-            const closePlayerButtonModal = document.getElementById('closePlayerButtonModal');
-            
-            let hlsInstanceModal = null;
-            let isDraggingModal = false;
-            let hideControlsTimeoutModal;
-            let currentPlayerConfig = {}; 
-            let hasTriggeredNextEpisodeModal = false;
-
-            // --- FUNZIONI DEL CATALOGO ---
-            async function fetchData() {
-                try {
-                    updateMainView("Caricamento in corso...", '<p class="message">Recupero dati multimediali...</p>');
-                    const responses = await Promise.all([
-                        fetch(GITHUB_FILM_URL), fetch(GITHUB_SERIETV_URL), fetch(GITHUB_ANIME_URL)
-                    ].map(p => p.catch(e => { 
-                        console.error("Errore FETCH iniziale:", e.message, "per URL (se disponibile):", e.url || 'URL non tracciato nell\'errore'); 
-                        return { ok: false, url: e.url || 'URL non tracciato', status: 'NetworkError', statusText: e.message , json: () => Promise.resolve([]) }; 
-                    })));
-                    
-                    const jsonDataPromises = responses.map(async (res) => {
-                        if (!res.ok) {
-                            console.error(`Errore HTTP ${res.statusText || res.status} (${res.status}) caricando ${res.url}. Verrà usato un array vuoto per questo dataset.`);
-                            return [];
-                        }
-                        try {
-                            const data = await res.json();
-                            console.log(`Dati JSON caricati con successo da ${res.url}:`, data && data.length > 0 ? `${data.length} elementi` : "Array vuoto o dati non conformi");
-                            return data;
-                        } catch (e) {
-                            console.error(`JSON non valido da ${res.url}: ${e.message}. Verrà usato un array vuoto per questo dataset.`);
-                            return [];
-                        }
-                    });
-
-                    const [filmJson, serieTvJson, animeJson] = await Promise.all(jsonDataPromises);
-                    
-                    allFilm = Array.isArray(filmJson) ? filmJson.map((item, index) => mapFilmData(item, index)) : [];
-                    if (!Array.isArray(filmJson) && filmJson) console.warn("filmJson non è un array:", filmJson);
-
-                    allSerieTv = Array.isArray(serieTvJson) ? serieTvJson.map((item, index) => mapSerieOrAnimeData(item, 'serietv', index)) : [];
-                    if (!Array.isArray(serieTvJson) && serieTvJson) console.warn("serieTvJson non è un array:", serieTvJson);
-                    
-                    allAnime = Array.isArray(animeJson) ? animeJson.map((item, index) => mapSerieOrAnimeData(item, 'anime', index)) : [];
-                    if (!Array.isArray(animeJson) && animeJson) console.warn("animeJson non è un array:", animeJson);
-
-                    allContent = [...allFilm, ...allSerieTv, ...allAnime];
-                    
-                    console.log("Mappatura completata:", { 
-                        filmsMappati: allFilm.length, 
-                        serieTvMappate: allSerieTv.length, 
-                        animeMappati: allAnime.length,
-                        contenutiTotali: allContent.length
-                    });
-
-                    if (allContent.length === 0) {
-                        console.warn("Nessun contenuto è stato caricato o mappato correttamente. Controllare i log precedenti per errori specifici sui file JSON.");
-                        updateMainView("Errore Dati", "<p class='message'>Impossibile caricare qualsiasi contenuto. Verifica la console per dettagli.</p>", true);
-                    }
-                    
-                    handleRouteChange(true); 
-                } catch (error) { 
-                    console.error('Errore critico in fetchData (blocco try principale):', error); 
-                    updateMainView("Errore Caricamento Dati", `<p class="message">Impossibile caricare i contenuti. Dettagli: ${error.message}</p>`);
-                }
-            }
-
-            const generateSafeId = (text, prefix = '') => {
-                const randomPart = Math.random().toString(36).substring(2, 7);
-                if (typeof text !== 'string' || !text.trim()) { return prefix + randomPart; }
-                const safeText = text.trim().toLowerCase()
-                                 .replace(/\s+/g, '-')      
-                                 .replace(/[^\w-]+/g, '');   
-                return prefix + (safeText || randomPart).substring(0, 40) + '-' + randomPart;
-            }
-
-            const mapFilmData = (item, index) => ({ 
-                id: item.id || item.id_provided || generateSafeId(item.title, 'f-' + index + '-'),
-                type: 'film',
-                titolo: item.title || item.name || "Titolo non disponibile", 
-                immagine: item.poster_path || item.image || item.thumbnail || "https://via.placeholder.com/300x450?text=No+Image",
-                descrizione: item.overview || item.description || "Descrizione non disponibile",
-                url_video: item.url_video || item.video_url || item.file || item.link,
-                tags: Array.isArray(item.genres) ? item.genres.map(g => (typeof g === 'string' ? g : g.name)).filter(Boolean) : 
-                      (Array.isArray(item.tags) ? item.tags.map(t => (typeof t === 'string' ? t : t.name)).filter(Boolean) : [])
-            });
-
-            const mapSerieOrAnimeData = (item, type, itemIndex) => {
-                const serieId = item.id || item.id_provided || generateSafeId(item.title, type.substring(0,1) + '-' + itemIndex + '-');
-                return {
-                    id: serieId, type: type,
-                    titolo: item.title || item.name || "Titolo non disponibile", 
-                    immagine: item.poster_path || item.image || item.thumbnail || "https://via.placeholder.com/300x450?text=No+Image",
-                    descrizione: item.overview || item.description || "Descrizione non disponibile",
-                    tags: Array.isArray(item.genres) ? item.genres.map(g => (typeof g === 'string' ? g : g.name)).filter(Boolean) : 
-                          (Array.isArray(item.tags) ? item.tags.map(t => (typeof t === 'string' ? t : t.name)).filter(Boolean) : []),
-                    stagioni: (item.seasons || item.stagioni || []).map((s, seasonIndex) => {
-                        const seasonTitle = s.title || s.name || s.titolo_stagione || `Stagione ${s.season_number || seasonIndex + 1}`;
-                        const stagioneId = s.id_stagione || s.id_stagione_provided || generateSafeId(seasonTitle, `${serieId}_s${seasonIndex}-`);
-                        return {
-                            id_stagione: stagioneId,
-                            stagione_numero: s.season_number || s.name || `Stagione ${seasonIndex + 1}`,
-                            titolo_stagione: seasonTitle,
-                            immagine_stagione: s.poster_path || s.image_stagione || item.poster_path || item.image || item.thumbnail || "https://via.placeholder.com/300x200?text=No+Season+Img",
-                            season_index_internal: seasonIndex, 
-                            episodes: (s.episodes || []).map((ep, episodeIndex) => {
-                                const episodeTitle = ep.name || ep.title || `Episodio ${ep.episode_number || episodeIndex + 1}`;
-                                const episodioId = ep.id_episodio || ep.id_episodio_provided || generateSafeId(episodeTitle, `${stagioneId}_e${episodeIndex}-`);
-                                return {
-                                    id_episodio: episodioId,
-                                    episodio_numero: ep.episode_number || ep.episode || episodeIndex + 1, 
-                                    titolo_episodio: episodeTitle, 
-                                    link: ep.video_url || ep.file || ep.link,
-                                    descrizione_episodio: ep.overview || ep.description_episodio || "Nessuna descrizione per questo episodio.",
-                                    immagine_episodio: ep.still_path || ep.image_episodio || "https://via.placeholder.com/160x90?text=No+Ep+Img",
-                                    skipIntroStart: ep.skipIntroStart, 
-                                    skipIntroEnd: ep.skipIntroEnd,     
-                                    outroStart: ep.outroStart,         
-                                    episode_index_internal: episodeIndex,
-                                    type: type
-                                };
-                            })
-                        };
-                    })
-                };
-            };
-            
-            function createItemCard(item) {
-                const card = document.createElement('div'); card.className = 'card';
-                let tagsHtml = '';
-                if (item.tags && Array.isArray(item.tags) && item.tags.length > 0) {
-                    const tagNames = item.tags.slice(0,3).map(tag => `<span class="tag">${tag}</span>`).join('');
-                    if (tagNames) tagsHtml = `<div class="tags-container">${tagNames}</div>`;
-                }
-                card.innerHTML = `<img src="${item.immagine}" alt="${item.titolo}" loading="lazy"><div class="card-content"><h3>${item.titolo}</h3><p class="description">${item.descrizione || ''}</p>${tagsHtml}</div>`;
-                
-                card.addEventListener('click', () => {
-                    console.log("Card cliccata:", { type: item.type, titolo: item.titolo, id: item.id });
-                    if (item.type === 'film') {
-                        if (item.url_video) {
-                            currentPlayerConfig = {
-                                videoUrl: item.url_video,
-                                contentType: item.type,
-                            };
-                            openPlayerModal();
-                        } else {
-                            alert(`URL video non disponibile per il film "${item.titolo}".`);
-                        }
-                    } else if (item.type === 'serietv' || item.type === 'anime') {
-                        let primoEpisodioGiocabile = null;
-                        let idSerie = item.id;
-                        let indicePrimaStagioneGiocabile = -1;
-                        let indicePrimoEpisodioGiocabile = -1;
-
-                        if (item.stagioni && item.stagioni.length > 0) {
-                            const primaStagione = item.stagioni[0];
-                            if (primaStagione && primaStagione.episodes && primaStagione.episodes.length > 0) {
-                                const ep = primaStagione.episodes[0];
-                                if (ep && ep.link) {
-                                    primoEpisodioGiocabile = ep;
-                                    indicePrimaStagioneGiocabile = primaStagione.season_index_internal;
-                                    indicePrimoEpisodioGiocabile = ep.episode_index_internal;
-                                }
-                            }
-                        }
-
-                        if (primoEpisodioGiocabile) {
-                            currentPlayerConfig = {
-                                videoUrl: primoEpisodioGiocabile.link,
-                                contentType: item.type,
-                                serieId: idSerie,
-                                stagioneIndex: indicePrimaStagioneGiocabile,
-                                episodioIndex: indicePrimoEpisodioGiocabile,
-                                skipIntroStart: primoEpisodioGiocabile.skipIntroStart,
-                                skipIntroEnd: primoEpisodioGiocabile.skipIntroEnd,
-                                outroStart: primoEpisodioGiocabile.outroStart
-                            };
-                            openPlayerModal();
-                        } else {
-                            alert(`Il primo episodio di "${item.titolo}" non è disponibile. Verrai reindirizzato ai dettagli.`);
-                            window.location.hash = `#detail&type=${item.type}&id=${encodeURIComponent(idSerie)}`;
-                        }
-                    }
+    async function loadData(type){
+      currentType=type; rawData=[]; flatItems=[];
+      const res=await fetch(dataFiles[type]); rawData=await res.json();
+      if(['anime','series_tv'].includes(type)) rawData.forEach(item=>{
+        item.seasons.forEach(season=>season.episodes.forEach(ep=>flatItems.push({
+          title:item.title,
+          season:season.name,
+          episode:ep.episode_number,
+          name:ep.name,
+          file:ep.file,
+          overview:ep.overview,
+          poster:ep.still_path||item.poster_path,
+          genres:item.genres
+        })));
+      }); else flatItems=rawData.map(f=>({
+          title:f.title,
+          season:'',
+          episode:'',
+          name:f.title,
+          file:f.url_video,
+          overview:f.overview,
+          poster:f.poster_path,
+          genres:f.genres
+      }));
+      populateGenres(); renderGallery();
+    }
+    function populateGenres(){
+      const opts=['<option value="">Tutti i generi</option>'];
+      new Set(flatItems.flatMap(i=>i.genres)).forEach(g=>opts.push(`<option value="${g}">${g}</option>`));
+      genreFilter.innerHTML=opts.join('');
+    }
+    function renderGallery(){
+      gallery.innerHTML=''; const q=searchInput.value.toLowerCase(), g=genreFilter.value;
+      if(['anime','series_tv'].includes(currentType)) rawData.forEach(item=>{
+        const section=document.createElement('section');
+        const h2=document.createElement('h2');
+        h2.textContent=item.title; h2.className='text-2xl font-bold mt-6';
+        section.append(h2);
+        item.seasons.forEach(season=>{
+          const h3=document.createElement('h3');
+          h3.textContent=season.name; h3.className='text-xl mt-3 font-semibold';
+          section.append(h3);
+          const list=document.createElement('div'); list.className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3';
+          season.episodes.forEach(ep=>{
+            if(ep.name.toLowerCase().includes(q) && (!g || item.genres.includes(g))){
+              const card=document.createElement('div');
+              card.className='cursor-pointer';
+              card.innerHTML=`
+                <img src="${ep.still_path||item.poster_path}" class="w-full h-24 object-cover rounded" />
+                <p class="mt-1 text-sm truncate">${ep.name}</p>
+              `;
+              card.addEventListener('click',()=>{
+                const params = new URLSearchParams({
+                  video: ep.file,
+                  title: item.title,
+                  season: season.name,
+                  episode: ep.episode_number,
+                  name: ep.name,
+                  overview: ep.overview
                 });
-                return card;
+                window.location.href = `player.html?${params.toString()}`;
+              });
+              list.append(card);
             }
-
-            function updateMainView(title, contentHtml, isGridView = false) { sectionTitleElement.textContent = title; itemsGrid.innerHTML = contentHtml; itemsGrid.className = isGridView ? 'grid-container' : 'detail-view-container'; }
-            function updateBackButton() { backButton.classList.toggle('hidden', breadcrumbs.length <= 1); }
-            backButton.addEventListener('click', () => { if (breadcrumbs.length > 1) { breadcrumbs.pop(); const previousState = breadcrumbs[breadcrumbs.length - 1]; window.location.hash = previousState.hash; } });
-            
-            function displaySerieDetail(item) { 
-                currentView = 'serieDetail';
-                let tagsHtml = '';
-                if (item.tags && item.tags.length > 0) {
-                    tagsHtml = `<div class="tags-container detail-tags">${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`;
-                }
-                
-                let seasonsHtml = '<p class="message">Nessuna stagione disponibile per questa serie.</p>';
-                if (item.stagioni && item.stagioni.length > 0) {
-                    seasonsHtml = `<div class="seasons-grid">` + item.stagioni.map((stagione) => `
-                        <div class="season-card" data-serie-id="${encodeURIComponent(item.id)}" data-season-index="${stagione.season_index_internal}" data-type="${item.type}">
-                            <img src="${stagione.immagine_stagione || item.immagine}" alt="Stagione ${stagione.stagione_numero}" loading="lazy">
-                            <h4>Stagione ${stagione.stagione_numero}${stagione.titolo_stagione && stagione.titolo_stagione !== `Stagione ${stagione.stagione_numero}` ? ` - ${stagione.titolo_stagione}` : ''}</h4>
-                            <p>${stagione.episodes ? stagione.episodes.length : 0} episodi</p>
-                        </div>
-                    `).join('') + `</div>`;
-                }
-                const contentHtml = `
-                    <div class="detail-header">
-                        <img src="${item.immagine}" alt="${item.titolo}">
-                        <div class="detail-header-info">
-                            <h3>${item.titolo}</h3>
-                            <p>${item.descrizione || 'Nessuna descrizione disponibile.'}</p>
-                            ${tagsHtml}
-                        </div>
-                    </div>
-                    ${seasonsHtml}`;
-                updateMainView(item.titolo, contentHtml);
-                document.querySelectorAll('.season-card').forEach(c => c.addEventListener('click', () => {
-                    window.location.hash = `#season&type=${c.dataset.type}&id=${c.dataset.serieId}&seasonIndex=${c.dataset.seasonIndex}`;
-                }));
-            }
-
-            function displaySeasonEpisodes(item, seasonIndex) { 
-                currentView = 'seasonEpisodes';
-                const stagione = item.stagioni?.[seasonIndex];
-                if (!stagione) { 
-                    updateMainView("Errore", "<p class='message'>Stagione non trovata.</p>"); return; 
-                }
-                
-                let episodesHtml = '<p class="message">Nessun episodio in questa stagione.</p>';
-                if (stagione.episodes && stagione.episodes.length > 0) {
-                    episodesHtml = `<ul class="episodes-list">` + stagione.episodes.map(ep => `
-                        <li data-item='${JSON.stringify({serieId: item.id, seasonIndex: seasonIndex, episodeIndex: ep.episode_index_internal, type: item.type, videoLink: ep.link, skipIntroStart: ep.skipIntroStart, skipIntroEnd: ep.skipIntroEnd, outroStart: ep.outroStart })}'>
-                            <div class="episode-info">
-                                ${ep.immagine_episodio && ep.immagine_episodio !== "https://via.placeholder.com/160x90?text=No+Ep+Img" ? `<img src="${ep.immagine_episodio}" alt="Preview episodio" loading="lazy">` : `<div style="width:80px; height:45px; background:#333; display:flex; align-items:center; justify-content:center; border-radius:3px; flex-shrink:0;"><span style="font-size:0.7em; color:#777;">No Img</span></div>`}
-                                <div class="episode-title-desc">
-                                   <span class="main-title">Ep. ${ep.episodio_numero}: ${ep.titolo_episodio}</span>
-                                   ${ep.descrizione_episodio && ep.descrizione_episodio !== "Nessuna descrizione per questo episodio." ? `<span class="ep-desc">${ep.descrizione_episodio}</span>` : ''}
-                                </div>
-                            </div>
-                            <span class="play-icon">▶</span>
-                        </li>
-                    `).join('') + `</ul>`;
-                }
-                const sNumDisplay = stagione.stagione_numero;
-                const sTitleDisplay = stagione.titolo_stagione && stagione.titolo_stagione !== `Stagione ${sNumDisplay}` ? ` - ${stagione.titolo_stagione}` : '';
-                const seasonDisplayTitle = `Stagione ${sNumDisplay}${sTitleDisplay}`;
-
-                updateMainView(`${item.titolo} - ${seasonDisplayTitle}`, `<div class="episodes-list-section"><h4>${seasonDisplayTitle} - Episodi</h4>${episodesHtml}</div>`);
-                
-                document.querySelectorAll('.episodes-list li').forEach(li => {
-                    li.addEventListener('click', () => {
-                        try {
-                            const data = JSON.parse(li.dataset.item);
-                            currentPlayerConfig = {
-                                videoUrl: data.videoLink,
-                                contentType: data.type,
-                                serieId: data.serieId,
-                                stagioneIndex: data.seasonIndex,
-                                episodioIndex: data.episodeIndex,
-                                skipIntroStart: data.skipIntroStart,
-                                skipIntroEnd: data.skipIntroEnd,
-                                outroStart: data.outroStart
-                            };
-                            if (currentPlayerConfig.videoUrl) {
-                                openPlayerModal();
-                            } else {
-                                alert("URL video non disponibile per questo episodio.");
-                            }
-                        } catch (e) {
-                            console.error("Errore nel parsing dei dati dell'episodio:", e);
-                            alert("Impossibile caricare i dati dell'episodio.");
-                        }
-                    });
-                });
-            }
-            
-            function displayGrid(items, title) { 
-                currentView = 'grid'; 
-                if (!items || items.length === 0) {
-                    updateMainView(title, `<p class="message">Nessun contenuto trovato per "${title}".</p>`, true);
-                    return;
-                }
-                updateMainView(title, items.map(item => createItemCard(item).outerHTML).join(''), true); 
-            }
-            function displayHome() { setActiveNav(navHome); displayGrid(getRandomItems(allContent, 12), 'Home - Consigliati per Te'); }
-            function getRandomItems(array, count) { if (!array || array.length === 0) return []; const shuffled = [...array].sort(() => 0.5 - Math.random()); return shuffled.slice(0, Math.min(count, array.length)); }
-            function displayFilm() { setActiveNav(navFilm); displayGrid(allFilm, 'Tutti i Film'); }
-            function displaySerieTv() { setActiveNav(navSerieTv); displayGrid(allSerieTv, 'Tutte le Serie TV'); }
-            function displayAnime() { setActiveNav(navAnime); displayGrid(allAnime, 'Tutti gli Anime'); }
-            
-            function handleSearchRoute() {
-                const searchTerm = searchInput.value.toLowerCase().trim(); 
-                const currentHashForSearch = `#search&q=${encodeURIComponent(searchTerm)}`; 
-                if (!searchTerm) { 
-                    if(breadcrumbs.length > 1 && breadcrumbs[breadcrumbs.length-1].hash.startsWith("#search")) breadcrumbs.pop(); 
-                    const prevHash = breadcrumbs.length > 0 ? breadcrumbs[breadcrumbs.length - 1].hash : '#home';
-                    if (window.location.hash !== prevHash) window.location.hash = prevHash;
-                    else handleRouteChange(true);
-                    return;
-                }
-                const filtered = allContent.filter(item => 
-                    item.titolo.toLowerCase().includes(searchTerm) || 
-                    (item.tags && item.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
-                ); 
-                const searchTitle = `Risultati per: "${searchInput.value}"`; 
-                displayGrid(filtered, searchTitle); 
-                setActiveNav(null);
-                const lastCrumb = breadcrumbs[breadcrumbs.length - 1];
-                if (lastCrumb && lastCrumb.hash === currentHashForSearch) {
-                    lastCrumb.title = searchTitle;
-                } else {
-                    breadcrumbs.push({hash: currentHashForSearch, title: searchTitle});
-                }
-                updateBackButton();
-            }
-
-            function setActiveNav(activeLink) { 
-              [navHome, navFilm, navSerieTv, navAnime].forEach(link => { if (link) link.classList.remove('active'); }); if (activeLink) { activeLink.classList.add('active'); }
-            }
-            
-            function handleRouteChange(initialLoad = false) {
-                const rawHash = window.location.hash || '#home';
-                let pageTitle = "Catalogo Multimediale"; 
-                if (rawHash.startsWith('#playNext')) {
-                     history.replaceState(null, "", window.location.pathname + window.location.search + (breadcrumbs.length > 0 ? breadcrumbs[breadcrumbs.length - 1].hash : '#home'));
-                     return; 
-                }
-                if (initialLoad) { 
-                    breadcrumbs = [{hash: rawHash, title: pageTitle}]; 
-                } else {
-                    const existingCrumbIndex = breadcrumbs.findIndex(b => b.hash === rawHash);
-                    if (existingCrumbIndex !== -1) { 
-                        breadcrumbs = breadcrumbs.slice(0, existingCrumbIndex + 1); 
-                        pageTitle = breadcrumbs[existingCrumbIndex].title; 
-                    } else { 
-                        breadcrumbs.push({hash: rawHash, title: pageTitle}); 
-                    }
-                }
-                if (breadcrumbs.length > 10) breadcrumbs.shift();
-                const parts = rawHash.substring(1).split('&'); const route = parts[0]; const params = new URLSearchParams(parts.slice(1).join('&'));
-                let currentCollection, item;
-                switch (route) {
-                    case 'film': pageTitle = 'Tutti i Film'; displayFilm(); setActiveNav(navFilm); break;
-                    case 'serietv': pageTitle = 'Tutte le Serie TV'; displaySerieTv(); setActiveNav(navSerieTv); break;
-                    case 'anime': pageTitle = 'Tutti gli Anime'; displayAnime(); setActiveNav(navAnime); break;
-                    case 'detail': {
-                        const type = params.get('type'); const id = decodeURIComponent(params.get('id'));
-                        currentCollection = type === 'serietv' ? allSerieTv : allAnime;
-                        item = currentCollection.find(s => s.id === id);
-                        if (item) { pageTitle = item.titolo; displaySerieDetail(item); setActiveNav(null); } 
-                        else { window.location.hash = '#home'; }
-                        break;
-                    }
-                    case 'season': {
-                        const type = params.get('type'); const id = decodeURIComponent(params.get('id')); const seasonIndex = parseInt(params.get('seasonIndex'));
-                        currentCollection = type === 'serietv' ? allSerieTv : allAnime;
-                        item = currentCollection.find(s => s.id === id);
-                        if (item && item.stagioni?.[seasonIndex]) { 
-                            const season = item.stagioni[seasonIndex]; pageTitle = `${item.titolo} - Stagione ${season.stagione_numero}`; 
-                            displaySeasonEpisodes(item, seasonIndex); setActiveNav(null);
-                        } else { window.location.hash = '#home'; }
-                        break;
-                    }
-                     case 'search': {
-                        const query = params.get('q'); pageTitle = `Ricerca: "${query || ''}"`;
-                        if (query) { searchInput.value = query; handleSearchRoute(); } 
-                        else { window.location.hash = '#home'; } 
-                        break;
-                    }
-                    case 'home': default: pageTitle = 'Home'; displayHome(); setActiveNav(navHome); break;
-                }
-                if(breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length - 1].hash === rawHash) { 
-                    breadcrumbs[breadcrumbs.length - 1].title = pageTitle; 
-                }
-                updateBackButton();
-            }
-
-            [navHome, navFilm, navSerieTv, navAnime].forEach(navLink => { 
-                navLink.addEventListener('click', (e) => {
-                    e.preventDefault(); const targetHash = e.currentTarget.getAttribute('href');
-                    if (window.location.hash === targetHash && targetHash === '#home') {
-                        breadcrumbs = [{hash: targetHash, title: 'Home'}]; handleRouteChange(true);
-                    } else if (window.location.hash !== targetHash) {
-                        breadcrumbs = [{hash: targetHash, title: ''}]; window.location.hash = targetHash;
-                    } else { 
-                        breadcrumbs = [{hash: targetHash, title: ''}]; handleRouteChange(true);
-                    }
-                }); 
-            });
-            window.addEventListener('hashchange', () => handleRouteChange(false));
-            
-            if (searchButton) { // Correzione: Verifica se searchButton esiste
-                searchButton.addEventListener('click', () => { 
-                    const query = searchInput.value.trim(); 
-                    if (query) {
-                        window.location.hash = `#search&q=${encodeURIComponent(query)}`;
-                    } else if (window.location.hash.startsWith('#search')) {
-                         if (breadcrumbs.length > 1 && breadcrumbs[breadcrumbs.length -1].hash.startsWith('#search')) breadcrumbs.pop();
-                         window.location.hash = breadcrumbs.length > 0 ? breadcrumbs[breadcrumbs.length -1].hash : '#home';
-                    }
-                });
-            } else { console.error("Elemento 'search-button' non trovato nel DOM!"); }
-
-            if (searchInput && searchButton) { // Correzione: Verifica entrambi
-                searchInput.addEventListener('keypress', (e) => { 
-                    if (e.key === 'Enter') { searchButton.click(); }
-                });
-            } else { if (!searchInput) console.error("Elemento 'search-input' non trovato!");}
-
-
-            // --- FUNZIONI DEL PLAYER MODALE ---
-            function parsePlayerTime(val) {
-                if (typeof val === 'string' && val.includes(':')) {
-                    const [m, s] = val.split(':').map(n => parseInt(n, 10)); return (m || 0) * 60 + (s || 0);
-                } else if (typeof val === 'number' && !isNaN(val)) { return val;
-                } else if (typeof val === 'string' && !isNaN(parseFloat(val))) { return parseFloat(val); }
-                return 0;
-            }
-            function formatPlayerTime(s) {
-                if (isNaN(s) || s === Infinity || s < 0) return '00:00';
-                const m = Math.floor(s / 60).toString().padStart(2, '0');
-                const sec = Math.floor(s % 60).toString().padStart(2, '0'); return `${m}:${sec}`;
-            }
-
-            function openPlayerModal() {
-                if (!currentPlayerConfig || !currentPlayerConfig.videoUrl) {
-                    alert("Impossibile avviare il player: dati video mancanti."); return;
-                }
-                playerModalOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden';
-                hasTriggeredNextEpisodeModal = false;
-                if (currentPlayerConfig.contentType && currentPlayerConfig.contentType !== 'film' && 
-                    currentPlayerConfig.serieId && currentPlayerConfig.stagioneIndex !== undefined && currentPlayerConfig.episodioIndex !== undefined) {
-                    nextEpisodeButtonModal.style.display = 'inline-flex';
-                } else { nextEpisodeButtonModal.style.display = 'none'; }
-                loadSourceModal(currentPlayerConfig.videoUrl);
-                showControlsModal(); videoPlayerModal.focus();
-            }
-
-            function closePlayerModal() {
-                playerModalOverlay.style.display = 'none'; document.body.style.overflow = '';
-                videoPlayerModal.pause(); videoPlayerModal.removeAttribute('src'); videoPlayerModal.load(); // Forza il reset
-                if (hlsInstanceModal) { hlsInstanceModal.destroy(); hlsInstanceModal = null; }
-                progressFilledModal.style.width = '0%'; progressHandleModal.style.left = '0%';
-                timeDisplayModal.textContent = '00:00 / 00:00'; playPauseBtnModal.textContent = '▶️';
-                loadingModal.style.display = 'none'; currentPlayerConfig = {};
-            }
-            closePlayerButtonModal.addEventListener('click', closePlayerModal);
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && playerModalOverlay.style.display === 'flex') { closePlayerModal(); }
-            });
-
-            function togglePlayPauseModal() {
-                if (videoPlayerModal.readyState < 1) return;
-                if (videoPlayerModal.paused || videoPlayerModal.ended) { videoPlayerModal.play().catch(e => console.error("Errore play modale:", e));}
-                else { videoPlayerModal.pause(); }
-            }
-            playPauseBtnModal.addEventListener('click', togglePlayPauseModal);
-            videoPlayerModal.addEventListener('click', togglePlayPauseModal); 
-
-            videoPlayerModal.addEventListener('play', () => {
-                playPauseBtnModal.textContent = '⏸️'; pauseOverlayModal.style.display = 'none'; showControlsModal();
-            });
-            videoPlayerModal.addEventListener('pause', () => {
-                playPauseBtnModal.textContent = '▶️';
-                if (!isDraggingModal) { pauseOverlayModal.style.display = 'block'; setTimeout(() => { pauseOverlayModal.style.display = 'none'; }, 600);}
-                showControlsModal(); 
-            });
-            videoPlayerModal.addEventListener('ended', () => {
-                playPauseBtnModal.textContent = '▶️'; showControlsModal();
-                if (currentPlayerConfig.contentType && currentPlayerConfig.contentType !== 'film') {
-                    nextEpisodeButtonModal.style.display = 'inline-flex'; triggerNextEpisodeModal(); 
-                }
-            });
-
-            function updateTimeModal() {
-                timeDisplayModal.textContent = `${formatPlayerTime(videoPlayerModal.currentTime)} / ${isFinite(videoPlayerModal.duration) ? formatPlayerTime(videoPlayerModal.duration) : '--:--'}`;
-            }
-            videoPlayerModal.addEventListener('loadedmetadata', updateTimeModal);
-            videoPlayerModal.addEventListener('timeupdate', () => {
-                if (!isFinite(videoPlayerModal.duration)) return;
-                if (!isDraggingModal) {
-                    const progressPercent = (videoPlayerModal.currentTime / videoPlayerModal.duration) * 100;
-                    progressFilledModal.style.width = `${progressPercent}%`; progressHandleModal.style.left = `${progressPercent}%`;
-                }
-                updateTimeModal(); updateBufferedBarModal();
-                const skipIntroStart = currentPlayerConfig.skipIntroStart ? parsePlayerTime(currentPlayerConfig.skipIntroStart) : 0;
-                const skipIntroEnd = currentPlayerConfig.skipIntroEnd ? parsePlayerTime(currentPlayerConfig.skipIntroEnd) : 0;
-                const outroStart = currentPlayerConfig.outroStart ? parsePlayerTime(currentPlayerConfig.outroStart) : 0;
-                if (currentPlayerConfig.contentType !== 'film') {
-                    if (skipIntroStart > 0 && skipIntroEnd > skipIntroStart && videoPlayerModal.currentTime >= skipIntroStart && videoPlayerModal.currentTime < skipIntroEnd) {
-                        videoPlayerModal.currentTime = skipIntroEnd;
-                    }
-                    if (outroStart > 0 && videoPlayerModal.currentTime >= outroStart && videoPlayerModal.currentTime < videoPlayerModal.duration - 0.5 && !videoPlayerModal.paused) {
-                        videoPlayerModal.pause(); nextEpisodeButtonModal.style.display = 'inline-flex'; nextEpisodeButtonModal.focus();
-                    }
-                }
-            });
-
-            function showControlsModal() {
-                controlsModal.classList.remove('hidden-modal'); clearTimeout(hideControlsTimeoutModal);
-                if (!videoPlayerModal.paused) { 
-                    hideControlsTimeoutModal = setTimeout(() => {
-                        if (!controlsModal.matches(':hover') && !Array.from(controlsModal.querySelectorAll('*')).some(el => el === document.activeElement)) {
-                            controlsModal.classList.add('hidden-modal');
-                        }
-                    }, 3000);
-                }
-            }
-            playerContainerModal.addEventListener('mousemove', showControlsModal);
-            playerContainerModal.addEventListener('focusin', showControlsModal); 
-            playerContainerModal.addEventListener('mouseleave', () => {
-                if (!videoPlayerModal.paused && !controlsModal.matches(':hover')) { 
-                    hideControlsTimeoutModal = setTimeout(() => controlsModal.classList.add('hidden-modal'), 500);
-                }
-            });
-            controlsModal.addEventListener('mouseenter', () => clearTimeout(hideControlsTimeoutModal));
-            controlsModal.addEventListener('mouseleave', showControlsModal);
-
-            function seekModal(e) {
-                const progressBarRect = progressBarModal.getBoundingClientRect();
-                const clickPositionInBar = e.clientX - progressBarRect.left;
-                const time = (clickPositionInBar / progressBarRect.width) * videoPlayerModal.duration;
-                if (isFinite(time) && isFinite(videoPlayerModal.duration)) {
-                     videoPlayerModal.currentTime = Math.max(0, Math.min(time, videoPlayerModal.duration));
-                }
-            }
-            progressBarModal.addEventListener('click', seekModal);
-
-            progressHandleModal.addEventListener('mousedown', (e) => {
-                isDraggingModal = true; progressHandleModal.classList.add('dragging-modal');
-                document.body.style.userSelect = 'none'; e.preventDefault();
-            });
-            document.addEventListener('mousemove', (e) => {
-                if (isDraggingModal) {
-                    const progressBarRect = progressBarModal.getBoundingClientRect();
-                    let newLeft = e.clientX - progressBarRect.left; let percentage = (newLeft / progressBarRect.width) * 100;
-                    percentage = Math.max(0, Math.min(100, percentage));
-                    progressFilledModal.style.width = `${percentage}%`; progressHandleModal.style.left = `${percentage}%`;
-                    if (isFinite(videoPlayerModal.duration)) { videoPlayerModal.currentTime = (percentage / 100) * videoPlayerModal.duration; }
-                    updateTimeModal(); 
-                }
-            });
-            document.addEventListener('mouseup', () => {
-                if (isDraggingModal) {
-                    isDraggingModal = false; progressHandleModal.classList.remove('dragging-modal');
-                    document.body.style.userSelect = '';
-                }
-            });
-
-            progressBarModal.addEventListener('mousemove', e => {
-                if (isDraggingModal || !isFinite(videoPlayerModal.duration) || videoPlayerModal.readyState < 1) return;
-                const r = progressBarModal.getBoundingClientRect(); const hoverPos = e.clientX - r.left;
-                const percentage = (hoverPos / r.width); const time = percentage * videoPlayerModal.duration;
-                if (previewVideoModal.src && isFinite(time) && previewVideoModal.readyState >= 1) { 
-                    previewVideoModal.currentTime = time;
-                    previewThumbModal.style.left = `${Math.max(0, Math.min(hoverPos - previewThumbModal.offsetWidth / 2, r.width - previewThumbModal.offsetWidth))}px`;
-                    previewThumbModal.style.display = 'block';
-                }
-                tooltipModal.style.left = `${Math.max(0, Math.min(hoverPos, r.width))}px`;
-                tooltipModal.textContent = formatPlayerTime(time); tooltipModal.style.display = 'block';
-            });
-            progressBarModal.addEventListener('mouseout', () => {
-                if (!isDraggingModal) { previewThumbModal.style.display = 'none'; tooltipModal.style.display = 'none'; }
-            });
-            
-            function updateBufferedBarModal() {
-                if (!isFinite(videoPlayerModal.duration) || videoPlayerModal.buffered.length === 0) {
-                    progressBufferedModal.style.width = '0%'; return;
-                }
-                let bufferedEnd = 0;
-                for (let i = 0; i < videoPlayerModal.buffered.length; i++) {
-                    if (videoPlayerModal.buffered.start(i) <= videoPlayerModal.currentTime && videoPlayerModal.currentTime < videoPlayerModal.buffered.end(i)) {
-                        bufferedEnd = videoPlayerModal.buffered.end(i); break; 
-                    } else if (videoPlayerModal.buffered.start(i) > videoPlayerModal.currentTime && bufferedEnd === 0) {
-                        bufferedEnd = videoPlayerModal.buffered.start(i);
-                    }
-                }
-                if (bufferedEnd === 0 && videoPlayerModal.buffered.length > 0) {
-                     bufferedEnd = videoPlayerModal.buffered.end(videoPlayerModal.buffered.length - 1);
-                }
-                const bufferedPercent = (bufferedEnd / videoPlayerModal.duration) * 100;
-                progressBufferedModal.style.width = `${Math.min(100, bufferedPercent)}%`;
-            }
-            videoPlayerModal.addEventListener('progress', updateBufferedBarModal);
-            videoPlayerModal.addEventListener('loadedmetadata', updateBufferedBarModal);
-            videoPlayerModal.addEventListener('canplaythrough', updateBufferedBarModal);
-
-            fullscreenBtnModal.addEventListener('click', () => {
-                if (!document.fullscreenElement) { playerContainerModal.requestFullscreen().catch(err => console.error("Errore fullscreen modale:", err));}
-                else { document.exitFullscreen(); }
-            });
-            document.addEventListener('fullscreenchange', () => {
-                playerContainerModal.classList.toggle('fullscreen-modal', !!document.fullscreenElement); showControlsModal();
-            });
-            videoPlayerModal.addEventListener('dblclick', () => {
-                 if (!document.fullscreenElement) { playerContainerModal.requestFullscreen(); } else { document.exitFullscreen(); }
-            });
-
-            volumeSliderModal.addEventListener('input', () => {
-                videoPlayerModal.volume = parseFloat(volumeSliderModal.value); videoPlayerModal.muted = videoPlayerModal.volume === 0;
-            });
-            videoPlayerModal.addEventListener('volumechange', () => {
-                volumeSliderModal.value = videoPlayerModal.muted ? 0 : videoPlayerModal.volume;
-                volumeIconModal.textContent = videoPlayerModal.muted || videoPlayerModal.volume === 0 ? '🔇' : (videoPlayerModal.volume < 0.5 ? '🔉' : '🔊');
-            });
-            volumeIconModal.addEventListener('click', () => { videoPlayerModal.muted = !videoPlayerModal.muted; });
-            speedSelectorModal.addEventListener('change', () => { videoPlayerModal.playbackRate = parseFloat(speedSelectorModal.value); });
-
-            function loadSourceModal(src) {
-                if (!src) {
-                    loadingModal.style.display = 'none'; alert("Nessun video da caricare nel player."); closePlayerModal(); return;
-                }
-                loadingModal.style.display = 'block'; videoPlayerModal.poster = ''; hasTriggeredNextEpisodeModal = false;
-                if (hlsInstanceModal) { hlsInstanceModal.destroy(); hlsInstanceModal = null; }
-                videoPlayerModal.currentTime = 0; progressFilledModal.style.width = '0%';
-                progressBufferedModal.style.width = '0%'; progressHandleModal.style.left = '0%';
-                timeDisplayModal.textContent = '00:00 / --:--'; playPauseBtnModal.textContent = '▶️';
-
-                if (src.includes('.m3u8')) {
-                    if (Hls.isSupported()) {
-                        hlsInstanceModal = new Hls({ abrEwmaDefaultEstimate: 500000 }); 
-                        hlsInstanceModal.loadSource(src); hlsInstanceModal.attachMedia(videoPlayerModal);
-                        hlsInstanceModal.on(Hls.Events.MANIFEST_PARSED, () => {
-                            loadingModal.style.display = 'none'; videoPlayerModal.play().catch(e => console.error("HLS Playback error modale:", e));
-                            updateBufferedBarModal(); 
-                        });
-                        hlsInstanceModal.on(Hls.Events.ERROR, function (event, data) {
-                            console.error('Errore HLS modale:', data);
-                            if (data.fatal) {
-                                switch(data.type) {
-                                    case Hls.ErrorTypes.NETWORK_ERROR: hlsInstanceModal.startLoad(); break;
-                                    case Hls.ErrorTypes.MEDIA_ERROR: hlsInstanceModal.recoverMediaError(); break;
-                                    default:
-                                        hlsInstanceModal.destroy(); hlsInstanceModal = null; loadingModal.style.display = 'none';
-                                        alert("Errore HLS fatale. Impossibile riprodurre il video."); closePlayerModal(); break;
-                                }
-                            }
-                        });
-                        previewVideoModal.src = ''; // Preview HLS disabilitata per semplicità
-                    } else if (videoPlayerModal.canPlayType('application/vnd.apple.mpegurl')) {
-                        videoPlayerModal.src = src; previewVideoModal.src = src; 
-                         videoPlayerModal.addEventListener('loadedmetadata', () => { 
-                            loadingModal.style.display = 'none'; videoPlayerModal.play().catch(e => console.error("HLS nativo Playback error:", e));
-                        }, { once: true }); // Assicura che venga eseguito solo una volta per caricamento
-                    } else {
-                        alert('HLS non è supportato.'); loadingModal.style.display = 'none'; closePlayerModal();
-                    }
-                } else { 
-                    videoPlayerModal.src = src; previewVideoModal.src = src; 
-                    videoPlayerModal.onloadedmetadata = () => { // Riassegna per MP4
-                        loadingModal.style.display = 'none'; updateTimeModal(); updateBufferedBarModal();
-                        videoPlayerModal.play().catch(e => console.error("MP4 Playback error modale:", e));
-                    };
-                }
-                videoPlayerModal.onerror = (e) => {
-                    console.error("Errore caricamento video modale:", e.target.error, "Sorgente:", videoPlayerModal.src);
-                    loadingModal.style.display = 'none';
-                    alert(`Impossibile caricare il video: ${e.target.error ? e.target.error.message : 'Errore sconosciuto'}`);
-                };
-            }
-            
-            function triggerNextEpisodeModal() {
-                if (hasTriggeredNextEpisodeModal) return; 
-                const { serieId, stagioneIndex, episodioIndex, contentType } = currentPlayerConfig;
-                if (serieId && stagioneIndex !== undefined && episodioIndex !== undefined && contentType && contentType !== 'film') {
-                    hasTriggeredNextEpisodeModal = true; 
-                    const collection = contentType === 'serietv' ? allSerieTv : (contentType === 'anime' ? allAnime : null);
-                    if (!collection) { closePlayerModal(); return; }
-                    const serie = collection.find(s => s.id === serieId);
-                    if (!serie) { closePlayerModal(); return; }
-                    let currentStagIndex = parseInt(stagioneIndex); let currentEpIndex = parseInt(episodioIndex);
-                    let nextEpData, nextStagIdx = currentStagIndex, nextEpIdx = currentEpIndex + 1;
-                    if (serie.stagioni?.[currentStagIndex]?.episodes?.[nextEpIdx]) {
-                        nextEpData = serie.stagioni[currentStagIndex].episodes[nextEpIdx];
-                    } else {
-                        nextStagIdx = currentStagIndex + 1; nextEpIdx = 0;
-                        if (serie.stagioni?.[nextStagIdx]?.episodes?.[nextEpIdx]) {
-                            const currentSNum = serie.stagioni[currentStagIndex]?.stagione_numero || (currentStagIndex + 1);
-                            const nextSNum = serie.stagioni[nextStagIdx]?.stagione_numero || (nextStagIdx + 1);
-                            if (confirm(`Hai terminato Stagione ${currentSNum}. Prossima Stagione (${nextSNum})?`)) {
-                                nextEpData = serie.stagioni[nextStagIdx].episodes[nextEpIdx];
-                            } else { closePlayerModal(); return; }
-                        } else {
-                            alert(`Hai completato tutti gli episodi di "${serie.titolo}"!`); closePlayerModal(); return;
-                        }
-                    }
-                    if (nextEpData && nextEpData.link) {
-                        currentPlayerConfig = {
-                            videoUrl: nextEpData.link, contentType: contentType, serieId: serieId,
-                            stagioneIndex: nextStagIdx, episodioIndex: nextEpIdx,
-                            skipIntroStart: nextEpData.skipIntroStart, skipIntroEnd: nextEpData.skipIntroEnd,
-                            outroStart: nextEpData.outroStart
-                        };
-                        loadSourceModal(currentPlayerConfig.videoUrl); 
-                    } else { alert("Impossibile trovare il prossimo episodio."); closePlayerModal(); }
-                }
-            }
-            nextEpisodeButtonModal.addEventListener('click', triggerNextEpisodeModal);
-            
-            videoPlayerModal.volume = parseFloat(volumeSliderModal.value);
-            videoPlayerModal.playbackRate = parseFloat(speedSelectorModal.value);
-
-            // --- AVVIO CATALOGO ---
-            fetchData();
+          });
+          section.append(list);
         });
-    </script>
+        gallery.append(section);
+      }); else{
+        const grid=document.createElement('div'); grid.className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4';
+        flatItems.forEach(i=>{
+          if(i.title.toLowerCase().includes(q)&&(!g||i.genres.includes(g))){
+            const c=document.createElement('div'); c.className='bg-white p-2 rounded shadow cursor-pointer hover:shadow-lg';
+            c.innerHTML=`<img src="${i.poster}" class="w-full h-32 object-cover rounded"/><h3 class="mt-2 text-lg truncate">${i.title}</h3>`;
+            c.addEventListener('click',()=>{
+              const params = new URLSearchParams({
+                video: i.file,
+                title: i.title,
+                overview: i.overview
+              });
+              window.location.href = `player.html?${params.toString()}`;
+            });
+            grid.append(c);
+          }
+        });
+        gallery.append(grid);
+      }
+    }
+    searchInput.addEventListener('input',renderGallery);
+    genreFilter.addEventListener('change',renderGallery);
+    navButtons.forEach(b=>b.addEventListener('click',()=>loadData(b.dataset.type)));
+    loadData(currentType);
+  </script>
 </body>
 </html>
