@@ -1,8 +1,9 @@
 [
   {
+    "id": "shingeki_no_kyojin",
     "title": "L'Attacco dei Giganti",
     "poster_path": "https://img.animeworld.ac/locandine/44560l.jpg",
-    "overview": "In un mondo alternativo, l'umanità è quasi stata sterminata da creature umanoidi chiamate Giganti. I pochi sopravvissuti si sono ritirati all'interno di imponenti mura.",
+    "overview": "In un mondo alternativo, l'umanità è quasi stata sterminata da creature umanoidi chiamate Giganti...",
     "genres": ["Azione", "Dark Fantasy", "Post-apocalittico", "Dramma"],
     "seasons": [
       {
@@ -12,9 +13,9 @@
         "episodes": [
           {
             "episode_number": 1,
-            "name": "EP 1",
+            "name": "A te, duemila anni dopo - La caduta di Shiganshina (1)",
             "file": "https://srv17-geisha.sweetpixel.org/DDL/ANIME/ShingekiNoKyojinITA/ShingekiNoKyojin_Ep_01_ITA.mp4",
-            "overview": "L'improvvisa comparsa del Gigante Colossale e del Gigante Corazzato porta alla distruzione del Wall Maria.",
+            "overview": "L'improvvisa comparsa del Gigante Colossale...",
             "still_path": "https://img.animeworld.ac/locandine/44560l.jpg",
             "skipIntroStart": "02:04",
             "skipIntroEnd": "03:42",
@@ -25,7 +26,7 @@
             "name": "Quel giorno - La caduta di Shiganshina (2)",
             "file": "https://srv17-geisha.sweetpixel.org/DDL/ANIME/ShingekiNoKyojinITA/ShingekiNoKyojin_Ep_02_ITA.mp4",
             "overview": "Dopo la tragedia, Eren giura di sterminare tutti i Giganti.",
-            "still_path": "https://via.placeholder.com/160x90/B22222/FFFFFF?Text=AOT+S1E2",
+            "still_path": "https://img.animeworld.ac/locandine/44560l.jpg",
             "skipIntroStart": "00:58",
             "skipIntroEnd": "02:23",
             "outroStart": "22:40"
@@ -33,38 +34,52 @@
         ]
       },
       {
-        "season_number": "Finale",
-        "name": "The Final Season - Parte 1",
-        "poster_path": "https://via.placeholder.com/300x200/2F4F4F/FFFFFF?Text=AOT+S4P1",
+        "season_number": 2,
+        "name": "Stagione 2",
+        "poster_path": "https://img.animeworld.ac/locandine/44560l.jpg",
         "episodes": [
           {
             "episode_number": 1,
-            "name": "L'altra sponda del mare",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-            "overview": "Quattro anni dopo. La guerra tra Marley e le Forze Alleate del Medio Oriente sta per concludersi.",
-            "still_path": "https://via.placeholder.com/160x90/2F4F4F/FFFFFF?Text=AOT+S4P1E1",
-            "skipIntroStart": "01:05",
-            "skipIntroEnd": "02:20",
-            "outroStart": "23:05"
+            "name": "Il gigante bestia",
+            "file": "https://srv17-geisha.sweetpixel.org/DDL/ANIME/ShingekiNoKyojinITA/S2/ShingekiNoKyojin_S2_Ep_01_ITA.mp4",
+            "overview": "La ricognitiva si scontra con il Gigante Bestia.",
+            "still_path": "https://img.animeworld.ac/locandine/44560l.jpg",
+            "skipIntroStart": "01:15",
+            "skipIntroEnd": "02:40",
+            "outroStart": "22:50"
+          },
+          {
+            "episode_number": 2,
+            "name": "Sono a casa",
+            "file": "https://srv17-geisha.sweetpixel.org/DDL/ANIME/ShingekiNoKyojinITA/S2/ShingekiNoKyojin_S2_Ep_02_ITA.mp4",
+            "overview": "Sasha torna al suo villaggio.",
+            "still_path": "https://img.animeworld.ac/locandine/44560l.jpg",
+            "skipIntroStart": "00:55",
+            "skipIntroEnd": "02:10",
+            "outroStart": "23:00"
           }
         ]
       }
     ]
   },
   {
+    "id": "jujutsu_kaisen",
     "title": "Jujutsu Kaisen",
-    "poster_path": "https://via.placeholder.com/300x450/000080/FFFFFF?Text=Anime+JJK",
-    "overview": "Yuji Itadori, uno studente liceale con una forza fisica straordinaria, ingoia un dito maledetto per salvare un amico, diventando l'ospite di Sukuna, una potente maledizione.",
+    "poster_path": "https://img.animeworld.ac/locandine/jjk.jpg",
+    "overview": "Yuji Itadori, uno studente liceale con una forza fisica straordinaria...",
     "genres": ["Azione", "Soprannaturale", "Dark Fantasy", "Scolastico"],
     "seasons": [
       {
         "season_number": 1,
         "name": "Stagione 1",
+        "poster_path": "https://img.animeworld.ac/locandine/jjk.jpg",
         "episodes": [
           {
             "episode_number": 1,
             "name": "Ryomen Sukuna",
-            "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+            "file": "https://video-example-jjk-s1e1.mp4",
+            "overview": "Yuji ingoia il dito di Sukuna.",
+            "still_path": "https://img.animeworld.ac/locandine/jjk.jpg",
             "skipIntroStart": "00:42",
             "skipIntroEnd": "02:12",
             "outroStart": "23:00"
@@ -72,10 +87,39 @@
           {
             "episode_number": 2,
             "name": "Per Me Stesso",
-            "file": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+            "file": "https://video-example-jjk-s1e2.mp4",
+            "overview": "Yuji affronta la sua nuova realtà.",
+            "still_path": "https://img.animeworld.ac/locandine/jjk.jpg",
             "skipIntroStart": "00:30",
             "skipIntroEnd": "01:50",
             "outroStart": "22:45"
+          }
+        ]
+      },
+      {
+        "season_number": 2,
+        "name": "Stagione 2 - Arco Incidente di Shibuya",
+        "poster_path": "https://img.animeworld.ac/locandine/jjk.jpg",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "name": "Tesoro Nascosto",
+            "file": "https://video-example-jjk-s2e1.mp4",
+            "overview": "Un flashback sui giorni di Gojo e Geto alla scuola di stregoneria.",
+            "still_path": "https://img.animeworld.ac/locandine/jjk.jpg",
+            "skipIntroStart": "01:00",
+            "skipIntroEnd": "02:25",
+            "outroStart": "23:15"
+          },
+          {
+            "episode_number": 2,
+            "name": "Morte Prematura",
+            "file": "https://video-example-jjk-s2e2.mp4",
+            "overview": "Le conseguenze della missione di scorta.",
+            "still_path": "https://img.animeworld.ac/locandine/jjk.jpg",
+            "skipIntroStart": "00:50",
+            "skipIntroEnd": "02:10",
+            "outroStart": "22:55"
           }
         ]
       }
