@@ -6,108 +6,317 @@
   <title>Player Video Avanzato</title>
   <link rel="icon" href="data:,">
   <style>
-    body { margin: 0; background: #0e0e0e; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #e0e0e0; overflow: hidden; }
-    .player-container { position: relative; width: 90%; max-width: 1000px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.7); aspect-ratio: 16 / 9; /* Mantiene le proporzioni */}
-    .player-container.fullscreen { width: 100vw !important; height: 100vh !important; max-width: none !important; border-radius: 0; aspect-ratio: auto; }
-    video { width: 100%; height: 100%; display: block; background: #000; cursor: pointer; object-fit: contain; }
-    .pause-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 72px; color: rgba(255,255,255,0.85); display: none; animation: fadeOverlay 0.5s ease-in-out; pointer-events: none; text-shadow: 0 0 15px rgba(0,0,0,0.5); }
-    @keyframes fadeOverlay { from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-    .controls { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 60%, transparent 100%); padding: 10px 15px; display: flex; flex-direction: column; gap: 8px; opacity: 1; transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; z-index: 2147483647; transform: translateY(0%); }
-    .controls.hidden { opacity: 0; pointer-events: none; transform: translateY(100%); }
-    .progress-bar-container { display: flex; align-items: center; width: 100%; order: 1; }
-    span#time-display { color: #f0f0f0; font-size: 0.9em; margin-right: 12px; font-variant-numeric: tabular-nums; }
-    .progress-bar { position: relative; flex-grow: 1; height: 6px; background: rgba(255,255,255,0.2); cursor: pointer; border-radius: 3px; transition: height 0.2s ease; }
-    .progress-bar:hover { height: 10px; }
-    .progress-filled { width: 0; height: 100%; background: #e50914; border-radius: 3px; }
-    .progress-buffered { position: absolute; top: 0; left: 0; width: 0; height: 100%; background: rgba(255,255,255,0.4); border-radius: 3px; z-index: -1; /* Dietro filled */}
-    .progress-handle { position: absolute; top: 50%; left: 0; width: 14px; height: 14px; background: #e50914; border: 2px solid #fff; border-radius: 50%; transform: translate(-50%, -50%) scale(0); cursor: grabbing; opacity: 0; transition: opacity 0.2s ease, transform 0.2s ease; z-index: 3; box-shadow: 0 0 8px rgba(0,0,0,0.5); }
-    .progress-bar:hover .progress-handle, .progress-handle.dragging { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    .preview-thumb { position: absolute; bottom: calc(100% + 10px); left: 0; width: 160px; height: 90px; background: #111; border: 2px solid #e50914; display: none; pointer-events: none; border-radius: 4px; overflow: hidden; box-shadow: 0 0 15px rgba(0,0,0,0.5);}
-    .preview-thumb video { width: 100%; height: 100%; object-fit: cover; }
-    .tooltip { position: absolute; bottom: calc(100% + 10px); padding: 4px 8px; background: rgba(0,0,0,0.9); color: #fff; font-size:13px; border-radius:3px; transform: translateX(-50%); display: none; white-space:nowrap; pointer-events: none; box-shadow: 0 0 10px rgba(0,0,0,0.3);}
-    
-    .controls-main { display: flex; align-items: center; gap: 10px; order: 2; width: 100%; justify-content: space-between; padding-top: 5px; }
-    .controls-left, .controls-right { display: flex; align-items: center; gap: 10px; }
-    .volume-control { display: flex; align-items: center; gap:5px; }
-    .volume-control input[type=range] { width: 70px; cursor: pointer; -webkit-appearance: none; appearance: none; background: transparent; }
-    .volume-control input[type=range]::-webkit-slider-runnable-track { height: 5px; background: rgba(255,255,255,0.3); border-radius: 3px; }
-    .volume-control input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; margin-top: -4.5px; /* (track-height - thumb-height) / 2 */ width: 14px; height: 14px; background: #fff; border-radius: 50%; border: 1px solid #e50914; }
-    .volume-control input[type=range]::-moz-range-track { height: 5px; background: rgba(255,255,255,0.3); border-radius: 3px; }
-    .volume-control input[type=range]::-moz-range-thumb { width: 12px; height: 12px; background: #fff; border-radius: 50%; border: 1px solid #e50914; }
+    :root {
+      --player-background: #000;
+      --player-text-color: #e0e0e0;
+      --player-highlight-color: #e50914; /* Rosso Netflix-like */
+      --player-control-bar-bg: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
+      --progress-bar-bg: rgba(255,255,255,0.2);
+      --progress-filled-bg: var(--player-highlight-color);
+      --progress-buffered-bg: rgba(255,255,255,0.4);
+      --progress-handle-bg: var(--player-highlight-color);
+      --progress-handle-border: #fff;
+      --tooltip-bg: rgba(0,0,0,0.9);
+      --select-bg: #2a2a2a;
+      --select-border-color: #555;
+      --button-bg-hover: rgba(255,255,255,0.2);
+    }
 
-    select.player-select { background: #2a2a2a; color: #e0e0e0; border: 1px solid #555; border-radius:4px; padding:7px 10px; cursor: pointer; font-size: 0.9em; max-width: 200px; transition: border-color 0.2s; } 
-    select.player-select:hover { border-color: #e50914; }
-    #backToCatalogButton { padding: 7px 14px; background-color: rgba(255,255,255,0.1); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em; transition: background-color 0.2s;}
-    #backToCatalogButton:hover { background-color: rgba(255,255,255,0.2); }
-    .episode-selector-group { display: flex; gap: 10px; align-items: center;}
-    .control-button { transition: transform 0.1s ease; }
+    body { 
+      margin: 0; 
+      background: #0e0e0e; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+      color: var(--player-text-color); 
+      overflow: hidden; 
+    }
+    .player-container { 
+      position: relative; 
+      width: 90%; 
+      max-width: 1000px; 
+      background: var(--player-background); 
+      border-radius: 12px; 
+      overflow: hidden; 
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7); 
+      aspect-ratio: 16 / 9;
+    }
+    .player-container.fullscreen { 
+      width: 100vw !important; 
+      height: 100vh !important; 
+      max-width: none !important; 
+      border-radius: 0; 
+      aspect-ratio: auto; 
+    }
+    video { 
+      width: 100%; 
+      height: 100%; 
+      display: block; 
+      background: var(--player-background); 
+      cursor: pointer; 
+      object-fit: contain; 
+    }
+    .pause-overlay { 
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%); 
+      font-size: 72px; 
+      color: rgba(255,255,255,0.85); 
+      display: none; 
+      animation: fadeOverlay 0.5s ease-in-out; 
+      pointer-events: none; 
+      text-shadow: 0 0 15px rgba(0,0,0,0.5); 
+    }
+    @keyframes fadeOverlay { 
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } 
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); } 
+    }
+    .controls { 
+      position: absolute; 
+      bottom: 0; 
+      left: 0; 
+      right: 0; 
+      background: var(--player-control-bar-bg); 
+      padding: 10px 15px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 8px; 
+      opacity: 1; 
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; 
+      z-index: 2147483647; 
+      transform: translateY(0%); 
+    }
+    .controls.hidden { 
+      opacity: 0; 
+      pointer-events: none; 
+      transform: translateY(100%); 
+    }
+    .progress-bar-container { 
+      display: flex; 
+      align-items: center; 
+      width: 100%; 
+      order: 1; 
+    }
+    span#time-display { 
+      color: var(--player-text-color); 
+      font-size: 0.9em; 
+      margin-right: 12px; 
+      font-variant-numeric: tabular-nums; 
+    }
+    .progress-bar { 
+      position: relative; 
+      flex-grow: 1; 
+      height: 6px; 
+      background: var(--progress-bar-bg); 
+      cursor: pointer; 
+      border-radius: 3px; 
+      transition: height 0.2s ease; 
+    }
+    .progress-bar:hover { height: 10px; }
+    .progress-filled { 
+      width: 0; 
+      height: 100%; 
+      background: var(--progress-filled-bg); 
+      border-radius: 3px; 
+    }
+    .progress-buffered { 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 0; 
+      height: 100%; 
+      background: var(--progress-buffered-bg); 
+      border-radius: 3px; 
+      z-index: -1; 
+    }
+    .progress-handle { 
+      position: absolute; 
+      top: 50%; 
+      left: 0; 
+      width: 14px; 
+      height: 14px; 
+      background: var(--progress-handle-bg); 
+      border: 2px solid var(--progress-handle-border); 
+      border-radius: 50%; 
+      transform: translate(-50%, -50%) scale(0); 
+      cursor: grabbing; 
+      opacity: 0; 
+      transition: opacity 0.2s ease, transform 0.2s ease; 
+      z-index: 3; 
+      box-shadow: 0 0 8px rgba(0,0,0,0.5); 
+    }
+    .progress-bar:hover .progress-handle, .progress-handle.dragging { 
+      opacity: 1; 
+      transform: translate(-50%, -50%) scale(1); 
+    }
+    .preview-thumb { 
+      position: absolute; 
+      bottom: calc(100% + 10px); 
+      left: 0; 
+      width: 160px; 
+      height: 90px; 
+      background: #111; 
+      border: 2px solid var(--player-highlight-color); 
+      display: none; 
+      pointer-events: none; 
+      border-radius: 4px; 
+      overflow: hidden; 
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .preview-thumb video { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+    }
+    .tooltip { 
+      position: absolute; 
+      bottom: calc(100% + 10px); 
+      padding: 4px 8px; 
+      background: var(--tooltip-bg); 
+      color: #fff; 
+      font-size:13px; 
+      border-radius:3px; 
+      transform: translateX(-50%); 
+      display: none; 
+      white-space:nowrap; 
+      pointer-events: none; 
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    
+    .controls-main { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      order: 2; 
+      width: 100%; 
+      justify-content: space-between; 
+      padding-top: 5px; 
+    }
+    .controls-left, .controls-right { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+    }
+    .volume-control { 
+      display: flex; 
+      align-items: center; 
+      gap:5px; 
+    }
+    .volume-control input[type=range] { 
+      width: 70px; 
+      cursor: pointer; 
+      -webkit-appearance: none; 
+      appearance: none; 
+      background: transparent; 
+    }
+    .volume-control input[type=range]::-webkit-slider-runnable-track { 
+      height: 5px; 
+      background: var(--progress-bar-bg); 
+      border-radius: 3px; 
+    }
+    .volume-control input[type=range]::-webkit-slider-thumb { 
+      -webkit-appearance: none; 
+      appearance: none; 
+      margin-top: -4.5px; 
+      width: 14px; 
+      height: 14px; 
+      background: var(--progress-handle-border); 
+      border-radius: 50%; 
+      border: 1px solid var(--player-highlight-color); 
+    }
+    .volume-control input[type=range]::-moz-range-track { 
+      height: 5px; 
+      background: var(--progress-bar-bg); 
+      border-radius: 3px; 
+    }
+    .volume-control input[type=range]::-moz-range-thumb { 
+      width: 12px; 
+      height: 12px; 
+      background: var(--progress-handle-border); 
+      border-radius: 50%; 
+      border: 1px solid var(--player-highlight-color); 
+    }
+
+    select.player-select { 
+      background: var(--select-bg); 
+      color: var(--player-text-color); 
+      border: 1px solid var(--select-border-color); 
+      border-radius:4px; 
+      padding:7px 10px; 
+      cursor: pointer; 
+      font-size: 0.9em; 
+      max-width: 200px; 
+      transition: border-color 0.2s; 
+    } 
+    select.player-select:hover { border-color: var(--player-highlight-color); }
+    #backToCatalogButton { 
+      padding: 7px 14px; 
+      background-color: rgba(255,255,255,0.1); 
+      color: white; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      font-size: 0.9em; 
+      transition: background-color 0.2s;
+    }
+    #backToCatalogButton:hover { background-color: var(--button-bg-hover); }
+    .episode-selector-group { 
+      display: flex; 
+      gap: 10px; 
+      align-items: center;
+    }
+    .control-button { 
+      background: none;
+      border: none;
+      color: var(--player-text-color);
+      font-size: 1.5em; /* Aumenta leggermente la dimensione per le emoji */
+      padding: 5px;
+      cursor: pointer;
+      line-height: 1; /* Per allineare meglio le emoji */
+      transition: transform 0.1s ease; 
+    }
     .control-button:active { transform: scale(0.9); }
   </style>
 </head>
 <body>
-  <script>
-    // URL Params and CONFIG setup (invariato dall'ultima versione)
-    const urlParams = new URLSearchParams(window.location.search);
-    const CONFIG = {
-      source: urlParams.get('videoUrl') || '', 
-      startTime: urlParams.get('startTime') || '0:00',
-      skipIntroStart: urlParams.get('skipIntroStart'), 
-      skipIntroEnd: urlParams.get('skipIntroEnd'),
-      outroStart: urlParams.get('outroStart'),
-      serieId: urlParams.get('serieId'), 
-      stagioneIndex: parseInt(urlParams.get('stagioneIndex'), 10),
-      episodioIndex: parseInt(urlParams.get('episodioIndex'), 10),
-      contentType: urlParams.get('contentType'),
-      title: urlParams.get('title'),
-      returnTo: urlParams.get('returnTo') || 'StreamRoot.html'
-    };
-    console.log("Player.html - CONFIG iniziale:", JSON.parse(JSON.stringify(CONFIG)));
-
-    function parseTime(val){ /* ... (invariato) ... */ }
-    
-    let isFilmSimple = !CONFIG.contentType || CONFIG.contentType === 'film' || !CONFIG.serieId;
-    let startTime = parseTime(CONFIG.startTime);
-    let skipIntroStart = !isFilmSimple && CONFIG.skipIntroStart ? parseTime(CONFIG.skipIntroStart) : 0;
-    let skipIntroEnd = !isFilmSimple && CONFIG.skipIntroEnd ? parseTime(CONFIG.skipIntroEnd) : 0;
-    let outroStart = !isFilmSimple && CONFIG.outroStart ? parseTime(CONFIG.outroStart) : 0;
-    let currentSerieData = null; 
-  </script>
-
   <div class="player-container" id="playerContainer">
-    <video id="video" playsinline poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></video> 
+    <video id="video" playsinline poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" preload="metadata"></video> 
     <div class="pause-overlay" id="pauseOverlay">⏸️</div>
     <div class="controls" id="controls">
       <div class="progress-bar-container">
         <span id="time-display">00:00 / 00:00</span>
-        <div class="progress-bar" id="progress-bar">
-          <div class="progress-buffered" id="progress-buffered"></div>
-          <div class="progress-filled" id="progress-filled"></div>
-          <div class="progress-handle" id="progress-handle"></div>
-          <div class="preview-thumb" id="preview-thumb"><video muted playsinline></video></div>
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-buffered" id="progressBuffered"></div>
+          <div class="progress-filled" id="progressFilled"></div>
+          <div class="progress-handle" id="progressHandle"></div>
+          <div class="preview-thumb" id="previewThumb"><video muted playsinline preload="metadata"></video></div>
           <div class="tooltip" id="tooltip">00:00</div>
         </div>
       </div>
       
       <div class="controls-main">
         <div class="controls-left">
-            <button class="control-button" id="playPauseBtn" title="Play/Pausa">▶️</button>
+            <button class="control-button" id="playPauseBtn" title="Play/Pausa" aria-label="Play">▶️</button>
             <button class="control-button" id="backToCatalogButton" title="Torna al Catalogo">←</button> 
             <div id="episodeSelectorGroup" class="episode-selector-group" style="display: none;">
-              <select id="seasonSelector" class="player-select" title="Seleziona Stagione"></select>
-              <select id="episodeSelector" class="player-select" title="Seleziona Episodio"></select>
+              <select id="seasonSelector" class="player-select" title="Seleziona Stagione" aria-label="Seleziona Stagione"></select>
+              <select id="episodeSelector" class="player-select" title="Seleziona Episodio" aria-label="Seleziona Episodio"></select>
             </div>
         </div>
         <div class="controls-right">
             <div class="volume-control">
-              <span id="volumeIcon" class="control-button" style="cursor:pointer;">🔊</span>
-              <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+              <span id="volumeIcon" class="control-button" style="cursor:pointer;" title="Muto/Audio" aria-label="Audio Attivo">🔊</span>
+              <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" title="Volume" aria-label="Regola Volume">
             </div>
-            <select id="speed-selector" title="Velocità" class="player-select">
+            <select id="speedSelector" title="Velocità" class="player-select" aria-label="Seleziona Velocità">
               <option value="0.5">0.5x</option><option value="0.75">0.75x</option>
               <option value="1" selected>1x</option><option value="1.25">1.25x</option>
               <option value="1.5">1.5x</option><option value="2">2x</option>
             </select>
-            <button class="control-button" id="fullscreenBtn" title="Schermo Intero">⛶</button>
+            <button class="control-button" id="fullscreenBtn" title="Schermo Intero" aria-label="Attiva Schermo Intero">⛶</button>
         </div>
       </div>
     </div>
@@ -115,434 +324,751 @@
 
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
-    // DOM Elements
-    const playerContainer=document.getElementById('playerContainer'), 
-          video=document.getElementById('video'), 
-          pauseOverlay=document.getElementById('pauseOverlay'),
-          controls=document.getElementById('controls'), 
-          progressBarContainer=document.querySelector('.progress-bar-container'),
-          progressBar=document.getElementById('progress-bar'), 
-          progressFilled=document.getElementById('progress-filled'),
-          progressBuffered=document.getElementById('progress-buffered'), 
-          progressHandle=document.getElementById('progress-handle'), 
-          timeDisplay=document.getElementById('time-display'), 
-          previewThumb=document.getElementById('preview-thumb'),
-          previewVideo=previewThumb.querySelector('video'), 
-          tooltip=document.getElementById('tooltip'), 
-          speedSelector=document.getElementById('speed-selector'), 
-          volumeSlider=document.getElementById('volumeSlider'), 
-          volumeIcon = document.getElementById('volumeIcon'), 
-          playPauseBtn=document.getElementById('playPauseBtn'), 
-          backToCatalogButton = document.getElementById('backToCatalogButton'),
-          fullscreenBtn=document.getElementById('fullscreenBtn'),
-          episodeSelectorGroup = document.getElementById('episodeSelectorGroup'),
-          seasonSelector = document.getElementById('seasonSelector'),
-          episodeSelector = document.getElementById('episodeSelector');
+    (function() {
+      'use strict';
 
-    // State Variables
-    let isDraggingSeekBar = false, hideControlsTimeout, hlsInstance = null, hasAttemptedInitialFullscreen = false, 
-        isUserInteracted = false; // Traccia se l'utente ha interagito
-
-    // --- Interaction Listener (per autoplay e fullscreen) ---
-    function userInteraction() {
-        isUserInteracted = true;
-        // Rimuovi i listener una volta che l'interazione è avvenuta
-        document.removeEventListener('click', userInteraction);
-        document.removeEventListener('keydown', userInteraction);
-        console.log("Player.html - Interazione utente rilevata.");
-    }
-    document.addEventListener('click', userInteraction);
-    document.addEventListener('keydown', userInteraction);
-
-
-    // --- Serie/Episode Data Logic ---
-    function loadSerieDataFromStorage() {
-        console.log("Player.html - Tentativo caricamento dati serie da localStorage per serieId:", CONFIG.serieId);
-        if (CONFIG.serieId && (CONFIG.contentType === 'anime' || CONFIG.contentType === 'series_tv')) {
-            const storedData = localStorage.getItem(`serieData_${CONFIG.serieId}`);
-            if (storedData) {
-                try {
-                    currentSerieData = JSON.parse(storedData);
-                    isFilmSimple = false; 
-                    console.log("Player.html - Dati serie caricati e parsati.");
-                    populateSeasonSelector();
-                } catch (e) { console.error("Player.html - Errore parsing dati serie:", e); currentSerieData = null; isFilmSimple = true; }
-            } else { console.warn(`Player.html - Nessun dato serie per ID: ${CONFIG.serieId}.`); isFilmSimple = true; }
-        } else { isFilmSimple = true; }
-        episodeSelectorGroup.style.display = (!isFilmSimple && currentSerieData) ? 'flex' : 'none';
-        console.log("Player.html - Visibilità selettori:", episodeSelectorGroup.style.display);
-    }
-    
-    function populateSeasonSelector() { /* ... (invariato) ... */ }
-    function populateEpisodeSelector(seasonIdx) { /* ... (invariato) ... */ }
-    seasonSelector.addEventListener('change', (e) => { /* ... (invariato) ... */ });
-    episodeSelector.addEventListener('change', (e) => { /* ... (invariato) ... */ });
-    function playEpisode(seasonIdx, episodeIdx) { /* ... (invariato, ma assicurati che chiami loadSource) ... */ }
-
-    // --- Navigation ---
-    backToCatalogButton.addEventListener('click', () => { /* ... (invariato) ... */ });
-    
-    // --- Play/Pause ---
-    function togglePlayPause() { 
-        if (video.readyState < video.HAVE_ENOUGH_DATA && video.networkState === video.NETWORK_LOADING) {
-            console.log("Player.html - Video non ancora pronto, play/pausa ignorato.");
-            return;
-        }
-        if (video.paused || video.ended) { 
-            video.play().catch(e => console.warn("Player.html - Errore play:", e.message));
-        } else { 
-            video.pause();
-        }
-    }
-    playPauseBtn.addEventListener('click', togglePlayPause); 
-    video.addEventListener('click', togglePlayPause);
-    video.addEventListener('play', () => { 
-      playPauseBtn.textContent = '⏸️'; 
-      pauseOverlay.style.display = 'none'; 
-      showControls(); 
-      if (!hasAttemptedInitialFullscreen && isUserInteracted && !document.fullscreenElement) {
-        enterFullscreen().catch(err => console.warn("Player.html - Autofullscreen non riuscito:", err.message));
-        hasAttemptedInitialFullscreen = true; 
+      // --- Helper Functions ---
+      function parseTime(timeString) {
+          if (typeof timeString !== 'string') return 0;
+          const parts = timeString.split(':').map(Number);
+          let seconds = 0;
+          if (parts.length === 3) { // HH:MM:SS
+              seconds = (parts[0] * 3600) + (parts[1] * 60) + parts[2];
+          } else if (parts.length === 2) { // MM:SS
+              seconds = (parts[0] * 60) + parts[1];
+          } else if (parts.length === 1) { // SS
+              seconds = parts[0];
+          }
+          return isNaN(seconds) ? 0 : Math.max(0, seconds);
       }
-    });
-    video.addEventListener('pause', () => { playPauseBtn.textContent = '▶️'; if (!isDraggingSeekBar) { pauseOverlay.style.display = 'block'; setTimeout(() => pauseOverlay.style.display = 'none', 600);} showControls(); });
-    video.addEventListener('ended', () => { 
-        playPauseBtn.textContent = '▶️'; showControls(); 
-        console.log("Player.html - Video terminato. isFilmSimple:", isFilmSimple, "currentSerieData:", !!currentSerieData);
-        if (!isFilmSimple && currentSerieData) {
-             // Tenta di passare al prossimo episodio della STESSA pagina player, se possibile
-            let currentSIdx = CONFIG.stagioneIndex;
-            let currentEIdx = CONFIG.episodioIndex;
-            let nextSIdx = currentSIdx;
-            let nextEIdx = currentEIdx + 1;
 
-            if (currentSerieData.seasons[currentSIdx] && currentSerieData.seasons[currentSIdx].episodes[nextEIdx]) {
-                console.log("Player.html - Passaggio automatico al prossimo episodio nella stessa stagione.");
-                playEpisode(nextSIdx, nextEIdx);
-            } else {
-                nextSIdx = currentSIdx + 1;
-                nextEIdx = 0;
-                if (currentSerieData.seasons[nextSIdx] && currentSerieData.seasons[nextSIdx].episodes[nextEIdx]) {
-                    console.log("Player.html - Passaggio automatico al primo episodio della prossima stagione.");
-                    playEpisode(nextSIdx, nextEIdx);
-                } else {
-                    console.log("Player.html - Fine serie. Nessun altro episodio da riprodurre automaticamente.");
-                    // Opzionale: reindirizza a StreamRoot o mostra messaggio
-                }
-            }
-        }
-    });
+      function formatTime(s) { 
+          if (isNaN(s) || !isFinite(s) || s < 0) return '00:00'; 
+          const m = Math.floor(s / 60); 
+          const sec = Math.floor(s % 60); 
+          return `${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`; 
+      }
 
-    // --- Fullscreen ---
-    function enterFullscreen() {
-        console.log("Player.html - Tentativo di entrare in fullscreen.");
-        const el = playerContainer; // O document.documentElement se vuoi l'intera pagina
-        if (el.requestFullscreen) return el.requestFullscreen();
-        if (el.webkitRequestFullscreen) return el.webkitRequestFullscreen();
-        if (el.msRequestFullscreen) return el.msRequestFullscreen();
-        return Promise.reject(new Error("Fullscreen API non supportata."));
-    }
-    function exitFullscreen() {
-        console.log("Player.html - Tentativo di uscire dal fullscreen.");
-        if (document.exitFullscreen) return document.exitFullscreen();
-        if (document.webkitExitFullscreen) return document.webkitExitFullscreen();
-        if (document.msExitFullscreen) return document.msExitFullscreen();
-        return Promise.reject(new Error("Exit Fullscreen API non supportata."));
-    }
-    fullscreenBtn.addEventListener('click', () => {  
-        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-            enterFullscreen().catch(err => console.error("Player.html - Errore richiesta fullscreen:", err.message));
-        } else { 
-            exitFullscreen().catch(err => console.error("Player.html - Errore uscita fullscreen:", err.message));
-        }
-    });
-    const fullscreenEvents = ['fullscreenchange', 'webkitfullscreenchange', 'msfullscreenchange'];
-    fullscreenEvents.forEach(event => document.addEventListener(event, () => {
-        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
-        playerContainer.classList.toggle('fullscreen', isFs); 
-        console.log("Player.html - Stato fullscreen cambiato. È fullscreen:", isFs);
+      // --- URL Params and CONFIG setup ---
+      const urlParams = new URLSearchParams(window.location.search);
+      const CONFIG = {
+        source: urlParams.get('videoUrl') || '', 
+        startTime: urlParams.get('startTime') || '0:00',
+        skipIntroStart: urlParams.get('skipIntroStart'), 
+        skipIntroEnd: urlParams.get('skipIntroEnd'),
+        outroStart: urlParams.get('outroStart'),
+        serieId: urlParams.get('serieId'), 
+        stagioneIndex: parseInt(urlParams.get('stagioneIndex'), 10), // Assicurati sia un numero
+        episodioIndex: parseInt(urlParams.get('episodioIndex'), 10), // Assicurati sia un numero
+        contentType: urlParams.get('contentType'), // es. 'film', 'anime', 'series_tv'
+        title: urlParams.get('title') || 'Video Player', // Titolo di default
+        returnTo: urlParams.get('returnTo') || 'StreamRoot.html' // Pagina di ritorno di default
+      };
+      console.log("[VideoPlayer] CONFIG iniziale:", JSON.parse(JSON.stringify(CONFIG)));
+      document.title = CONFIG.title; // Imposta il titolo della pagina
+
+      let isFilmSimple = !CONFIG.contentType || CONFIG.contentType === 'film' || !CONFIG.serieId;
+      let initialStartTime = parseTime(CONFIG.startTime); // Rinominato per chiarezza, usato solo al primo caricamento
+      let skipIntroStart = !isFilmSimple && CONFIG.skipIntroStart ? parseTime(CONFIG.skipIntroStart) : 0;
+      let skipIntroEnd = !isFilmSimple && CONFIG.skipIntroEnd ? parseTime(CONFIG.skipIntroEnd) : 0;
+      let outroStart = !isFilmSimple && CONFIG.outroStart ? parseTime(CONFIG.outroStart) : 0;
+      let currentSerieData = null; 
+
+      // --- DOM Element Constants ---
+      const playerContainer = document.getElementById('playerContainer');
+      const video = document.getElementById('video');
+      const pauseOverlay = document.getElementById('pauseOverlay');
+      const controls = document.getElementById('controls');
+      // const progressBarContainer = document.querySelector('.progress-bar-container'); // Non usato direttamente
+      const progressBar = document.getElementById('progressBar');
+      const progressFilled = document.getElementById('progressFilled');
+      const progressBuffered = document.getElementById('progressBuffered');
+      const progressHandle = document.getElementById('progressHandle');
+      const timeDisplay = document.getElementById('time-display');
+      const previewThumb = document.getElementById('previewThumb');
+      const previewVideo = previewThumb.querySelector('video');
+      const tooltip = document.getElementById('tooltip');
+      const speedSelector = document.getElementById('speedSelector');
+      const volumeSlider = document.getElementById('volumeSlider');
+      const volumeIcon = document.getElementById('volumeIcon');
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const backToCatalogButton = document.getElementById('backToCatalogButton');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const episodeSelectorGroup = document.getElementById('episodeSelectorGroup');
+      const seasonSelector = document.getElementById('seasonSelector');
+      const episodeSelector = document.getElementById('episodeSelector');
+
+      // --- State Variables ---
+      let isDraggingSeekBar = false;
+      let hideControlsTimeout;
+      let hlsInstance = null;
+      let hasAttemptedInitialFullscreen = false;
+      let isUserInteracted = false; 
+
+      // --- User Interaction Listener (per autoplay e fullscreen) ---
+      function userInteractionHandler() {
+          if (isUserInteracted) return;
+          isUserInteracted = true;
+          document.removeEventListener('click', userInteractionHandler);
+          document.removeEventListener('keydown', userInteractionHandler);
+          document.removeEventListener('touchstart', userInteractionHandler); // Per mobile
+          console.log("[VideoPlayer] Interazione utente rilevata.");
+          // Se il video è pronto e in pausa, tenta il play
+          if (video.paused && video.readyState >= video.HAVE_FUTURE_DATA) {
+              video.play().catch(e => console.warn("[VideoPlayer] Play post-interazione non riuscito:", e.message));
+          }
+      }
+      document.addEventListener('click', userInteractionHandler);
+      document.addEventListener('keydown', userInteractionHandler);
+      document.addEventListener('touchstart', userInteractionHandler);
+
+
+      // --- Serie/Episode Data Logic ---
+      function loadSerieDataFromStorage() {
+          console.log("[VideoPlayer] Tentativo caricamento dati serie da localStorage per serieId:", CONFIG.serieId);
+          if (CONFIG.serieId && (CONFIG.contentType === 'anime' || CONFIG.contentType === 'series_tv')) {
+              const storedData = localStorage.getItem(`serieData_${CONFIG.serieId}`);
+              if (storedData) {
+                  try {
+                      currentSerieData = JSON.parse(storedData);
+                      isFilmSimple = false; 
+                      console.log("[VideoPlayer] Dati serie caricati e parsati:", currentSerieData);
+                      populateSeasonSelector();
+                  } catch (e) { 
+                      console.error("[VideoPlayer] Errore parsing dati serie:", e); 
+                      currentSerieData = null; 
+                      isFilmSimple = true; 
+                  }
+              } else { 
+                  console.warn(`[VideoPlayer] Nessun dato serie per ID: ${CONFIG.serieId}. Considerato come film.`); 
+                  isFilmSimple = true; 
+              }
+          } else { 
+              isFilmSimple = true; 
+          }
+          episodeSelectorGroup.style.display = (!isFilmSimple && currentSerieData) ? 'flex' : 'none';
+          console.log("[VideoPlayer] Visibilità selettori episodi:", episodeSelectorGroup.style.display);
+      }
+      
+      function populateSeasonSelector() {
+          seasonSelector.innerHTML = ''; // Pulisci opzioni precedenti
+          if (!currentSerieData || !currentSerieData.seasons || currentSerieData.seasons.length === 0) {
+              const defaultOption = new Option("Nessuna stagione trovata", "");
+              defaultOption.disabled = true;
+              seasonSelector.add(defaultOption);
+              populateEpisodeSelector(-1); // Pulisci anche gli episodi
+              return;
+          }
+
+          currentSerieData.seasons.forEach((season, index) => {
+              // Assumendo che 'season' abbia una proprietà 'name' o 'title', o usa l'indice
+              const seasonName = season.name || season.title || `Stagione ${index + 1}`;
+              const option = new Option(seasonName, index.toString());
+              seasonSelector.add(option);
+          });
+
+          // Se CONFIG.stagioneIndex è valido e presente, selezionalo
+          if (!isNaN(CONFIG.stagioneIndex) && CONFIG.stagioneIndex < currentSerieData.seasons.length && CONFIG.stagioneIndex >= 0) {
+              seasonSelector.value = CONFIG.stagioneIndex.toString();
+              populateEpisodeSelector(CONFIG.stagioneIndex);
+          } else if (currentSerieData.seasons.length > 0) {
+              // Altrimenti seleziona la prima stagione disponibile (o nessuna se CONFIG.stagioneIndex non è settato)
+              if (isNaN(CONFIG.stagioneIndex) && currentSerieData.seasons.length > 0) {
+                 CONFIG.stagioneIndex = 0; // Default alla prima se non specificato
+                 seasonSelector.value = "0";
+              }
+              populateEpisodeSelector(parseInt(seasonSelector.value, 10));
+          } else {
+             populateEpisodeSelector(-1); // Nessuna stagione, quindi nessun episodio
+          }
+      }
+
+      function populateEpisodeSelector(seasonIdx) {
+          episodeSelector.innerHTML = ''; // Pulisci opzioni precedenti
+          if (seasonIdx < 0 || !currentSerieData || !currentSerieData.seasons[seasonIdx] || !currentSerieData.seasons[seasonIdx].episodes || currentSerieData.seasons[seasonIdx].episodes.length === 0) {
+              const defaultOption = new Option("Nessun episodio", "");
+              defaultOption.disabled = true;
+              episodeSelector.add(defaultOption);
+              return;
+          }
+
+          const episodes = currentSerieData.seasons[seasonIdx].episodes;
+          episodes.forEach((episode, index) => {
+              // Assumendo che 'episode' abbia una proprietà 'title' o 'name'
+              const episodeTitle = episode.title || episode.name || `Episodio ${index + 1}`;
+              const option = new Option(episodeTitle, index.toString());
+              episodeSelector.add(option);
+          });
+          
+          // Se CONFIG.episodioIndex è valido per la stagione corrente, selezionalo
+          if (!isNaN(CONFIG.episodioIndex) && CONFIG.episodioIndex < episodes.length && CONFIG.episodioIndex >= 0 && parseInt(seasonSelector.value, 10) === CONFIG.stagioneIndex) {
+            episodeSelector.value = CONFIG.episodioIndex.toString();
+          } else if (episodes.length > 0) {
+            // Default al primo episodio se non specificato per la stagione corrente
+             if (isNaN(CONFIG.episodioIndex)) {
+                CONFIG.episodioIndex = 0;
+             }
+             // Se l'episodio selezionato non è valido per questa stagione, seleziona il primo
+             if (CONFIG.episodioIndex >= episodes.length || CONFIG.episodioIndex < 0 || parseInt(seasonSelector.value,10) !== CONFIG.stagioneIndex) {
+                CONFIG.episodioIndex = 0;
+             }
+             episodeSelector.value = CONFIG.episodioIndex.toString();
+
+          }
+      }
+
+      seasonSelector.addEventListener('change', (e) => {
+          const newSeasonIndex = parseInt(e.target.value, 10);
+          if (!isNaN(newSeasonIndex)) {
+              CONFIG.stagioneIndex = newSeasonIndex;
+              CONFIG.episodioIndex = 0; // Resetta all'episodio 0 quando cambia stagione
+              populateEpisodeSelector(newSeasonIndex);
+              // Opzionale: carica direttamente il primo episodio della nuova stagione
+              if (episodeSelector.options.length > 0 && !episodeSelector.options[0].disabled) {
+                  playEpisode(CONFIG.stagioneIndex, CONFIG.episodioIndex);
+              }
+          }
+      });
+
+      episodeSelector.addEventListener('change', (e) => {
+          const newEpisodeIndex = parseInt(e.target.value, 10);
+          if (!isNaN(newEpisodeIndex)) {
+             playEpisode(CONFIG.stagioneIndex, newEpisodeIndex);
+          }
+      });
+      
+      function playEpisode(seasonIdx, episodeIdx) {
+          console.log(`[VideoPlayer] Tentativo di riprodurre Stagione ${seasonIdx + 1}, Episodio ${episodeIdx + 1}`);
+          if (!currentSerieData || !currentSerieData.seasons[seasonIdx] || !currentSerieData.seasons[seasonIdx].episodes[episodeIdx]) {
+              console.error("[VideoPlayer] Dati episodio non trovati.");
+              return;
+          }
+          const episodeData = currentSerieData.seasons[seasonIdx].episodes[episodeIdx];
+          
+          // Assumendo che 'episodeData' contenga 'videoUrl', 'title', e opzionalmente 'skipIntroStart', 'skipIntroEnd', 'outroStart'
+          if (!episodeData.videoUrl) {
+              console.error("[VideoPlayer] URL video per l'episodio non trovato.");
+              return;
+          }
+
+          CONFIG.stagioneIndex = seasonIdx;
+          CONFIG.episodioIndex = episodeIdx;
+          CONFIG.source = episodeData.videoUrl;
+          CONFIG.title = episodeData.title || `Stagione ${seasonIdx + 1} - Episodio ${episodeIdx + 1}`;
+          document.title = CONFIG.title;
+
+          // Aggiorna skip/outro times se specifici per l'episodio, altrimenti usa quelli della serie/default
+          skipIntroStart = episodeData.skipIntroStart ? parseTime(episodeData.skipIntroStart) : (currentSerieData.skipIntroStart ? parseTime(currentSerieData.skipIntroStart) : 0);
+          skipIntroEnd = episodeData.skipIntroEnd ? parseTime(episodeData.skipIntroEnd) : (currentSerieData.skipIntroEnd ? parseTime(currentSerieData.skipIntroEnd) : 0);
+          outroStart = episodeData.outroStart ? parseTime(episodeData.outroStart) : (currentSerieData.outroStart ? parseTime(currentSerieData.outroStart) : 0);
+          
+          initialStartTime = 0; // Per i nuovi episodi, inizia dall'inizio (a meno che non ci sia uno stato salvato)
+          
+          // Aggiorna l'URL del browser senza ricaricare la pagina
+          const newUrl = new URL(window.location);
+          newUrl.searchParams.set('serieId', CONFIG.serieId);
+          newUrl.searchParams.set('stagioneIndex', seasonIdx.toString());
+          newUrl.searchParams.set('episodioIndex', episodeIdx.toString());
+          newUrl.searchParams.set('videoUrl', CONFIG.source);
+          newUrl.searchParams.set('title', CONFIG.title);
+          // Rimuovi startTime se passiamo a un nuovo episodio
+          newUrl.searchParams.delete('startTime');
+
+          // Conserva gli altri parametri rilevanti (contentType, returnTo)
+          if(CONFIG.contentType) newUrl.searchParams.set('contentType', CONFIG.contentType);
+          if(CONFIG.returnTo && CONFIG.returnTo !== 'StreamRoot.html') newUrl.searchParams.set('returnTo', CONFIG.returnTo);
+
+
+          window.history.pushState({ path: newUrl.href }, CONFIG.title, newUrl.href);
+
+          loadSource(CONFIG.source);
+      }
+
+      // --- Navigation ---
+      backToCatalogButton.addEventListener('click', () => { 
+          // Potrebbe essere utile salvare lo stato attuale (es. currentTime) prima di tornare indietro
+          console.log("[VideoPlayer] Torno al catalogo:", CONFIG.returnTo);
+          window.location.href = CONFIG.returnTo; 
+      });
+      
+      // --- Play/Pause & Video Event Handlers ---
+      function togglePlayPause() { 
+          if (video.readyState < video.HAVE_ENOUGH_DATA && video.networkState === video.NETWORK_LOADING && video.src) {
+              console.log("[VideoPlayer] Video non ancora pronto, play/pausa ignorato.");
+              return;
+          }
+          if (video.paused || video.ended) { 
+              video.play().catch(e => console.warn("[VideoPlayer] Errore comando play:", e.message));
+          } else { 
+              video.pause();
+          }
+      }
+      playPauseBtn.addEventListener('click', togglePlayPause); 
+      video.addEventListener('click', togglePlayPause); // Click sul video stesso
+
+      video.addEventListener('play', () => { 
+        playPauseBtn.textContent = '⏸️'; 
+        playPauseBtn.setAttribute('aria-label', 'Pausa');
+        playPauseBtn.title = 'Pausa';
+        pauseOverlay.style.display = 'none'; 
         showControls(); 
-    }));
-    video.addEventListener('dblclick', () => { 
-      if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) enterFullscreen().catch(e => console.error(e));
-      else exitFullscreen().catch(e => console.error(e));
-    });
-    
-    // --- Volume & Speed --- (invariati, ma controlla i selettori CSS se necessario)
-    volumeSlider.addEventListener('input', () => { /* ... */ });
-    video.addEventListener('volumechange', () => { /* ... */ });
-    volumeIcon.addEventListener('click', () => { /* ... */ });
-    speedSelector.addEventListener('change', () => video.playbackRate = parseFloat(speedSelector.value));
-
-    // --- Progress Bar & Time Update ---
-    function formatTime(s) { 
-        if (isNaN(s) || !isFinite(s) || s < 0) return '00:00'; 
-        const m = Math.floor(s / 60); 
-        const sec = Math.floor(s % 60); 
-        return `${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`; 
-    }
-    function updateTimeDisplay() { 
-        if (video.readyState >= video.HAVE_METADATA) {
-            timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`; 
-        } else {
-            timeDisplay.textContent = '00:00 / 00:00';
+        // Tenta fullscreen automatico solo se l'utente ha interagito e non siamo già in fullscreen
+        if (!hasAttemptedInitialFullscreen && isUserInteracted && !document.fullscreenElement) {
+          enterFullscreen().catch(err => console.warn("[VideoPlayer] Autofullscreen non riuscito:", err.message));
+          hasAttemptedInitialFullscreen = true; 
         }
-    }
-    function updateProgressBar() {
-        if (video.readyState >= video.HAVE_METADATA && isFinite(video.duration) && video.duration > 0) {
-            const progressPercent = (video.currentTime / video.duration) * 100;
-            progressFilled.style.width = `${progressPercent}%`;
-            progressHandle.style.left = `${progressPercent}%`;
-        } else {
-            progressFilled.style.width = '0%';
-            progressHandle.style.left = '0%';
+      });
+
+      video.addEventListener('pause', () => { 
+        playPauseBtn.textContent = '▶️'; 
+        playPauseBtn.setAttribute('aria-label', 'Play');
+        playPauseBtn.title = 'Play';
+        if (!isDraggingSeekBar) { // Mostra overlay solo se la pausa non è dovuta al trascinamento
+          pauseOverlay.style.display = 'block'; 
+          setTimeout(() => { if(video.paused) pauseOverlay.style.display = 'none'; }, 600); // Nascondi dopo un po'
         }
-    }
-    function updateBufferedBar() { 
-        if (video.readyState >= video.HAVE_METADATA && video.buffered.length > 0 && isFinite(video.duration) && video.duration > 0) {
-            try { // Aggiunto try-catch per robustezza
-                const bufferedEnd = video.buffered.end(video.buffered.length - 1);
-                const bufferedPercent = (bufferedEnd / video.duration) * 100;
-                progressBuffered.style.width = `${Math.min(100, bufferedPercent)}%`;
-            } catch (e) {
-                console.warn("Player.html - Errore durante l'aggiornamento della barra di buffer:", e.message);
-                progressBuffered.style.width = '0%';
-            }
-        } else {
-            progressBuffered.style.width = '0%';
-        }
-    }
-    video.addEventListener('loadedmetadata', () => {
-        console.log("Player.html - Metadati caricati. Durata:", video.duration);
-        updateTimeDisplay(); 
-        updateProgressBar();
-        updateBufferedBar();
-        if (previewVideo.src !== video.src && !video.src.includes('.m3u8')) { // Per MP4, imposta sorgente preview
-             previewVideo.src = video.src;
-        }
-    }); 
-    video.addEventListener('timeupdate', () => {
-        updateTimeDisplay();
-        if (!isDraggingSeekBar) updateProgressBar(); 
-    }); 
-    video.addEventListener('progress', updateBufferedBar); // Evento per aggiornare il buffer
-    video.addEventListener('durationchange', updateTimeDisplay); // Aggiorna se la durata cambia (es. live stream)
+        showControls(); 
+      });
 
+      video.addEventListener('ended', () => { 
+          console.log("[VideoPlayer] Video terminato. isFilmSimple:", isFilmSimple, "currentSerieData:", !!currentSerieData);
+          if (!isFilmSimple && currentSerieData) {
+              let currentSIdx = CONFIG.stagioneIndex;
+              let currentEIdx = CONFIG.episodioIndex;
+              let nextSIdx = currentSIdx;
+              let nextEIdx = currentEIdx + 1;
 
-    // --- Seek Bar Logic ---
-    function seek(event) {
-        if (video.readyState < video.HAVE_METADATA || !isFinite(video.duration)) return;
-        const progressBarRect = progressBar.getBoundingClientRect();
-        const clickX = event.clientX - progressBarRect.left;
-        const percentage = Math.max(0, Math.min(1, clickX / progressBarRect.width));
-        video.currentTime = percentage * video.duration;
-        updateProgressBar(); // Aggiorna immediatamente la barra
-    }
-    progressBar.addEventListener('click', seek);
-    progressHandle.addEventListener('mousedown', (e) => { 
-        if (video.readyState < video.HAVE_METADATA) return;
-        isDraggingSeekBar = true; 
-        progressHandle.classList.add('dragging'); 
-        document.body.style.userSelect = 'none';
-        e.preventDefault(); 
-        // Aggiungi il listener mousemove al document per un drag più fluido
-        document.addEventListener('mousemove', handleDocumentMouseMove);
-        document.addEventListener('mouseup', handleDocumentMouseUp);
-    });
-    function handleDocumentMouseMove(e) {
-        if (!isDraggingSeekBar || video.readyState < video.HAVE_METADATA || !isFinite(video.duration)) return;
-        const progressBarRect = progressBar.getBoundingClientRect();
-        let newLeft = e.clientX - progressBarRect.left;
-        let percentage = (newLeft / progressBarRect.width);
-        percentage = Math.max(0, Math.min(1, percentage)); // Clamp tra 0 e 1
-
-        progressFilled.style.width = `${percentage * 100}%`;
-        progressHandle.style.left = `${percentage * 100}%`;
-        
-        // Aggiorna currentTime solo se il drag è significativo per evitare sovraccarico
-        // (questo potrebbe essere gestito meglio con un debounce o solo su mouseup)
-        // Per ora, lo aggiorniamo direttamente.
-        video.currentTime = percentage * video.duration;
-        updateTimeDisplay(); // Aggiorna il tempo durante il drag
-    }
-    function handleDocumentMouseUp() {
-        if (isDraggingSeekBar) {
-            isDraggingSeekBar = false;
-            progressHandle.classList.remove('dragging');
-            document.body.style.userSelect = '';
-            document.removeEventListener('mousemove', handleDocumentMouseMove);
-            document.removeEventListener('mouseup', handleDocumentMouseUp);
-            // Non è necessario un seek esplicito qui se currentTime è stato aggiornato durante il mousemove
-            // Ma se l'aggiornamento di currentTime fosse solo su mouseup, andrebbe fatto qui.
-            console.log("Player.html - Seek drag terminato, currentTime:", video.currentTime);
-        }
-    }
-
-    // --- Preview Thumbnail & Tooltip ---
-    progressBar.addEventListener('mousemove', e => { 
-        if (isDraggingSeekBar || video.readyState < video.HAVE_METADATA || !isFinite(video.duration)) return;
-        const r = progressBar.getBoundingClientRect(); 
-        const hoverPos = e.clientX - r.left; 
-        const percentage = Math.max(0, Math.min(1, hoverPos / r.width));
-        const time = percentage * video.duration; 
-
-        // Tooltip del tempo
-        tooltip.style.left = `${hoverPos}px`; 
-        tooltip.textContent = formatTime(time); 
-        tooltip.style.display = 'block';
-
-        // Anteprima video
-        if (previewVideo.HAVE_METADATA && previewVideo.src && isFinite(time)) { 
-            previewVideo.currentTime = time; 
-            // Posiziona il thumbnail, assicurandosi che non esca dai bordi della progress bar
-            const thumbWidth = previewThumb.offsetWidth;
-            let thumbLeft = hoverPos - thumbWidth / 2;
-            thumbLeft = Math.max(0, Math.min(thumbLeft, r.width - thumbWidth)); // Clamp
-            previewThumb.style.left = `${thumbLeft}px`; 
-            previewThumb.style.display = 'block';
-        } 
-    });
-    progressBar.addEventListener('mouseout', () => { 
-        if (!isDraggingSeekBar) { 
-            previewThumb.style.display = 'none'; 
-            tooltip.style.display = 'none'; 
-        }
-    });
-
-    // --- Controls Visibility ---
-    function showControls() { 
-        controls.classList.remove('hidden'); 
-        clearTimeout(hideControlsTimeout); 
-        if (!video.paused) { 
-            hideControlsTimeout = setTimeout(() => { 
-                // Controlla se il mouse è sopra i controlli o se un elemento dei controlli ha il focus
-                const isMouseOverControls = controls.matches(':hover') || Array.from(controls.querySelectorAll('*')).some(el => el.matches(':hover'));
-                const isAnyControlFocused = document.activeElement && controls.contains(document.activeElement);
-
-                if (!isMouseOverControls && !isAnyControlFocused && !video.paused) {
-                    controls.classList.add('hidden'); 
-                }
-            }, 3000);
-        }
-    }
-    playerContainer.addEventListener('mousemove', showControls); 
-    playerContainer.addEventListener('mouseenter', showControls); // Mostra anche su mouseenter
-    playerContainer.addEventListener('focusin', showControls); 
-    playerContainer.addEventListener('mouseleave', () => { 
-        if (!video.paused && !controls.matches(':hover') && !(document.activeElement && controls.contains(document.activeElement))) {
-            hideControlsTimeout = setTimeout(() => controls.classList.add('hidden'), 500);
-        }
-    });
-    // Mantenere i controlli visibili se il mouse è sopra di essi
-    controls.addEventListener('mouseenter', () => clearTimeout(hideControlsTimeout));
-    controls.addEventListener('mouseleave', () => {
-        if (!video.paused) showControls(); // Richiama showControls per riavviare il timeout
-    });
-    
-    // --- Video Source Loading ---
-    function loadSource(src) { 
-        console.log("Player.html - loadSource chiamato con src:", src);
-        if (!src) { console.error("Player.html - Nessuna sorgente video fornita."); alert("Nessun video."); return; } 
-        
-        video.poster = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-        hasAttemptedInitialFullscreen = false; // Resetta per nuovo video
-        
-        if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; } 
-        
-        const setupAndPlay = () => {
-            console.log("Player.html - Tentativo di play dopo setup.");
-            // Imposta il tempo iniziale solo se è la prima volta che questo specifico video viene caricato (non su replay/seek)
-            if (startTime > 0 && video.currentTime < 1 && video.duration > startTime) { 
-                video.currentTime = startTime; 
-                startTime = 0; // Resetta per non riapplicarlo
-            }
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    if (error.name === 'NotAllowedError') { console.warn('Player.html - Autoplay bloccato.'); playPauseBtn.textContent = '▶️'; } 
-                    else { console.error('Player.html - Errore autoplay:', error.message); playPauseBtn.textContent = '▶️'; }
-                });
-            }
-        };
-
-        if (src.includes('.m3u8')) { 
-            if (Hls.isSupported()) { 
-                hlsInstance = new Hls({ abrEwmaDefaultEstimate: 500000, enableWorker: true, lowLatencyMode: false }); 
-                hlsInstance.loadSource(src); 
-                hlsInstance.attachMedia(video); 
-                hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => { console.log("Player.html - HLS Manifest Parsed"); setupAndPlay(); }); 
-                hlsInstance.on(Hls.Events.ERROR, (event, data) => { 
-                    console.error('Player.html - HLS Error:', data); 
-                    if (data.fatal) { 
-                        switch(data.type) { 
-                            case Hls.ErrorTypes.NETWORK_ERROR: hlsInstance.startLoad(); break; 
-                            case Hls.ErrorTypes.MEDIA_ERROR: hlsInstance.recoverMediaError(); break; 
-                            default: hlsInstance.destroy(); break;
-                        }
-                    }
-                });
-                // Per preview video con HLS
-                if (previewVideo.canPlayType('application/vnd.apple.mpegurl')) { previewVideo.src = src; } 
-                else if (Hls.isSupported()) { 
-                    const hlsPreview = new Hls({maxBufferLength: 5, maxMaxBufferLength: 10}); // Configurazione leggera per preview
-                    hlsPreview.loadSource(src); 
-                    hlsPreview.attachMedia(previewVideo); 
-                }
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) { 
-                video.src = src; previewVideo.src = src; 
-                video.addEventListener('loadedmetadata', setupAndPlay, { once: true });
-            } else { alert('HLS non supportato.'); }
-        } else { // MP4 o altri formati diretti
-            video.src = src; 
-            previewVideo.src = src; // Anche per preview
-            video.addEventListener('canplay', setupAndPlay, { once: true }); // 'canplay' è un buon evento per MP4
-        } 
-        
-        // Questo handler di errore è un fallback generale
-        video.onerror = (e) => { 
-            console.error("Player.html - Errore critico elemento video:", e, video.error); 
-            playPauseBtn.textContent = '▶️';
-            timeDisplay.textContent = 'Errore / Video';
-            // Potrebbe essere utile mostrare un messaggio più specifico all'utente
-        };
-    }
-    
-    // --- Skip Intro/Outro Logic ---
-    video.addEventListener('timeupdate', () => {
-      // ... (logica skip/outro come prima, assicurati che isFilmSimple e i tempi siano corretti) ...
-      if (!isFilmSimple && currentSerieData) { // Aggiunto currentSerieData per sicurezza
-          if (skipIntroStart > 0 && skipIntroEnd > skipIntroStart && video.currentTime >= skipIntroStart && video.currentTime < skipIntroEnd) { 
-            video.currentTime = skipIntroEnd; 
+              if (currentSerieData.seasons[currentSIdx] && currentSerieData.seasons[currentSIdx].episodes[nextEIdx]) {
+                  console.log("[VideoPlayer] Passaggio automatico al prossimo episodio nella stessa stagione.");
+                  playEpisode(nextSIdx, nextEIdx);
+              } else {
+                  nextSIdx = currentSIdx + 1;
+                  nextEIdx = 0;
+                  if (currentSerieData.seasons[nextSIdx] && currentSerieData.seasons[nextSIdx].episodes[nextEIdx]) {
+                      console.log("[VideoPlayer] Passaggio automatico al primo episodio della prossima stagione.");
+                      playEpisode(nextSIdx, nextEIdx);
+                  } else {
+                      console.log("[VideoPlayer] Fine serie o stagione. Nessun altro episodio da riprodurre automaticamente.");
+                      // Qui potresti reindirizzare o mostrare un messaggio "Fine serie"
+                  }
+              }
+          } else {
+              // Se è un film o non ci sono dati serie, rimane in pausa alla fine.
+              playPauseBtn.textContent = '▶️';
+              playPauseBtn.setAttribute('aria-label', 'Play');
+              playPauseBtn.title = 'Play';
           }
-          // L'outro non dovrebbe più chiamare triggerNextEpisode, ma solo mettere in pausa e mostrare il selettore
-          if (outroStart > 0 && video.currentTime >= outroStart && video.currentTime < video.duration - 0.5 && !video.paused) { 
-            video.pause(); 
-            // I selettori dovrebbero essere già visibili se currentSerieData esiste
+      });
+
+      // --- Fullscreen ---
+      function enterFullscreen() {
+          console.log("[VideoPlayer] Tentativo di entrare in fullscreen.");
+          const el = playerContainer;
+          if (el.requestFullscreen) return el.requestFullscreen();
+          if (el.webkitRequestFullscreen) return el.webkitRequestFullscreen(); // Safari
+          if (el.msRequestFullscreen) return el.msRequestFullscreen(); // IE11
+          return Promise.reject(new Error("Fullscreen API non supportata."));
+      }
+      function exitFullscreen() {
+          console.log("[VideoPlayer] Tentativo di uscire dal fullscreen.");
+          if (document.exitFullscreen) return document.exitFullscreen();
+          if (document.webkitExitFullscreen) return document.webkitExitFullscreen();
+          if (document.msExitFullscreen) return document.msExitFullscreen();
+          return Promise.reject(new Error("Exit Fullscreen API non supportata."));
+      }
+      fullscreenBtn.addEventListener('click', () => {  
+          if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+              enterFullscreen().catch(err => console.error("[VideoPlayer] Errore richiesta fullscreen:", err.message));
+          } else { 
+              exitFullscreen().catch(err => console.error("[VideoPlayer] Errore uscita fullscreen:", err.message));
+          }
+      });
+      const fullscreenEvents = ['fullscreenchange', 'webkitfullscreenchange', 'msfullscreenchange'];
+      fullscreenEvents.forEach(event => document.addEventListener(event, () => {
+          const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+          playerContainer.classList.toggle('fullscreen', isFs); 
+          fullscreenBtn.setAttribute('aria-label', isFs ? 'Esci da Schermo Intero' : 'Attiva Schermo Intero');
+          fullscreenBtn.title = isFs ? 'Esci da Schermo Intero' : 'Schermo Intero';
+          console.log("[VideoPlayer] Stato fullscreen cambiato. È fullscreen:", isFs);
+          showControls(); 
+      }));
+      video.addEventListener('dblclick', () => { 
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+          enterFullscreen().catch(e => console.error("[VideoPlayer] Errore fullscreen (dblclick):", e.message));
+        } else {
+          exitFullscreen().catch(e => console.error("[VideoPlayer] Errore uscita fullscreen (dblclick):", e.message));
+        }
+      });
+      
+      // --- Volume & Speed ---
+      volumeSlider.addEventListener('input', () => { 
+          video.volume = parseFloat(volumeSlider.value);
+          video.muted = video.volume === 0;
+      });
+      video.addEventListener('volumechange', () => {
+          volumeSlider.value = video.muted ? 0 : video.volume;
+          if (video.muted || video.volume === 0) {
+              volumeIcon.textContent = '🔇';
+              volumeIcon.setAttribute('aria-label', 'Audio Disattivato');
+              volumeIcon.title = 'Attiva Audio';
+          } else if (video.volume < 0.5) {
+              volumeIcon.textContent = '🔉';
+              volumeIcon.setAttribute('aria-label', 'Audio Basso');
+              volumeIcon.title = 'Muto';
+          } else {
+              volumeIcon.textContent = '🔊';
+              volumeIcon.setAttribute('aria-label', 'Audio Alto');
+              volumeIcon.title = 'Muto';
+          }
+      });
+      volumeIcon.addEventListener('click', () => { 
+          video.muted = !video.muted;
+          // Se si smuta e il volume era 0, impostalo a un valore di default (es. 0.5)
+          if (!video.muted && video.volume === 0) {
+              video.volume = 0.5; 
+          }
+      });
+      speedSelector.addEventListener('change', () => video.playbackRate = parseFloat(speedSelector.value));
+
+      // --- Progress Bar & Time Update ---
+      function updateTimeDisplay() { 
+          if (video.readyState >= video.HAVE_METADATA && isFinite(video.duration)) {
+              timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`; 
+          } else {
+              timeDisplay.textContent = `${formatTime(video.currentTime || 0)} / --:--`; // Mostra tempo corrente anche se durata non nota
           }
       }
-    });
-    
-    // --- INITIALIZATION ---
-    console.log("Player.html - Inizializzazione player...");
-    loadSerieDataFromStorage(); 
-    showControls(); 
-    video.volume = parseFloat(volumeSlider.value); 
-    video.playbackRate = parseFloat(speedSelector.value); 
-    updateTimeDisplay(); // Inizializza il display del tempo
-    
-    if (CONFIG.source) { 
-      console.log("Player.html - Caricamento sorgente video iniziale:", CONFIG.source);
-      loadSource(CONFIG.source); 
-    } else { 
-      console.warn("Player.html - Nessuna sorgente video iniziale."); 
-      if (currentSerieData && currentSerieData.seasons && currentSerieData.seasons.length > 0) {
-          // Non fare nulla, l'utente sceglierà dai selettori
-      } else if (isFilmSimple) {
-         alert("Nessun video da caricare. Specificare 'videoUrl'."); 
-      } else {
-         alert("Dati della serie non trovati o corrotti e nessuna sorgente video specificata.");
+      function updateProgressBar() {
+          if (video.readyState >= video.HAVE_METADATA && isFinite(video.duration) && video.duration > 0) {
+              const progressPercent = (video.currentTime / video.duration) * 100;
+              progressFilled.style.width = `${progressPercent}%`;
+              progressHandle.style.left = `${progressPercent}%`;
+          } else {
+              progressFilled.style.width = '0%';
+              progressHandle.style.left = '0%';
+          }
       }
-    }
+      function updateBufferedBar() { 
+          if (video.readyState >= video.HAVE_METADATA && video.buffered.length > 0 && isFinite(video.duration) && video.duration > 0) {
+              try {
+                  const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+                  const bufferedPercent = (bufferedEnd / video.duration) * 100;
+                  progressBuffered.style.width = `${Math.min(100, bufferedPercent)}%`;
+              } catch (e) {
+                  console.warn("[VideoPlayer] Errore durante l'aggiornamento della barra di buffer:", e.message);
+                  progressBuffered.style.width = '0%';
+              }
+          } else {
+              progressBuffered.style.width = '0%';
+          }
+      }
+
+      video.addEventListener('loadedmetadata', () => {
+          console.log("[VideoPlayer] Metadati caricati. Durata:", video.duration);
+          updateTimeDisplay(); 
+          updateProgressBar();
+          updateBufferedBar();
+          if (previewVideo.src !== video.src && !video.src.includes('.m3u8')) { 
+               previewVideo.src = video.src;
+          }
+          // Applica lo startTime solo se è il primo caricamento e il tempo non è già stato impostato
+          if (initialStartTime > 0 && video.currentTime < 1 && video.duration > initialStartTime) { 
+              console.log("[VideoPlayer] Imposto tempo iniziale a:", initialStartTime);
+              video.currentTime = initialStartTime; 
+              initialStartTime = 0; // Resetta per non riapplicarlo su seek o replay
+          }
+      }); 
+      video.addEventListener('timeupdate', () => {
+          updateTimeDisplay();
+          if (!isDraggingSeekBar) updateProgressBar(); 
+          // Logica Skip Intro/Outro
+          if (!isFilmSimple && currentSerieData) {
+              if (skipIntroStart > 0 && skipIntroEnd > skipIntroStart && video.currentTime >= skipIntroStart && video.currentTime < skipIntroEnd) { 
+                console.log("[VideoPlayer] Salto intro...");
+                video.currentTime = skipIntroEnd; 
+              }
+              if (outroStart > 0 && video.currentTime >= outroStart && video.currentTime < (video.duration - 0.5) && !video.paused && !video.ended) { 
+                console.log("[VideoPlayer] Rilevato inizio outro, metto in pausa.");
+                video.pause(); 
+                showControls(); // Assicura che i controlli (inclusi i selettori ep.) siano visibili
+              }
+          }
+      }); 
+      video.addEventListener('progress', updateBufferedBar); 
+      video.addEventListener('durationchange', () => {
+          console.log("[VideoPlayer] Durata video cambiata:", video.duration);
+          updateTimeDisplay();
+          updateProgressBar();
+          updateBufferedBar();
+      });
+
+      // --- Seek Bar Logic ---
+      function seek(event) {
+          if (video.readyState < video.HAVE_METADATA || !isFinite(video.duration)) return;
+          const progressBarRect = progressBar.getBoundingClientRect();
+          const clickX = event.clientX - progressBarRect.left;
+          const percentage = Math.max(0, Math.min(1, clickX / progressBarRect.width));
+          video.currentTime = percentage * video.duration;
+          updateProgressBar(); // Aggiorna immediatamente la barra
+      }
+      progressBar.addEventListener('click', seek);
+      progressHandle.addEventListener('mousedown', (e) => { 
+          if (video.readyState < video.HAVE_METADATA || !isFinite(video.duration)) return;
+          isDraggingSeekBar = true; 
+          progressHandle.classList.add('dragging'); 
+          document.body.style.userSelect = 'none'; // Previene la selezione del testo durante il drag
+          e.preventDefault(); 
+          document.addEventListener('mousemove', handleDocumentMouseMove);
+          document.addEventListener('mouseup', handleDocumentMouseUp);
+      });
+      function handleDocumentMouseMove(e) {
+          if (!isDraggingSeekBar || video.readyState < video.HAVE_METADATA || !isFinite(video.duration)) return;
+          const progressBarRect = progressBar.getBoundingClientRect();
+          let newLeft = e.clientX - progressBarRect.left;
+          let percentage = (newLeft / progressBarRect.width);
+          percentage = Math.max(0, Math.min(1, percentage)); 
+
+          progressFilled.style.width = `${percentage * 100}%`;
+          progressHandle.style.left = `${percentage * 100}%`;
+          
+          // Aggiorna il tooltip del tempo durante il drag
+          const time = percentage * video.duration;
+          tooltip.textContent = formatTime(time);
+          tooltip.style.left = `${newLeft}px`; // Usa newLeft per il tooltip per coerenza col mouse
+          tooltip.style.display = 'block';
+
+          // Per evitare sovraccarico, potresti fare il seek solo su mouseup o con debounce.
+          // Per ora, aggiorniamo il currentTime ma con meno frequenza se possibile (qui è diretto)
+          video.currentTime = time; 
+          updateTimeDisplay();
+      }
+      function handleDocumentMouseUp() {
+          if (isDraggingSeekBar) {
+              isDraggingSeekBar = false;
+              progressHandle.classList.remove('dragging');
+              document.body.style.userSelect = '';
+              document.removeEventListener('mousemove', handleDocumentMouseMove);
+              document.removeEventListener('mouseup', handleDocumentMouseUp);
+              tooltip.style.display = 'none'; // Nascondi tooltip al rilascio
+              // Il currentTime è già stato aggiornato durante mousemove.
+              console.log("[VideoPlayer] Seek drag terminato, currentTime:", video.currentTime);
+              // Se la pausa è avvenuta a causa del drag, non mostrare l'overlay di pausa
+              if (pauseOverlay.style.display === 'block') {
+                  pauseOverlay.style.display = 'none';
+              }
+          }
+      }
+
+      // --- Preview Thumbnail & Tooltip ---
+      progressBar.addEventListener('mousemove', e => { 
+          if (isDraggingSeekBar || video.readyState < video.HAVE_METADATA || !isFinite(video.duration)) return;
+          const r = progressBar.getBoundingClientRect(); 
+          const hoverPos = e.clientX - r.left; 
+          const percentage = Math.max(0, Math.min(1, hoverPos / r.width));
+          const time = percentage * video.duration; 
+
+          tooltip.style.left = `${hoverPos}px`; 
+          tooltip.textContent = formatTime(time); 
+          tooltip.style.display = 'block';
+
+          if (previewVideo.readyState >= previewVideo.HAVE_METADATA && previewVideo.src && isFinite(time)) { 
+              previewVideo.currentTime = time; 
+              const thumbWidth = previewThumb.offsetWidth;
+              let thumbLeft = hoverPos - thumbWidth / 2;
+              thumbLeft = Math.max(0, Math.min(thumbLeft, r.width - thumbWidth)); 
+              previewThumb.style.left = `${thumbLeft}px`; 
+              previewThumb.style.display = 'block';
+          } 
+      });
+      progressBar.addEventListener('mouseout', () => { 
+          if (!isDraggingSeekBar) { 
+              previewThumb.style.display = 'none'; 
+              tooltip.style.display = 'none'; 
+          }
+      });
+
+      // --- Controls Visibility ---
+      function showControls() { 
+          controls.classList.remove('hidden'); 
+          playerContainer.style.cursor = 'default';
+          clearTimeout(hideControlsTimeout); 
+          if (!video.paused) { 
+              hideControlsTimeout = setTimeout(() => { 
+                  const isMouseOverControls = controls.matches(':hover') || Array.from(controls.querySelectorAll('*')).some(el => el.matches(':hover'));
+                  const isAnyControlFocused = document.activeElement && controls.contains(document.activeElement);
+                  const isSelectOpen = Array.from(controls.querySelectorAll('select')).some(sel => sel.matches(':focus')); // Crudo, ma può aiutare
+
+                  if (!isMouseOverControls && !isAnyControlFocused && !isSelectOpen && !video.paused) {
+                      controls.classList.add('hidden'); 
+                      playerContainer.style.cursor = 'none';
+                  }
+              }, 3000);
+          }
+      }
+      playerContainer.addEventListener('mousemove', showControls); 
+      playerContainer.addEventListener('mouseenter', showControls);
+      playerContainer.addEventListener('focusin', showControls); // Per accessibilità da tastiera
+      playerContainer.addEventListener('mouseleave', () => { 
+          if (!video.paused && !controls.matches(':hover') && !(document.activeElement && controls.contains(document.activeElement))) {
+              hideControlsTimeout = setTimeout(() => {
+                controls.classList.add('hidden');
+                playerContainer.style.cursor = 'none';
+              }, 500);
+          }
+      });
+      controls.addEventListener('mouseenter', () => clearTimeout(hideControlsTimeout));
+      controls.addEventListener('mouseleave', () => { if (!video.paused) showControls(); });
+      
+      // --- Video Source Loading ---
+      function loadSource(src) { 
+          console.log("[VideoPlayer] loadSource chiamato con src:", src);
+          if (!src) { 
+              console.error("[VideoPlayer] Nessuna sorgente video fornita."); 
+              timeDisplay.textContent = 'Errore / No Source';
+              // Non usare alert qui, l'errore iniziale è gestito in fondo
+              return; 
+          } 
+          
+          video.poster = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Reset poster
+          hasAttemptedInitialFullscreen = false; 
+          
+          if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; } 
+          
+          const setupAndPlay = () => {
+              console.log("[VideoPlayer] Tentativo di play dopo setup sorgente.");
+              // Non impostare currentTime qui, gestito da 'loadedmetadata' per initialStartTime
+              const playPromise = video.play();
+              if (playPromise !== undefined) {
+                  playPromise.catch(error => {
+                      if (error.name === 'NotAllowedError') { 
+                          console.warn('[VideoPlayer] Autoplay bloccato dall\'utente o dal browser. L\'utente dovrà cliccare play.'); 
+                          playPauseBtn.textContent = '▶️'; 
+                          playPauseBtn.setAttribute('aria-label', 'Play');
+                          playPauseBtn.title = 'Play';
+                      } else { 
+                          console.error('[VideoPlayer] Errore durante il tentativo di autoplay:', error.message); 
+                          playPauseBtn.textContent = '▶️';
+                          playPauseBtn.setAttribute('aria-label', 'Play');
+                          playPauseBtn.title = 'Play';
+                      }
+                  });
+              }
+          };
+
+          if (src.includes('.m3u8')) { 
+              if (Hls.isSupported()) { 
+                  console.log("[VideoPlayer] Caricamento HLS stream...");
+                  hlsInstance = new Hls({ 
+                      abrEwmaDefaultEstimate: 500000, // Stima bitrate iniziale
+                      enableWorker: true, 
+                      lowLatencyMode: false, // Disabilitato per stabilità, abilitare se necessario
+                      // Altre configurazioni HLS.js possono andare qui
+                  }); 
+                  hlsInstance.loadSource(src); 
+                  hlsInstance.attachMedia(video); 
+                  hlsInstance.on(Hls.Events.MANIFEST_PARSED, (event, data) => { 
+                      console.log("[VideoPlayer] HLS Manifest Parsed. Livelli qualità:", data.levels.map(l => l.height)); 
+                      if (isUserInteracted || video.autoplay) { // Tenta il play solo se c'è stata interazione o autoplay è true
+                        setupAndPlay();
+                      }
+                  }); 
+                  hlsInstance.on(Hls.Events.ERROR, (event, data) => { 
+                      console.error('[VideoPlayer] HLS Error:', data); 
+                      if (data.fatal) { 
+                          switch(data.type) { 
+                              case Hls.ErrorTypes.NETWORK_ERROR: 
+                                  console.warn("[VideoPlayer] HLS Network error, tentativo di riavvio caricamento.");
+                                  hlsInstance.startLoad(); break; 
+                              case Hls.ErrorTypes.MEDIA_ERROR: 
+                                  console.warn("[VideoPlayer] HLS Media error, tentativo di recupero.");
+                                  hlsInstance.recoverMediaError(); break; 
+                              default: 
+                                  console.error("[VideoPlayer] HLS Errore fatale non recuperabile, distruggo istanza HLS.");
+                                  hlsInstance.destroy(); hlsInstance = null; break;
+                          }
+                      }
+                  });
+                  // Preview per HLS (più complesso, richiede un'altra istanza HLS o supporto nativo)
+                  if (previewVideo.canPlayType('application/vnd.apple.mpegurl')) { 
+                      previewVideo.src = src; 
+                  } else if (Hls.isSupported()) { 
+                      // Potresti creare un'istanza HLS separata e più leggera per la preview
+                      // const hlsPreview = new Hls({maxBufferLength: 5, maxMaxBufferLength: 10}); 
+                      // hlsPreview.loadSource(src); 
+                      // hlsPreview.attachMedia(previewVideo); 
+                      console.log("[VideoPlayer] Preview HLS su elemento video separato non implementata in dettaglio (richiede seconda istanza HLS).");
+                  }
+              } else if (video.canPlayType('application/vnd.apple.mpegurl')) { // Supporto HLS Nativo (es. Safari)
+                  console.log("[VideoPlayer] Caricamento HLS stream (nativo).");
+                  video.src = src; 
+                  previewVideo.src = src; 
+                  // L'evento 'loadedmetadata' gestirà il play e initialStartTime
+              } else { 
+                  console.error('[VideoPlayer] HLS non supportato dal browser.'); 
+                  alert('Il tuo browser non supporta la riproduzione di questo formato video (HLS).'); 
+              }
+          } else { // MP4 o altri formati diretti
+              console.log("[VideoPlayer] Caricamento video diretto (MP4 o altro).");
+              video.src = src; 
+              previewVideo.src = src; 
+              // L'evento 'loadedmetadata' gestirà il play e initialStartTime
+              // 'canplay' è anche un buon evento, ma 'loadedmetadata' è sufficiente per avviare la logica
+          } 
+          
+          video.onerror = (e) => { 
+              console.error("[VideoPlayer] Errore critico elemento video:", e, video.error); 
+              playPauseBtn.textContent = '▶️';
+              playPauseBtn.setAttribute('aria-label', 'Play');
+              playPauseBtn.title = 'Play';
+              timeDisplay.textContent = 'Errore Video';
+              if (video.error) {
+                  switch (video.error.code) {
+                      case MediaError.MEDIA_ERR_ABORTED:
+                          console.error('Riproduzione video interrotta dall\'utente.'); break;
+                      case MediaError.MEDIA_ERR_NETWORK:
+                          console.error('Errore di rete durante il caricamento del video.'); break;
+                      case MediaError.MEDIA_ERR_DECODE:
+                          console.error('Errore durante la decodifica del video.'); break;
+                      case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+                          console.error('Formato video non supportato o sorgente non trovata.'); break;
+                      default:
+                          console.error('Errore sconosciuto durante la riproduzione del video.'); break;
+                  }
+              }
+          };
+      }
+      
+      // --- INITIALIZATION ---
+      console.log("[VideoPlayer] Inizializzazione player...");
+      loadSerieDataFromStorage(); 
+      showControls(); 
+      video.volume = parseFloat(volumeSlider.value); 
+      video.playbackRate = parseFloat(speedSelector.value); 
+      updateTimeDisplay(); 
+      
+      if (CONFIG.source) { 
+        console.log("[VideoPlayer] Caricamento sorgente video iniziale:", CONFIG.source);
+        loadSource(CONFIG.source); 
+      } else { 
+        console.warn("[VideoPlayer] Nessuna sorgente video iniziale specificata tramite 'videoUrl'."); 
+        if (currentSerieData && currentSerieData.seasons && currentSerieData.seasons.length > 0 &&
+            !isNaN(CONFIG.stagioneIndex) && !isNaN(CONFIG.episodioIndex) &&
+            currentSerieData.seasons[CONFIG.stagioneIndex] && currentSerieData.seasons[CONFIG.stagioneIndex].episodes[CONFIG.episodioIndex]) {
+            console.log("[VideoPlayer] Tentativo di caricare l'episodio specificato da CONFIG (stagione/episodio index).");
+            playEpisode(CONFIG.stagioneIndex, CONFIG.episodioIndex);
+        } else if (!isFilmSimple && currentSerieData && episodeSelectorGroup.style.display === 'flex') {
+            timeDisplay.textContent = 'Seleziona Episodio';
+            console.log("[VideoPlayer] In attesa di selezione episodio da parte dell'utente.");
+        } else if (isFilmSimple) {
+           alert("Nessun video da caricare. Specificare il parametro 'videoUrl' nell'URL."); 
+           timeDisplay.textContent = 'Nessun Video';
+        } else {
+           alert("Dati della serie non trovati o corrotti e nessuna sorgente video specificata.");
+           timeDisplay.textContent = 'Errore Dati Serie';
+        }
+      }
+
+    })(); // Fine IIFE
   </script>
 </body>
 </html>
