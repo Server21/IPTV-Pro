@@ -30,7 +30,7 @@
             "skipIntroStart": "00:58",
             "skipIntroEnd": "02:23",
             "outroStart": "22:40"
-          }, // <-- VIRGOLA AGGIUNTA QUI
+          },
           {
             "episode_number": 3,
             "name": "Ep 3",
@@ -40,7 +40,7 @@
             "skipIntroStart": "00:58",
             "skipIntroEnd": "02:23",
             "outroStart": "22:40"
-          } // <-- Nessuna virgola qui perché è l'ultimo elemento dell'array episodes
+          } 
         ]
       },
       {
