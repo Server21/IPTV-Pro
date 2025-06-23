@@ -29,7 +29,6 @@
     .volume-control input[type=range] { width: 80px; }
     select { background: #1f1f1f; color: #fff; border: none; border-radius:4px; padding:4px; cursor: pointer; }
     span#time-display { color: #fff; font-size: 0.9em; }
-    /* #loading rimosso dallo stile */
     #nextEpisodeButton, #backToCatalogButton { display: none; margin-left: 8px; padding: 4px 10px; background-color: #555; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;}
     #nextEpisodeButton { background-color: #e50914;}
     #nextEpisodeButton:hover, #backToCatalogButton:hover { background-color: #777; }
@@ -71,7 +70,6 @@
     const skipIntroEnd = !isFilmSimple && CONFIG.skipIntroEnd ? parseTime(CONFIG.skipIntroEnd) : 0;
     const outroStart = !isFilmSimple && CONFIG.outroStart ? parseTime(CONFIG.outroStart) : 0;
 
-    // Funzione per determinare se una risorsa è "interna"
     function isInternalResource(url) {
         if (!url) return false;
         return !url.toLowerCase().startsWith('http://') && !url.toLowerCase().startsWith('https://');
@@ -79,9 +77,9 @@
   </script>
 
   <div class="player-container" id="playerContainer">
-    <video id="video" playsinline autoplay></video> 
+    <!-- Aggiunto poster trasparente per evitare fallback testuali del browser, se presenti -->
+    <video id="video" playsinline autoplay poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></video> 
     <div class="pause-overlay" id="pauseOverlay">⏸️</div>
-    <!-- <div id="loading" ...> rimosso -->
     <div class="controls" id="controls">
       <button class="control-button" id="playPauseBtn" title="Play/Pausa">▶️</button>
       <button class="control-button" id="backToCatalogButton" title="Torna al Catalogo">←</button> 
@@ -118,7 +116,6 @@
           progressBuffered=document.getElementById('progress-buffered'), 
           progressHandle=document.getElementById('progress-handle'), 
           timeDisplay=document.getElementById('time-display'), 
-          // loadingEl rimosso
           previewThumb=document.getElementById('preview-thumb'),
           previewVideo=previewThumb.querySelector('video'), 
           tooltip=document.getElementById('tooltip'), 
@@ -152,7 +149,10 @@
     function togglePlayPause() { 
       if (video.readyState < 1) return; 
       if (video.paused || video.ended) { 
-        video.play().catch(e => console.error("Errore durante il tentativo di play manuale:", e.message));
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(e => console.error("Errore durante il tentativo di play manuale:", e.message));
+        }
       } else { 
         video.pause();
       }
@@ -165,9 +165,8 @@
       pauseOverlay.style.display = 'none'; 
       showControls(); 
 
-      // Logica per il fullscreen automatico
-      // Ora condizionato anche da isInternalResource per le "risorse interne"
-      if (isInternalResource(CONFIG.source) && // Aggiunto controllo per risorsa interna
+      // Fullscreen automatico SOLO per risorse interne e al primo tentativo
+      if (isInternalResource(CONFIG.source) && 
           !hasAttemptedInitialFullscreen && 
           !document.fullscreenElement && 
           !document.webkitFullscreenElement && 
@@ -181,7 +180,7 @@
         fsPromise.then(() => {
           console.log("Fullscreen automatico per risorsa interna richiesto con successo.");
         }).catch(err => {
-          console.warn("Autofullscreen per risorsa interna non riuscito:", err.message);
+          console.warn("Autofullscreen per risorsa interna non riuscito (policy browser o API non supportata):", err.message);
         });
         hasAttemptedInitialFullscreen = true; 
       }
@@ -267,11 +266,10 @@
     function loadSource(src) { 
         if (!src) { 
           console.error("Nessuna sorgente video fornita."); 
-          // loadingEl rimosso, non c'è più un elemento da manipolare qui
-          alert("Nessun video da caricare."); return; 
+          alert("Nessun video da caricare. Specificare 'videoUrl'."); return; 
         } 
-        // loadingEl rimosso
-        video.poster = ''; 
+        
+        video.poster = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Reset poster a trasparente
         hasTriggeredNextEpisode = false; 
         hasAttemptedInitialFullscreen = false;
         
@@ -280,19 +278,27 @@
         
         const setupAndPlayVideo = (readyPromise) => {
             readyPromise.then(() => {
-                // loadingEl rimosso
                 if (startTime > 0 && startTime < video.duration) {
                     video.currentTime = startTime;
                 }
-                return video.play(); 
-            })
-            .catch(e => {
-                console.warn("Autoplay/Setup Playback fallito:", e.message); 
-                // loadingEl rimosso
-                playPauseBtn.textContent = '▶️'; 
-                if (e.name === 'NotAllowedError') {
-                    console.log("Autoplay con audio bloccato dal browser. L'utente deve interagire per avviare il video.");
+                // Tenta di avviare il video. L'attributo `autoplay` sull'elemento video 
+                // è il primo tentativo. Questa chiamata `video.play()` è un ulteriore rinforzo.
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        if (error.name === 'NotAllowedError') {
+                            console.warn('Autoplay con audio bloccato dal browser. L\'utente deve interagire per avviare il video.');
+                            playPauseBtn.textContent = '▶️'; // Mostra il pulsante play
+                        } else {
+                            console.error('Errore durante il tentativo di autoplay:', error.message);
+                            playPauseBtn.textContent = '▶️';
+                        }
+                    });
                 }
+            })
+            .catch(e => { // Errore dalla promise di caricamento (manifestParsedPromise o canPlayPromise)
+                console.error("Errore durante il setup del video (es. caricamento metadati):", e.message); 
+                playPauseBtn.textContent = '▶️'; 
             });
         };
 
@@ -338,12 +344,13 @@
                 setupAndPlayVideo(loadedMetaPromise);
             } else { 
                 alert('HLS non è supportato da questo browser.'); 
-                // loadingEl rimosso
             }
-        } else { 
+        } else { // MP4 o altri formati diretti
             video.src = src; 
             previewVideo.src = src; 
             const canPlayPromise = new Promise((resolve, reject) => {
+                // 'loadedmetadata' è spesso sufficiente per iniziare il play.
+                // 'canplay' o 'canplaythrough' indicano che più dati sono bufferizzati.
                 video.onloadedmetadata = () => resolve(); 
                 video.onerror = (e) => reject(new Error("Errore caricamento metadati per MP4/altro"));
             });
@@ -359,11 +366,12 @@
                 nextEpisodeButton.style.display = 'none'; 
             }
         }; 
-        video.onerror = (e) => { 
+        video.onerror = (e) => { // Handler di errore generale dell'elemento video
             console.error("Errore elemento video:", e); 
-            // loadingEl rimosso
-            if (!e.target.error || e.target.error.code !== MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
-            }
+            playPauseBtn.textContent = '▶️';
+            // Potrebbe essere utile un messaggio all'utente qui se l'errore non è già gestito
+            // da HLS.js o dalle promise di caricamento.
+            // alert("Impossibile caricare il video."); 
         };
     }
     function formatTime(s) { if (isNaN(s) || s === Infinity || s < 0) return '00:00'; const m = Math.floor(s / 60).toString().padStart(2, '0'); const sec = Math.floor(s % 60).toString().padStart(2, '0'); return `${m}:${sec}`; }
@@ -456,6 +464,7 @@
       }
     });
     
+    // Inizializzazione
     showControls(); 
     video.volume = parseFloat(volumeSlider.value); 
     video.playbackRate = parseFloat(speedSelector.value); 
@@ -464,8 +473,7 @@
       loadSource(CONFIG.source); 
     } else { 
       console.error("Nessuna sorgente video specificata nei parametri URL (videoUrl)."); 
-      // loadingEl rimosso, mostriamo un alert se non c'è sorgente.
-      alert("Nessun video da caricare. Specificare 'videoUrl' nei parametri."); 
+      alert("Nessun video da caricare. Specificare 'videoUrl' nei parametri URL."); 
     }
 
   </script>
