@@ -43,7 +43,7 @@
     const skipIntroStartFromQuery = urlParams.get('skipIntroStart');
     const skipIntroEndFromQuery = urlParams.get('skipIntroEnd');
     const outroStartFromQuery = urlParams.get('outroStart');
-    const serieIdFromQuery = urlParams.get('serieId');
+    const serieIdFromQuery = urlParams.get('serieId'); // Questo sarà null se non è nell'URL
     const stagioneIndexFromQuery = urlParams.get('stagioneIndex');
     const episodioIndexFromQuery = urlParams.get('episodioIndex');
     const contentTypeFromQuery = urlParams.get('contentType'); 
@@ -62,7 +62,21 @@
       returnTo: returnToFromQuery || 'Casa.html#home' 
     };
 
-    function parseTime(val){ if(typeof val==='string'&&val.includes(':')){ const [m,s]=val.split(':').map(n=>parseInt(n,10)); return (m||0)*60+(s||0);} else if(typeof val==='number') return val*60; return 0; }
+    // Funzione parseTime aggiornata
+    function parseTime(val){
+        if(typeof val === 'string' && val.includes(':')){
+            const parts = val.split(':');
+            const m = parseInt(parts[0], 10) || 0;
+            const s = parseInt(parts[1], 10) || 0;
+            return m * 60 + s;
+        } else if (typeof val === 'string' && !isNaN(parseFloat(val))) {
+            return parseFloat(val);
+        } else if (typeof val === 'number') {
+            return val;
+        }
+        console.warn("parseTime: valore non valido o non parsabile:", val);
+        return 0;
+    }
     
     const isFilmSimple = !CONFIG.contentType || CONFIG.contentType === 'film';
     const startTime=parseTime(CONFIG.startTime);
@@ -77,7 +91,6 @@
   </script>
 
   <div class="player-container" id="playerContainer">
-    <!-- Aggiunto poster trasparente per evitare fallback testuali del browser, se presenti -->
     <video id="video" playsinline autoplay poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></video> 
     <div class="pause-overlay" id="pauseOverlay">⏸️</div>
     <div class="controls" id="controls">
@@ -135,10 +148,29 @@
 
     function triggerNextEpisode() {
         if (hasTriggeredNextEpisode) return; 
+        
+        console.log("Tentativo di triggerNextEpisode. CONFIG:", CONFIG); // Log per debug
+
+        // Per il corretto funzionamento del passaggio all'episodio successivo
+        // tramite `Casa.html` (o un meccanismo simile), `CONFIG.serieId` è essenziale.
+        // Se `serieId` non è fornito nell'URL del player, questa logica non può
+        // reindirizzare correttamente per ottenere i dati dell'episodio successivo.
         if (CONFIG.serieId && CONFIG.stagioneIndex !== null && CONFIG.episodioIndex !== null && CONFIG.contentType && CONFIG.contentType !== 'film') {
             hasTriggeredNextEpisode = true; 
             let casaUrl = `Casa.html#playNext?serieId=${encodeURIComponent(CONFIG.serieId)}&stagioneIndex=${CONFIG.stagioneIndex}&episodioIndex=${CONFIG.episodioIndex}&contentType=${CONFIG.contentType}`;
+            console.log("Reindirizzamento a:", casaUrl);
             window.location.href = casaUrl;
+        } else {
+            console.warn("triggerNextEpisode: Condizioni non soddisfatte o serieId mancante. Impossibile caricare l'episodio successivo automaticamente.", { 
+                serieId: CONFIG.serieId, 
+                stagioneIndex: CONFIG.stagioneIndex, 
+                episodioIndex: CONFIG.episodioIndex,
+                contentType: CONFIG.contentType,
+                isFilmSimple: isFilmSimple
+            });
+            // Se non possiamo andare al prossimo episodio, potremmo reindirizzare a 'returnTo'
+            // o semplicemente non fare nulla e lasciare il player sull'episodio corrente (finito o in pausa).
+            // Per ora, non fa nulla se le condizioni non sono soddisfatte.
         }
     }
     nextEpisodeButton.addEventListener('click', triggerNextEpisode);
@@ -165,7 +197,6 @@
       pauseOverlay.style.display = 'none'; 
       showControls(); 
 
-      // Fullscreen automatico SOLO per risorse interne e al primo tentativo
       if (isInternalResource(CONFIG.source) && 
           !hasAttemptedInitialFullscreen && 
           !document.fullscreenElement && 
@@ -180,7 +211,7 @@
         fsPromise.then(() => {
           console.log("Fullscreen automatico per risorsa interna richiesto con successo.");
         }).catch(err => {
-          console.warn("Autofullscreen per risorsa interna non riuscito (policy browser o API non supportata):", err.message);
+          console.warn("Autofullscreen per risorsa interna non riuscito:", err.message);
         });
         hasAttemptedInitialFullscreen = true; 
       }
@@ -194,14 +225,18 @@
       } 
       showControls(); 
     });
+
     video.addEventListener('ended', () => { 
         playPauseBtn.textContent = '▶️'; 
         showControls(); 
+        // Mostra il pulsante "Prossimo" se è una serie/anime
         if (CONFIG.contentType && CONFIG.contentType !== 'film') { 
             nextEpisodeButton.style.display = 'inline-flex'; 
         } 
+        // Tenta di avviare l'episodio successivo
         triggerNextEpisode(); 
     });
+
     function updateBufferedBar() { 
       if (!isFinite(video.duration) || video.buffered.length === 0) { 
         progressBuffered.style.width = '0%'; return; 
@@ -269,7 +304,7 @@
           alert("Nessun video da caricare. Specificare 'videoUrl'."); return; 
         } 
         
-        video.poster = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Reset poster a trasparente
+        video.poster = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
         hasTriggeredNextEpisode = false; 
         hasAttemptedInitialFullscreen = false;
         
@@ -281,14 +316,12 @@
                 if (startTime > 0 && startTime < video.duration) {
                     video.currentTime = startTime;
                 }
-                // Tenta di avviare il video. L'attributo `autoplay` sull'elemento video 
-                // è il primo tentativo. Questa chiamata `video.play()` è un ulteriore rinforzo.
                 const playPromise = video.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(error => {
                         if (error.name === 'NotAllowedError') {
-                            console.warn('Autoplay con audio bloccato dal browser. L\'utente deve interagire per avviare il video.');
-                            playPauseBtn.textContent = '▶️'; // Mostra il pulsante play
+                            console.warn('Autoplay con audio bloccato dal browser.');
+                            playPauseBtn.textContent = '▶️';
                         } else {
                             console.error('Errore durante il tentativo di autoplay:', error.message);
                             playPauseBtn.textContent = '▶️';
@@ -296,8 +329,8 @@
                     });
                 }
             })
-            .catch(e => { // Errore dalla promise di caricamento (manifestParsedPromise o canPlayPromise)
-                console.error("Errore durante il setup del video (es. caricamento metadati):", e.message); 
+            .catch(e => {
+                console.error("Errore durante il setup del video:", e.message); 
                 playPauseBtn.textContent = '▶️'; 
             });
         };
@@ -339,20 +372,18 @@
                 previewVideo.src = src; 
                 const loadedMetaPromise = new Promise((resolve, reject) => {
                     video.onloadedmetadata = () => resolve();
-                    video.onerror = (e) => reject(new Error("Errore caricamento metadati per HLS nativo"));
+                    video.onerror = (e) => reject(new Error("Errore caricamento metadati HLS nativo"));
                 });
                 setupAndPlayVideo(loadedMetaPromise);
             } else { 
-                alert('HLS non è supportato da questo browser.'); 
+                alert('HLS non è supportato.'); 
             }
-        } else { // MP4 o altri formati diretti
+        } else { 
             video.src = src; 
             previewVideo.src = src; 
             const canPlayPromise = new Promise((resolve, reject) => {
-                // 'loadedmetadata' è spesso sufficiente per iniziare il play.
-                // 'canplay' o 'canplaythrough' indicano che più dati sono bufferizzati.
                 video.onloadedmetadata = () => resolve(); 
-                video.onerror = (e) => reject(new Error("Errore caricamento metadati per MP4/altro"));
+                video.onerror = (e) => reject(new Error("Errore caricamento metadati MP4/altro"));
             });
             setupAndPlayVideo(canPlayPromise);
         } 
@@ -366,12 +397,9 @@
                 nextEpisodeButton.style.display = 'none'; 
             }
         }; 
-        video.onerror = (e) => { // Handler di errore generale dell'elemento video
+        video.onerror = (e) => { 
             console.error("Errore elemento video:", e); 
             playPauseBtn.textContent = '▶️';
-            // Potrebbe essere utile un messaggio all'utente qui se l'errore non è già gestito
-            // da HLS.js o dalle promise di caricamento.
-            // alert("Impossibile caricare il video."); 
         };
     }
     function formatTime(s) { if (isNaN(s) || s === Infinity || s < 0) return '00:00'; const m = Math.floor(s / 60).toString().padStart(2, '0'); const sec = Math.floor(s % 60).toString().padStart(2, '0'); return `${m}:${sec}`; }
@@ -455,16 +483,24 @@
       }
       updateTime(); updateBufferedBar();
       
+      // Skip Intro
       if (!isFilmSimple && skipIntroStart > 0 && skipIntroEnd > skipIntroStart && video.currentTime >= skipIntroStart && video.currentTime < skipIntroEnd) { 
+        console.log("Skipping intro...");
         video.currentTime = skipIntroEnd; 
       }
-      if (!isFilmSimple && outroStart > 0 && video.currentTime >= outroStart && video.currentTime < video.duration - 0.5 && !video.paused) { 
+      // Gestione Outro
+      if (!isFilmSimple && outroStart > 0 && video.currentTime >= outroStart && video.currentTime < video.duration - 0.5 && !video.paused && !hasTriggeredNextEpisode) { 
+        console.log("Outro start detected.");
         video.pause(); 
-        if (CONFIG.serieId) { nextEpisodeButton.style.display = 'inline-flex'; }
+        if (CONFIG.contentType && CONFIG.contentType !== 'film') { 
+            nextEpisodeButton.style.display = 'inline-flex'; 
+        }
+        // Potresti voler chiamare triggerNextEpisode() qui se vuoi che l'outro avvii il processo
+        // di caricamento del prossimo episodio automaticamente dopo una pausa, o mostri solo il pulsante.
+        // Attualmente, triggerNextEpisode() viene chiamato solo alla fine del video o al click del pulsante.
       }
     });
     
-    // Inizializzazione
     showControls(); 
     video.volume = parseFloat(volumeSlider.value); 
     video.playbackRate = parseFloat(speedSelector.value); 
@@ -472,10 +508,9 @@
     if (CONFIG.source) { 
       loadSource(CONFIG.source); 
     } else { 
-      console.error("Nessuna sorgente video specificata nei parametri URL (videoUrl)."); 
+      console.error("Nessuna sorgente video specificata."); 
       alert("Nessun video da caricare. Specificare 'videoUrl' nei parametri URL."); 
     }
-
   </script>
 </body>
 </html>
