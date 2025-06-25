@@ -105,6 +105,8 @@
       font-size: 0.9em; 
       margin-right: 12px; 
       font-variant-numeric: tabular-nums; 
+      min-width: 90px; /* Per evitare scatti nel layout */
+      text-align: center;
     }
     .progress-bar { 
       position: relative; 
@@ -173,7 +175,7 @@
     }
     .tooltip { 
       position: absolute; 
-      bottom: calc(100% + 10px); 
+      bottom: calc(100% + 10px); /* Stessa posizione della thumb se questa non c'è */
       padding: 4px 8px; 
       background: var(--tooltip-bg); 
       color: #fff; 
@@ -272,10 +274,10 @@
       background: none;
       border: none;
       color: var(--player-text-color);
-      font-size: 1.5em; /* Aumenta leggermente la dimensione per le emoji */
+      font-size: 1.5em; 
       padding: 5px;
       cursor: pointer;
-      line-height: 1; /* Per allineare meglio le emoji */
+      line-height: 1; 
       transition: transform 0.1s ease; 
     }
     .control-button:active { transform: scale(0.9); }
@@ -344,8 +346,12 @@
 
       function formatTime(s) { 
           if (isNaN(s) || !isFinite(s) || s < 0) return '00:00'; 
-          const m = Math.floor(s / 60); 
+          const hours = Math.floor(s / 3600);
+          const m = Math.floor((s % 3600) / 60); 
           const sec = Math.floor(s % 60); 
+          if (hours > 0) {
+            return `${hours.toString()}:${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+          }
           return `${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`; 
       }
 
@@ -404,24 +410,29 @@
       let hasAttemptedInitialFullscreen = false;
       let isUserInteracted = false; 
 
-      // --- User Interaction Listener (per autoplay e fullscreen) ---
+      // --- User Interaction Listener ---
       function userInteractionHandler() {
           if (isUserInteracted) return;
           isUserInteracted = true;
           document.removeEventListener('click', userInteractionHandler);
           document.removeEventListener('keydown', userInteractionHandler);
-          document.removeEventListener('touchstart', userInteractionHandler); 
+          document.removeEventListener('touchstart', userInteractionHandler);
           console.log("[VideoPlayer] Interazione utente rilevata.");
-          if (video.paused && video.readyState >= video.HAVE_FUTURE_DATA && CONFIG.source) { // Solo se c'è una sorgente
-              video.play().catch(e => console.warn("[VideoPlayer] Play post-interazione non riuscito:", e.message));
+
+          // Se il video è già caricato e in pausa, tenta di avviarlo con setupAndPlay
+          // (video.src !== window.location.href) è un controllo per assicurarsi che video.src non sia l'URL della pagina (default)
+          if (video.paused && video.readyState >= video.HAVE_METADATA && video.src && video.src !== window.location.href) {
+              console.log("[VideoPlayer] UserInteraction: Video pronto e in pausa, chiamo setupAndPlay().");
+              setupAndPlay();
+          } else if (video.paused) {
+            console.log("[VideoPlayer] UserInteraction: Video in pausa, ma non ancora pronto o senza sorgente valida. ReadyState:", video.readyState, "Src:", video.src);
           }
       }
       document.addEventListener('click', userInteractionHandler);
       document.addEventListener('keydown', userInteractionHandler);
       document.addEventListener('touchstart', userInteractionHandler);
 
-
-      // --- Serie/Episode Data Logic ---
+      // --- Serie/Episode Data Logic --- 
       function loadSerieDataFromStorage() {
           console.log("[VideoPlayer] Tentativo caricamento dati serie da localStorage per serieId:", CONFIG.serieId);
           if (CONFIG.serieId && (CONFIG.contentType === 'anime' || CONFIG.contentType === 'series_tv')) {
@@ -462,7 +473,7 @@
           } else if (currentSerieData.seasons.length > 0) {
               CONFIG.stagioneIndex = 0; seasonSelector.value = "0";
           }
-          populateEpisodeSelector(CONFIG.stagioneIndex); // Usa l'indice aggiornato o di default
+          populateEpisodeSelector(CONFIG.stagioneIndex);
       }
 
       function populateEpisodeSelector(seasonIdx) {
@@ -509,7 +520,7 @@
               console.error("[VideoPlayer] Dati episodio non trovati per playEpisode."); return;
           }
           const episodeData = currentSerieData.seasons[seasonIdx].episodes[episodeIdx];
-          if (!episodeData.file) { // 'file' è usato in anime.json
+          if (!episodeData.file) { 
               console.error("[VideoPlayer] URL video (file) per l'episodio non trovato."); return;
           }
 
@@ -522,7 +533,7 @@
           skipIntroEnd = (episodeData.skipIntroEnd ? parseTime(episodeData.skipIntroEnd) : 0) || (currentSerieData.skipIntroEnd ? parseTime(currentSerieData.skipIntroEnd) : 0);
           outroStart = (episodeData.outroStart ? parseTime(episodeData.outroStart) : 0) || (currentSerieData.outroStart ? parseTime(currentSerieData.outroStart) : 0);
           
-          initialStartTime = 0; // Nuovo episodio, inizia da 0
+          initialStartTime = 0; 
           
           const newUrl = new URL(window.location);
           newUrl.searchParams.set('serieId', CONFIG.serieId);
@@ -550,7 +561,12 @@
               console.log("[VideoPlayer] Video non ancora pronto, play/pausa ignorato."); return;
           }
           if (video.paused || video.ended) { 
-              video.play().catch(e => console.warn("[VideoPlayer] Errore comando play:", e.message));
+              const playPromise = video.play();
+              if (playPromise !== undefined) { // Controlla che play() restituisca una Promise
+                playPromise.catch(e => console.warn("[VideoPlayer] Errore comando play:", e.message, e.name));
+              } else {
+                console.warn("[VideoPlayer] video.play() non ha restituito una Promise in togglePlayPause.");
+              }
           } else { video.pause(); }
       }
       playPauseBtn.addEventListener('click', togglePlayPause); 
@@ -562,14 +578,15 @@
         showControls(); 
         if (!hasAttemptedInitialFullscreen && isUserInteracted && !document.fullscreenElement) {
           console.log("[VideoPlayer] Tentativo autofullscreen su evento 'play'.");
-          enterFullscreen().catch(err => console.warn("[VideoPlayer] Autofullscreen non riuscito:", err.message));
+          enterFullscreen() 
+            .catch(err => console.warn("[VideoPlayer] Autofullscreen non riuscito:", err.message));
           hasAttemptedInitialFullscreen = true; 
         }
       });
 
       video.addEventListener('pause', () => { 
         playPauseBtn.textContent = '▶️'; playPauseBtn.setAttribute('aria-label', 'Play'); playPauseBtn.title = 'Play';
-        if (!isDraggingSeekBar) { 
+        if (!isDraggingSeekBar && video.readyState >= video.HAVE_FUTURE_DATA) { 
           pauseOverlay.style.display = 'block'; 
           setTimeout(() => { if(video.paused) pauseOverlay.style.display = 'none'; }, 600);
         }
@@ -592,96 +609,326 @@
                       playEpisode(nextSIdx, nextEIdx);
                   } else {
                       console.log("[VideoPlayer] Fine serie o stagione.");
+                      playPauseBtn.textContent = '▶️'; 
                   }
               }
           } else { playPauseBtn.textContent = '▶️'; }
       });
 
       // --- Fullscreen ---
-      function enterFullscreen() { /* ... (invariato) ... */ }
-      function exitFullscreen() { /* ... (invariato) ... */ }
-      fullscreenBtn.addEventListener('click', () => {  /* ... (invariato) ... */ });
+      function enterFullscreen() {
+        return new Promise((resolve, reject) => {
+          if (playerContainer.requestFullscreen) {
+            playerContainer.requestFullscreen().then(resolve).catch(reject);
+          } else if (playerContainer.webkitRequestFullscreen) { /* Safari */
+            playerContainer.webkitRequestFullscreen().then(resolve).catch(reject);
+          } else if (playerContainer.msRequestFullscreen) { /* IE11 */
+            playerContainer.msRequestFullscreen().then(resolve).catch(reject);
+          } else {
+            reject(new Error("Fullscreen API non supportata"));
+          }
+        });
+      }
+
+      function exitFullscreen() {
+        return new Promise((resolve, reject) => {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().then(resolve).catch(reject);
+          } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen().then(resolve).catch(reject);
+          } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen().then(resolve).catch(reject);
+          } else {
+            reject(new Error("Fullscreen API non supportata per uscire"));
+          }
+        });
+      }
+
+      fullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          enterFullscreen().catch(e => console.warn("Errore attivazione fullscreen:", e.message));
+        } else {
+          exitFullscreen().catch(e => console.warn("Errore disattivazione fullscreen:", e.message));
+        }
+      });
+
       const fullscreenEvents = ['fullscreenchange', 'webkitfullscreenchange', 'msfullscreenchange'];
-      fullscreenEvents.forEach(event => document.addEventListener(event, () => { /* ... (invariato) ... */ }));
-      video.addEventListener('dblclick', () => { /* ... (invariato) ... */ });
+      fullscreenEvents.forEach(event => {
+        document.addEventListener(event, () => {
+          const isCurrentlyFullscreen = document.fullscreenElement === playerContainer || 
+                                       document.webkitFullscreenElement === playerContainer || 
+                                       document.msFullscreenElement === playerContainer;
+          if (isCurrentlyFullscreen) {
+            playerContainer.classList.add('fullscreen');
+            fullscreenBtn.textContent = '↘↙'; 
+            fullscreenBtn.title = "Esci da Schermo Intero";
+            fullscreenBtn.setAttribute('aria-label', "Esci da Schermo Intero");
+          } else {
+            playerContainer.classList.remove('fullscreen');
+            fullscreenBtn.textContent = '⛶'; 
+            fullscreenBtn.title = "Schermo Intero";
+            fullscreenBtn.setAttribute('aria-label', "Attiva Schermo Intero");
+          }
+        });
+      });
+      video.addEventListener('dblclick', (e) => {
+        e.preventDefault(); 
+        const isCurrentlyFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+        if (!isCurrentlyFullscreen) {
+          enterFullscreen().catch(err => console.warn("Errore fullscreen su dblclick:", err.message));
+        } else {
+          exitFullscreen().catch(err => console.warn("Errore exit fullscreen su dblclick:", err.message));
+        }
+      });
       
       // --- Volume & Speed ---
       volumeSlider.addEventListener('input', () => { 
           video.volume = parseFloat(volumeSlider.value);
-          video.muted = video.volume === 0;
+          video.muted = video.volume === 0; // Se lo slider va a 0, muta.
+          // L'evento 'volumechange' aggiornerà l'icona.
       });
-      video.addEventListener('volumechange', () => { /* ... (invariato, ma verificato che aggiorni slider e icona) ... */ });
+      video.addEventListener('volumechange', () => {
+          volumeSlider.value = video.muted ? 0 : video.volume;
+          if (video.muted || video.volume === 0) {
+            volumeIcon.textContent = '🔇';
+            volumeIcon.setAttribute('aria-label', 'Audio Muto');
+            volumeIcon.title = 'Attiva Audio';
+          } else if (video.volume < 0.5) {
+            volumeIcon.textContent = '🔉';
+            volumeIcon.setAttribute('aria-label', 'Audio Basso');
+            volumeIcon.title = 'Muto';
+          } else {
+            volumeIcon.textContent = '🔊';
+            volumeIcon.setAttribute('aria-label', 'Audio Alto');
+            volumeIcon.title = 'Muto';
+          }
+      });
       volumeIcon.addEventListener('click', () => { 
           video.muted = !video.muted;
-          if (!video.muted && video.volume === 0) video.volume = 0.5; 
+          if (!video.muted && video.volume === 0) { 
+              video.volume = 0.5; // Se si smutare e il volume era 0, impostalo a un valore di default
+          }
+          // L'evento 'volumechange' aggiornerà lo slider e l'icona
       });
       speedSelector.addEventListener('change', () => video.playbackRate = parseFloat(speedSelector.value));
 
       // --- Progress Bar & Time Update ---
-      function updateTimeDisplay() { /* ... (invariato) ... */ }
-      function updateProgressBar() { /* ... (invariato) ... */ }
-      function updateBufferedBar() { /* ... (invariato) ... */ }
+      function updateTimeDisplay() {
+        if (isNaN(video.duration)) {
+            timeDisplay.textContent = formatTime(video.currentTime) + ' / --:--';
+        } else {
+            timeDisplay.textContent = formatTime(video.currentTime) + ' / ' + formatTime(video.duration);
+        }
+      }
+      function updateProgressBar() {
+          if (video.duration > 0 && isFinite(video.duration)) {
+              const percentage = (video.currentTime / video.duration) * 100;
+              progressFilled.style.width = `${percentage}%`;
+              progressHandle.style.left = `${percentage}%`;
+          } else {
+              progressFilled.style.width = '0%';
+              progressHandle.style.left = '0%';
+          }
+      }
+      function updateBufferedBar() {
+        if (video.buffered.length > 0 && video.duration > 0 && isFinite(video.duration)) {
+          const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+          const bufferedPercentage = (bufferedEnd / video.duration) * 100;
+          progressBuffered.style.width = `${bufferedPercentage}%`;
+        } else {
+          progressBuffered.style.width = '0%';
+        }
+      }
 
       video.addEventListener('loadedmetadata', () => {
           console.log("[VideoPlayer] Metadati caricati. Durata:", video.duration, "ReadyState:", video.readyState);
           updateTimeDisplay(); updateProgressBar(); updateBufferedBar();
-          if (previewVideo.src !== video.src && !video.src.includes('.m3u8')) previewVideo.src = video.src;
           
-          if (initialStartTime > 0 && video.currentTime < 1 && video.duration > initialStartTime) { 
+          if (previewVideo.src !== video.src && (!video.src.includes('.m3u8') || previewVideo.canPlayType('application/vnd.apple.mpegurl'))) {
+            previewVideo.src = video.src;
+            previewVideo.load(); // Assicura che i metadati della preview video siano caricati
+          } else if (video.src.includes('.m3u8') && !previewVideo.canPlayType('application/vnd.apple.mpegurl')) {
+            console.log("[VideoPlayer] Preview video non impostata per HLS su browser senza supporto nativo.");
+          }
+          
+          if (initialStartTime > 0 && video.currentTime < 1 && video.duration > initialStartTime && isFinite(video.duration)) { 
               console.log("[VideoPlayer] Imposto tempo iniziale a:", initialStartTime);
               video.currentTime = initialStartTime; 
               initialStartTime = 0; 
           }
-          // **MODIFICA**: Chiamare setupAndPlay qui per MP4 se l'utente ha interagito
-          if (!video.src.includes('.m3u8') && isUserInteracted) {
-            console.log("[VideoPlayer] loadedmetadata per MP4, chiamo setupAndPlay() perché isUserInteracted=true");
-            setupAndPlay();
+
+          if (!video.src.includes('.m3u8')) { // Per MP4 e HLS nativo
+            if (isUserInteracted) {
+                console.log("[VideoPlayer] loadedmetadata, chiamo setupAndPlay() perché isUserInteracted=true");
+                setupAndPlay();
+            } else {
+                console.log("[VideoPlayer] loadedmetadata, isUserInteracted=false, play non avviato.");
+                playPauseBtn.textContent = '▶️'; playPauseBtn.setAttribute('aria-label', 'Play'); playPauseBtn.title = 'Play';
+            }
           }
       }); 
-      video.addEventListener('timeupdate', () => { /* ... (invariato, include skip intro/outro) ... */ }); 
+      video.addEventListener('timeupdate', () => {
+        updateTimeDisplay();
+        updateProgressBar();
+        // Skip Intro/Outro logic (Qui puoi inserire la logica per mostrare pulsanti o saltare automaticamente)
+        // Esempio: if (skipIntroStart > 0 && skipIntroEnd > 0 && video.currentTime > skipIntroStart && video.currentTime < skipIntroEnd) { /* mostra pulsante "Salta Intro" */ }
+      }); 
       video.addEventListener('progress', updateBufferedBar); 
-      video.addEventListener('durationchange', () => { /* ... (invariato) ... */ });
+      video.addEventListener('durationchange', () => {
+        console.log("[VideoPlayer] Durata video cambiata:", video.duration);
+        updateTimeDisplay();
+        updateProgressBar();
+        updateBufferedBar();
+      });
 
       // --- Seek Bar Logic ---
-      function seek(event) { /* ... (invariato) ... */ }
+      function seek(event) {
+          if (isNaN(video.duration) || video.duration <= 0 || !isFinite(video.duration)) return;
+          const progressBarRect = progressBar.getBoundingClientRect();
+          const clickPositionInBar = event.clientX - progressBarRect.left;
+          const time = (clickPositionInBar / progressBarRect.width) * video.duration;
+          video.currentTime = Math.max(0, Math.min(time, video.duration));
+          updateProgressBar(); 
+          updateTimeDisplay(); // Aggiorna anche il tempo subito
+      }
       progressBar.addEventListener('click', seek);
-      progressHandle.addEventListener('mousedown', (e) => { /* ... (invariato) ... */ });
-      function handleDocumentMouseMove(e) { /* ... (invariato) ... */ }
-      function handleDocumentMouseUp() { /* ... (invariato) ... */ }
+
+      progressHandle.addEventListener('mousedown', (e) => {
+          if (isNaN(video.duration) || video.duration <= 0 || !isFinite(video.duration)) return;
+          e.preventDefault(); 
+          isDraggingSeekBar = true;
+          progressHandle.classList.add('dragging');
+          document.addEventListener('mousemove', handleDocumentMouseMove);
+          document.addEventListener('mouseup', handleDocumentMouseUp, { once: true });
+          showControls(); 
+      });
+
+      function handleDocumentMouseMove(e) {
+          if (!isDraggingSeekBar || isNaN(video.duration) || video.duration <= 0 || !isFinite(video.duration)) return;
+          const progressBarRect = progressBar.getBoundingClientRect();
+          let newX = e.clientX - progressBarRect.left;
+          newX = Math.max(0, Math.min(newX, progressBarRect.width)); // Limita all'interno della barra
+          const time = (newX / progressBarRect.width) * video.duration;
+          
+          video.currentTime = time; // Imposta il tempo del video principale
+          updateProgressBar(); // Aggiorna la barra visivamente
+          updateTimeDisplay(); // Aggiorna anche il tempo
+          
+          const percentage = (newX / progressBarRect.width) * 100;
+          if (previewVideo.src && previewVideo.readyState >= previewVideo.HAVE_METADATA && !isNaN(previewVideo.duration) && previewVideo.duration > 0) {
+              previewThumb.style.display = 'block';
+              const thumbWidthPercentage = (previewThumb.offsetWidth / progressBarRect.width) * 100;
+              let thumbLeftPercentage = percentage - (thumbWidthPercentage / 2);
+              thumbLeftPercentage = Math.max(0, Math.min(thumbLeftPercentage, 100 - thumbWidthPercentage));
+              previewThumb.style.left = `${thumbLeftPercentage}%`;
+              if(!previewVideo.paused) previewVideo.pause(); // Pausa la preview se stava andando
+              previewVideo.currentTime = time; // Imposta il tempo della preview video
+          } else {
+              tooltip.style.display = 'block';
+              tooltip.textContent = formatTime(time);
+              tooltip.style.left = `${percentage}%`;
+          }
+      }
+
+      function handleDocumentMouseUp() {
+          if (isDraggingSeekBar) {
+              isDraggingSeekBar = false;
+              progressHandle.classList.remove('dragging');
+              document.removeEventListener('mousemove', handleDocumentMouseMove);
+              previewThumb.style.display = 'none';
+              tooltip.style.display = 'none';
+              if (!video.paused) showControls(); // Ripristina il timeout di hideControls
+          }
+      }
 
       // --- Preview Thumbnail & Tooltip ---
-      progressBar.addEventListener('mousemove', e => { /* ... (invariato) ... */ });
-      progressBar.addEventListener('mouseout', () => { /* ... (invariato) ... */ });
+      progressBar.addEventListener('mousemove', e => {
+          if (isDraggingSeekBar || isNaN(video.duration) || video.duration <= 0 || !isFinite(video.duration)) return;
+          const progressBarRect = progressBar.getBoundingClientRect();
+          const hoverPositionInBar = e.clientX - progressBarRect.left;
+          const time = (hoverPositionInBar / progressBarRect.width) * video.duration;
+          const percentage = (hoverPositionInBar / progressBarRect.width) * 100;
+
+          if (previewVideo.src && previewVideo.readyState >= previewVideo.HAVE_METADATA && !isNaN(previewVideo.duration) && previewVideo.duration > 0) {
+              previewThumb.style.display = 'block';
+              const thumbWidthPercentage = (previewThumb.offsetWidth / progressBarRect.width) * 100;
+              let thumbLeftPercentage = percentage - (thumbWidthPercentage / 2);
+              thumbLeftPercentage = Math.max(0, Math.min(thumbLeftPercentage, 100 - thumbWidthPercentage));
+              previewThumb.style.left = `${thumbLeftPercentage}%`;
+              if(!previewVideo.paused) previewVideo.pause();
+              previewVideo.currentTime = Math.max(0, Math.min(time, previewVideo.duration));
+              tooltip.style.display = 'none'; 
+          } else {
+              tooltip.style.display = 'block';
+              tooltip.textContent = formatTime(time);
+              tooltip.style.left = `${percentage}%`; 
+              previewThumb.style.display = 'none'; 
+          }
+      });
+      progressBar.addEventListener('mouseout', () => {
+          if (isDraggingSeekBar) return;
+          previewThumb.style.display = 'none';
+          tooltip.style.display = 'none';
+      });
 
       // --- Controls Visibility ---
-      function showControls() { /* ... (invariato) ... */ }
+      function showControls() {
+        clearTimeout(hideControlsTimeout);
+        controls.classList.remove('hidden');
+        if (!video.paused && !isDraggingSeekBar) { 
+            hideControlsTimeout = setTimeout(() => {
+                if (document.activeElement && controls.contains(document.activeElement)) {
+                    showControls(); 
+                    return;
+                }
+                controls.classList.add('hidden');
+            }, 3000);
+        }
+      }
       playerContainer.addEventListener('mousemove', showControls); 
       playerContainer.addEventListener('mouseenter', showControls);
       playerContainer.addEventListener('focusin', showControls); 
-      playerContainer.addEventListener('mouseleave', () => { /* ... (invariato) ... */ });
-      controls.addEventListener('mouseenter', () => clearTimeout(hideControlsTimeout));
-      controls.addEventListener('mouseleave', () => { if (!video.paused) showControls(); });
+      playerContainer.addEventListener('mouseleave', () => {
+        if (!video.paused && !isDraggingSeekBar && !(document.activeElement && controls.contains(document.activeElement))) {
+            clearTimeout(hideControlsTimeout); 
+            hideControlsTimeout = setTimeout(() => controls.classList.add('hidden'), 500); 
+        }
+      });
+      controls.addEventListener('mouseenter', () => clearTimeout(hideControlsTimeout)); 
+      controls.addEventListener('mouseleave', () => { 
+        if (!video.paused) showControls(); 
+      });
       
       // --- Video Source Loading ---
-      // ** MODIFICA IMPORTANTE IN setupAndPlay e chiamate **
       const setupAndPlay = () => {
-          console.log("[VideoPlayer] Eseguo setupAndPlay(). ReadyState:", video.readyState);
-          // Questa funzione ora si aspetta che volume/velocità siano già impostati
+          console.log("[VideoPlayer] Eseguo setupAndPlay(). ReadyState:", video.readyState, "isUserInteracted:", isUserInteracted);
+          if (!isUserInteracted) {
+              console.log("[VideoPlayer] setupAndPlay: Utente non ha interagito, play non avviato. Bottone su Play.");
+              playPauseBtn.textContent = '▶️'; playPauseBtn.setAttribute('aria-label', 'Play'); playPauseBtn.title = 'Play';
+              return;
+          }
+
+          video.volume = parseFloat(volumeSlider.value);
+          // Non modificare video.muted qui basandosi solo sullo slider, per non sovrascrivere l'azione dell'icona mute.
+          // L'evento volumechange si occuperà di sincronizzare slider e icona.
+          // Se lo slider è a 0, video.muted sarà true (gestito da listener di volumeSlider).
+          video.playbackRate = parseFloat(speedSelector.value);
+
           const playPromise = video.play();
           if (playPromise !== undefined) {
               playPromise.then(() => {
                   console.log("[VideoPlayer] Play avviato con successo tramite setupAndPlay.");
               }).catch(error => {
                   if (error.name === 'NotAllowedError') { 
-                      console.warn('[VideoPlayer] Autoplay bloccato. L\'utente dovrà cliccare play.'); 
+                      console.warn('[VideoPlayer] Autoplay bloccato da setupAndPlay. L\'utente dovrà cliccare play.'); 
                       playPauseBtn.textContent = '▶️'; playPauseBtn.setAttribute('aria-label', 'Play'); playPauseBtn.title = 'Play';
                   } else { 
-                      console.error('[VideoPlayer] Errore durante il tentativo di play:', error.message); 
+                      console.error('[VideoPlayer] Errore durante il tentativo di play da setupAndPlay:', error.message, error.name); 
                       playPauseBtn.textContent = '▶️'; playPauseBtn.setAttribute('aria-label', 'Play'); playPauseBtn.title = 'Play';
                   }
               });
           } else {
-            console.warn("[VideoPlayer] video.play() non ha restituito una Promise. Potrebbe essere già in esecuzione o non supportato in questo contesto.");
+            console.warn("[VideoPlayer] video.play() non ha restituito una Promise in setupAndPlay. Stato video:", video.readyState, "Src:", video.src);
           }
       };
 
@@ -693,62 +940,114 @@
           } 
           
           video.poster = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; 
-          hasAttemptedInitialFullscreen = false; // **MODIFICA**: Resetta per ogni nuova sorgente
+          hasAttemptedInitialFullscreen = false;
           
           if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; } 
 
-          // **MODIFICA**: Ri-applicare volume e velocità prima di caricare la nuova sorgente
           video.volume = parseFloat(volumeSlider.value);
-          video.muted = (parseFloat(volumeSlider.value) === 0); // Se il volume slider è 0, muta. Altrimenti, non mutare.
-                                                              // L'utente può sempre usare l'icona per mutare/smutare.
+          if (parseFloat(volumeSlider.value) === 0) video.muted = true; // Se slider è 0, parte muto
+          // Altrimenti, lo stato di video.muted è preservato (potrebbe essere stato impostato dall'icona)
           video.playbackRate = parseFloat(speedSelector.value);
           console.log(`[VideoPlayer] Stato pre-caricamento: Volume=${video.volume}, Muted=${video.muted}, Rate=${video.playbackRate}`);
           
+          // Resetta UI per nuova sorgente
+          progressFilled.style.width = '0%';
+          progressHandle.style.left = '0%';
+          progressBuffered.style.width = '0%';
+          timeDisplay.textContent = '00:00 / 00:00';
+          playPauseBtn.textContent = '▶️'; playPauseBtn.setAttribute('aria-label', 'Play'); playPauseBtn.title = 'Play';
+
+
           if (src.includes('.m3u8')) { 
               if (Hls.isSupported()) { 
                   console.log("[VideoPlayer] Caricamento HLS stream...");
-                  hlsInstance = new Hls({ /* ... config ... */ }); 
+                  hlsInstance = new Hls({ /* debug: true, */ }); 
                   hlsInstance.loadSource(src); 
                   hlsInstance.attachMedia(video); 
                   hlsInstance.on(Hls.Events.MANIFEST_PARSED, (event, data) => { 
                       console.log("[VideoPlayer] HLS Manifest Parsed."); 
-                      // **MODIFICA**: Chiama sempre setupAndPlay, NotAllowedError gestirà il blocco autoplay
-                      if (isUserInteracted) { // Solo se l'utente ha interagito almeno una volta con la pagina
+                      if (isUserInteracted) {
                         console.log("[VideoPlayer] MANIFEST_PARSED, chiamo setupAndPlay() perché isUserInteracted=true");
                         setupAndPlay();
                       } else {
-                        console.log("[VideoPlayer] MANIFEST_PARSED, autoplay non tentato perché isUserInteracted=false");
+                        console.log("[VideoPlayer] MANIFEST_PARSED, autoplay non tentato perché isUserInteracted=false. Bottone su Play.");
+                        playPauseBtn.textContent = '▶️'; playPauseBtn.setAttribute('aria-label', 'Play'); playPauseBtn.title = 'Play';
                       }
                   }); 
-                  hlsInstance.on(Hls.Events.ERROR, (event, data) => { /* ... (invariato) ... */ });
-                  if (previewVideo.canPlayType('application/vnd.apple.mpegurl')) { previewVideo.src = src; } 
-                  // else if (Hls.isSupported()) { /* ... preview HLS con altra istanza ... */ }
+                  hlsInstance.on(Hls.Events.ERROR, (event, data) => {
+                    console.error('[VideoPlayer] HLS Error:', data.type, data.details, data.fatal);
+                    if (data.fatal) {
+                      let errorMsg = 'Errore HLS';
+                      switch (data.type) {
+                        case Hls.ErrorTypes.NETWORK_ERROR: errorMsg = 'Errore Rete HLS'; break;
+                        case Hls.ErrorTypes.MEDIA_ERROR: errorMsg = 'Errore Media HLS'; break;
+                        default: errorMsg = 'Errore HLS Irrecuperabile'; break;
+                      }
+                      timeDisplay.textContent = errorMsg;
+                    }
+                  });
+                  if (previewVideo.canPlayType('application/vnd.apple.mpegurl')) { 
+                    previewVideo.src = src; previewVideo.load();
+                  }
               } else if (video.canPlayType('application/vnd.apple.mpegurl')) { 
                   console.log("[VideoPlayer] Caricamento HLS stream (nativo).");
-                  video.src = src; previewVideo.src = src; 
-                  // L'evento 'loadedmetadata' per MP4/nativo HLS gestirà la chiamata a setupAndPlay
+                  video.src = src; 
+                  if (previewVideo.canPlayType('application/vnd.apple.mpegurl')) { previewVideo.src = src; previewVideo.load(); }
               } else { 
-                  console.error('[VideoPlayer] HLS non supportato.'); alert('HLS non supportato.'); 
+                  console.error('[VideoPlayer] HLS non supportato.'); 
+                  alert('HLS non supportato dal browser.'); 
+                  timeDisplay.textContent = 'HLS non supportato';
               }
-          } else { // MP4 o altri formati diretti
+          } else { 
               console.log("[VideoPlayer] Caricamento video diretto (MP4 o altro).");
               video.src = src; 
-              if (previewVideo.src !== src) previewVideo.src = src; 
-              // L'evento 'loadedmetadata' gestirà la chiamata a setupAndPlay se isUserInteracted è true
+              if (previewVideo.src !== src) { previewVideo.src = src; previewVideo.load(); }
           } 
           
-          video.onerror = (e) => { /* ... (invariato) ... */ };
+          video.onerror = (e) => {
+            console.error('[VideoPlayer] Errore elemento Video:', e, video.error);
+            let errorMsg = 'Errore Video';
+            if (video.error) {
+                switch (video.error.code) {
+                    case video.error.MEDIA_ERR_ABORTED: errorMsg = 'Caricamento interrotto.'; break;
+                    case video.error.MEDIA_ERR_NETWORK: errorMsg = 'Errore di rete.'; break;
+                    case video.error.MEDIA_ERR_DECODE: errorMsg = 'Errore decodifica.'; break;
+                    case video.error.MEDIA_ERR_SRC_NOT_SUPPORTED: errorMsg = 'Formato non supportato.'; break;
+                    default: errorMsg = 'Errore video sconosciuto.'; break;
+                }
+            }
+            timeDisplay.textContent = errorMsg;
+            playPauseBtn.textContent = '▶️'; 
+          };
       }
       
       // --- INITIALIZATION ---
       console.log("[VideoPlayer] Inizializzazione player...");
       loadSerieDataFromStorage(); 
-      showControls(); 
-      video.volume = parseFloat(volumeSlider.value); // Impostazione iniziale
-      video.muted = (parseFloat(volumeSlider.value) === 0);
-      video.playbackRate = parseFloat(speedSelector.value); // Impostazione iniziale
-      updateTimeDisplay(); 
       
+      video.volume = parseFloat(volumeSlider.value);
+      video.muted = (parseFloat(volumeSlider.value) === 0); 
+      video.dispatchEvent(new Event('volumechange')); 
+
+      video.playbackRate = parseFloat(speedSelector.value);
+      updateTimeDisplay(); 
+      updateProgressBar(); 
+      updateBufferedBar(); 
+      
+      // Inizialmente i controlli sono visibili, poi si nascondono se il mouse non è sopra
+      showControls(); 
+      // Se non c'è una sorgente, potrebbero rimanere sempre visibili
+      // Questo timeout serve a nasconderli se l'utente non interagisce subito
+      if (CONFIG.source) {
+        clearTimeout(hideControlsTimeout); // Cancella il timeout impostato da showControls()
+        hideControlsTimeout = setTimeout(() => {
+            if (!playerContainer.matches(':hover') && !controls.matches(':hover')) {
+                 controls.classList.add('hidden');
+            }
+        }, 3000); 
+      }
+
+
       if (CONFIG.source) { 
         console.log("[VideoPlayer] Caricamento sorgente video iniziale:", CONFIG.source);
         loadSource(CONFIG.source); 
